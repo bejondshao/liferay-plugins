@@ -21,10 +21,13 @@ import com.liferay.calendar.model.CalendarBooking;
 import com.liferay.calendar.model.CalendarBookingConstants;
 import com.liferay.calendar.notification.NotificationTemplateType;
 import com.liferay.calendar.notification.NotificationType;
+import com.liferay.calendar.recurrence.PositionalWeekday;
 import com.liferay.calendar.recurrence.Recurrence;
 import com.liferay.calendar.recurrence.RecurrenceSerializer;
+import com.liferay.calendar.recurrence.Weekday;
 import com.liferay.calendar.service.base.CalendarBookingLocalServiceBaseImpl;
 import com.liferay.calendar.social.CalendarActivityKeys;
+import com.liferay.calendar.util.CalendarBookingIterator;
 import com.liferay.calendar.util.CalendarDataFormat;
 import com.liferay.calendar.util.CalendarDataHandler;
 import com.liferay.calendar.util.CalendarDataHandlerFactory;
@@ -50,6 +53,7 @@ import com.liferay.portal.kernel.sanitizer.Sanitizer;
 import com.liferay.portal.kernel.sanitizer.SanitizerUtil;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
+import com.liferay.portal.kernel.search.ParseException;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.HtmlUtil;
@@ -172,6 +176,31 @@ public class CalendarBookingLocalServiceImpl
 		calendarBooking.setStatus(
 			CalendarBookingWorkflowConstants.STATUS_PENDING);
 		calendarBooking.setStatusDate(serviceContext.getModifiedDate(now));
+
+		if (recurrence != null) {
+
+			Recurrence recurrenceObj = RecurrenceSerializer.deserialize(
+					recurrence);
+	
+			List<PositionalWeekday> positionalWeekdays =
+				recurrenceObj.getPositionalWeekdays();
+			
+			Weekday startTimeWeekday = Weekday.getWeekday(startTimeJCalendar);
+			List<Weekday> weekdays = new ArrayList<Weekday>();
+	
+			for (PositionalWeekday positionalWeekday : positionalWeekdays) {
+				weekdays.add(positionalWeekday.getWeekday());
+			}
+	
+			if ((weekdays != null) && !weekdays.contains(startTimeWeekday)) {
+				try {
+					resetStartTimeAndEndTime(calendarBooking);
+				}
+				catch (java.text.ParseException pe) {
+					_log.error("Unable to parse data ", pe);
+				}
+			}
+		}
 
 		calendarBookingPersistence.update(calendarBooking);
 
@@ -572,6 +601,23 @@ public class CalendarBookingLocalServiceImpl
 			calendarBookingPersistence.findByPrimaryKey(calendarBookingId);
 
 		return moveCalendarBookingToTrash(userId, calendarBooking);
+	}
+
+	protected void resetStartTimeAndEndTime(CalendarBooking calendarBooking)
+		throws java.text.ParseException {
+
+		CalendarBookingIterator cbi = new CalendarBookingIterator(
+			calendarBooking);
+
+		if (cbi.hasNext()) {
+			cbi.next();
+
+			if (cbi.hasNext()) {
+				CalendarBooking cb = cbi.next();
+				calendarBooking.setStartTime(cb.getStartTime());
+				calendarBooking.setEndTime(cb.getEndTime());
+			}
+		}
 	}
 
 	@Override
