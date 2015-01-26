@@ -14,6 +14,8 @@
 
 package com.liferay.calendar.service.base;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.calendar.model.CalendarResource;
 import com.liferay.calendar.service.CalendarResourceLocalService;
 import com.liferay.calendar.service.persistence.CalendarBookingFinder;
@@ -75,6 +77,7 @@ import javax.sql.DataSource;
  * @see com.liferay.calendar.service.CalendarResourceLocalServiceUtil
  * @generated
  */
+@ProviderType
 public abstract class CalendarResourceLocalServiceBaseImpl
 	extends BaseLocalServiceImpl implements CalendarResourceLocalService,
 		IdentifiableBean {
@@ -116,12 +119,11 @@ public abstract class CalendarResourceLocalServiceBaseImpl
 	 * @param calendarResourceId the primary key of the calendar resource
 	 * @return the calendar resource that was removed
 	 * @throws PortalException if a calendar resource with the primary key could not be found
-	 * @throws SystemException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public CalendarResource deleteCalendarResource(long calendarResourceId)
-		throws PortalException, SystemException {
+		throws PortalException {
 		return calendarResourcePersistence.remove(calendarResourceId);
 	}
 
@@ -131,13 +133,11 @@ public abstract class CalendarResourceLocalServiceBaseImpl
 	 * @param calendarResource the calendar resource
 	 * @return the calendar resource that was removed
 	 * @throws PortalException
-	 * @throws SystemException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public CalendarResource deleteCalendarResource(
-		CalendarResource calendarResource)
-		throws PortalException, SystemException {
+		CalendarResource calendarResource) throws PortalException {
 		return calendarResourcePersistence.remove(calendarResource);
 	}
 
@@ -156,8 +156,7 @@ public abstract class CalendarResourceLocalServiceBaseImpl
 	 * @return the matching rows
 	 */
 	@Override
-	@SuppressWarnings("rawtypes")
-	public List dynamicQuery(DynamicQuery dynamicQuery) {
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return calendarResourcePersistence.findWithDynamicQuery(dynamicQuery);
 	}
 
@@ -174,8 +173,8 @@ public abstract class CalendarResourceLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 */
 	@Override
-	@SuppressWarnings("rawtypes")
-	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end) {
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
+		int end) {
 		return calendarResourcePersistence.findWithDynamicQuery(dynamicQuery,
 			start, end);
 	}
@@ -194,18 +193,17 @@ public abstract class CalendarResourceLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 */
 	@Override
-	@SuppressWarnings("rawtypes")
-	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
-		OrderByComparator orderByComparator) {
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
+		int end, OrderByComparator<T> orderByComparator) {
 		return calendarResourcePersistence.findWithDynamicQuery(dynamicQuery,
 			start, end, orderByComparator);
 	}
 
 	/**
-	 * Returns the number of rows that match the dynamic query.
+	 * Returns the number of rows matching the dynamic query.
 	 *
 	 * @param dynamicQuery the dynamic query
-	 * @return the number of rows that match the dynamic query
+	 * @return the number of rows matching the dynamic query
 	 */
 	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery) {
@@ -213,11 +211,11 @@ public abstract class CalendarResourceLocalServiceBaseImpl
 	}
 
 	/**
-	 * Returns the number of rows that match the dynamic query.
+	 * Returns the number of rows matching the dynamic query.
 	 *
 	 * @param dynamicQuery the dynamic query
 	 * @param projection the projection to apply to the query
-	 * @return the number of rows that match the dynamic query
+	 * @return the number of rows matching the dynamic query
 	 */
 	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery,
@@ -229,20 +227,6 @@ public abstract class CalendarResourceLocalServiceBaseImpl
 	@Override
 	public CalendarResource fetchCalendarResource(long calendarResourceId) {
 		return calendarResourcePersistence.fetchByPrimaryKey(calendarResourceId);
-	}
-
-	/**
-	 * Returns the calendar resource with the matching UUID and company.
-	 *
-	 * @param uuid the calendar resource's UUID
-	 * @param  companyId the primary key of the company
-	 * @return the matching calendar resource, or <code>null</code> if a matching calendar resource could not be found
-	 */
-	@Override
-	public CalendarResource fetchCalendarResourceByUuidAndCompanyId(
-		String uuid, long companyId) {
-		return calendarResourcePersistence.fetchByUuid_C_First(uuid, companyId,
-			null);
 	}
 
 	/**
@@ -264,11 +248,10 @@ public abstract class CalendarResourceLocalServiceBaseImpl
 	 * @param calendarResourceId the primary key of the calendar resource
 	 * @return the calendar resource
 	 * @throws PortalException if a calendar resource with the primary key could not be found
-	 * @throws SystemException
 	 */
 	@Override
 	public CalendarResource getCalendarResource(long calendarResourceId)
-		throws PortalException, SystemException {
+		throws PortalException {
 		return calendarResourcePersistence.findByPrimaryKey(calendarResourceId);
 	}
 
@@ -365,7 +348,7 @@ public abstract class CalendarResourceLocalServiceBaseImpl
 	@Override
 	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
 		throws PortalException {
-		return deleteCalendarResource((CalendarResource)persistedModel);
+		return calendarResourceLocalService.deleteCalendarResource((CalendarResource)persistedModel);
 	}
 
 	@Override
@@ -375,19 +358,34 @@ public abstract class CalendarResourceLocalServiceBaseImpl
 	}
 
 	/**
-	 * Returns the calendar resource with the matching UUID and company.
+	 * Returns all the calendar resources matching the UUID and company.
 	 *
-	 * @param uuid the calendar resource's UUID
-	 * @param  companyId the primary key of the company
-	 * @return the matching calendar resource
-	 * @throws PortalException if a matching calendar resource could not be found
-	 * @throws SystemException
+	 * @param uuid the UUID of the calendar resources
+	 * @param companyId the primary key of the company
+	 * @return the matching calendar resources, or an empty list if no matches were found
 	 */
 	@Override
-	public CalendarResource getCalendarResourceByUuidAndCompanyId(String uuid,
-		long companyId) throws PortalException, SystemException {
-		return calendarResourcePersistence.findByUuid_C_First(uuid, companyId,
-			null);
+	public List<CalendarResource> getCalendarResourcesByUuidAndCompanyId(
+		String uuid, long companyId) {
+		return calendarResourcePersistence.findByUuid_C(uuid, companyId);
+	}
+
+	/**
+	 * Returns a range of calendar resources matching the UUID and company.
+	 *
+	 * @param uuid the UUID of the calendar resources
+	 * @param companyId the primary key of the company
+	 * @param start the lower bound of the range of calendar resources
+	 * @param end the upper bound of the range of calendar resources (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the range of matching calendar resources, or an empty list if no matches were found
+	 */
+	@Override
+	public List<CalendarResource> getCalendarResourcesByUuidAndCompanyId(
+		String uuid, long companyId, int start, int end,
+		OrderByComparator<CalendarResource> orderByComparator) {
+		return calendarResourcePersistence.findByUuid_C(uuid, companyId, start,
+			end, orderByComparator);
 	}
 
 	/**
@@ -397,11 +395,10 @@ public abstract class CalendarResourceLocalServiceBaseImpl
 	 * @param groupId the primary key of the group
 	 * @return the matching calendar resource
 	 * @throws PortalException if a matching calendar resource could not be found
-	 * @throws SystemException
 	 */
 	@Override
 	public CalendarResource getCalendarResourceByUuidAndGroupId(String uuid,
-		long groupId) throws PortalException, SystemException {
+		long groupId) throws PortalException {
 		return calendarResourcePersistence.findByUUID_G(uuid, groupId);
 	}
 

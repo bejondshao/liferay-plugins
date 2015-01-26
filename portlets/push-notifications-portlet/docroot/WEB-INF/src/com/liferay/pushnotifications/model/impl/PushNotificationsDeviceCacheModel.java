@@ -14,6 +14,9 @@
 
 package com.liferay.pushnotifications.model.impl;
 
+import aQute.bnd.annotation.ProviderType;
+
+import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.CacheModel;
@@ -30,12 +33,37 @@ import java.util.Date;
 /**
  * The cache model class for representing PushNotificationsDevice in entity cache.
  *
- * @author Silvio Santos
+ * @author Bruno Farache
  * @see PushNotificationsDevice
  * @generated
  */
+@ProviderType
 public class PushNotificationsDeviceCacheModel implements CacheModel<PushNotificationsDevice>,
 	Externalizable {
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof PushNotificationsDeviceCacheModel)) {
+			return false;
+		}
+
+		PushNotificationsDeviceCacheModel pushNotificationsDeviceCacheModel = (PushNotificationsDeviceCacheModel)obj;
+
+		if (pushNotificationsDeviceId == pushNotificationsDeviceCacheModel.pushNotificationsDeviceId) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return HashUtil.hash(0, pushNotificationsDeviceId);
+	}
+
 	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(11);

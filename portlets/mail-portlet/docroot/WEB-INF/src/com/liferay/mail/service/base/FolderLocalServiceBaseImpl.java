@@ -14,6 +14,8 @@
 
 package com.liferay.mail.service.base;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.mail.model.Folder;
 import com.liferay.mail.service.FolderLocalService;
 import com.liferay.mail.service.persistence.AccountPersistence;
@@ -62,6 +64,7 @@ import javax.sql.DataSource;
  * @see com.liferay.mail.service.FolderLocalServiceUtil
  * @generated
  */
+@ProviderType
 public abstract class FolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	implements FolderLocalService, IdentifiableBean {
 	/*
@@ -101,12 +104,10 @@ public abstract class FolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param folderId the primary key of the folder
 	 * @return the folder that was removed
 	 * @throws PortalException if a folder with the primary key could not be found
-	 * @throws SystemException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public Folder deleteFolder(long folderId)
-		throws PortalException, SystemException {
+	public Folder deleteFolder(long folderId) throws PortalException {
 		return folderPersistence.remove(folderId);
 	}
 
@@ -116,12 +117,10 @@ public abstract class FolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param folder the folder
 	 * @return the folder that was removed
 	 * @throws PortalException
-	 * @throws SystemException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public Folder deleteFolder(Folder folder)
-		throws PortalException, SystemException {
+	public Folder deleteFolder(Folder folder) throws PortalException {
 		return folderPersistence.remove(folder);
 	}
 
@@ -140,8 +139,7 @@ public abstract class FolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the matching rows
 	 */
 	@Override
-	@SuppressWarnings("rawtypes")
-	public List dynamicQuery(DynamicQuery dynamicQuery) {
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return folderPersistence.findWithDynamicQuery(dynamicQuery);
 	}
 
@@ -158,8 +156,8 @@ public abstract class FolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of matching rows
 	 */
 	@Override
-	@SuppressWarnings("rawtypes")
-	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end) {
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
+		int end) {
 		return folderPersistence.findWithDynamicQuery(dynamicQuery, start, end);
 	}
 
@@ -177,18 +175,17 @@ public abstract class FolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the ordered range of matching rows
 	 */
 	@Override
-	@SuppressWarnings("rawtypes")
-	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
-		OrderByComparator orderByComparator) {
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
+		int end, OrderByComparator<T> orderByComparator) {
 		return folderPersistence.findWithDynamicQuery(dynamicQuery, start, end,
 			orderByComparator);
 	}
 
 	/**
-	 * Returns the number of rows that match the dynamic query.
+	 * Returns the number of rows matching the dynamic query.
 	 *
 	 * @param dynamicQuery the dynamic query
-	 * @return the number of rows that match the dynamic query
+	 * @return the number of rows matching the dynamic query
 	 */
 	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery) {
@@ -196,11 +193,11 @@ public abstract class FolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	}
 
 	/**
-	 * Returns the number of rows that match the dynamic query.
+	 * Returns the number of rows matching the dynamic query.
 	 *
 	 * @param dynamicQuery the dynamic query
 	 * @param projection the projection to apply to the query
-	 * @return the number of rows that match the dynamic query
+	 * @return the number of rows matching the dynamic query
 	 */
 	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery,
@@ -253,7 +250,7 @@ public abstract class FolderLocalServiceBaseImpl extends BaseLocalServiceImpl
 	@Override
 	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
 		throws PortalException {
-		return deleteFolder((Folder)persistedModel);
+		return folderLocalService.deleteFolder((Folder)persistedModel);
 	}
 
 	@Override

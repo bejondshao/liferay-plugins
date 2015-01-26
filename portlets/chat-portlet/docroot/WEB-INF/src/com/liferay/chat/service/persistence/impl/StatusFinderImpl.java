@@ -14,10 +14,8 @@
 
 package com.liferay.chat.service.persistence.impl;
 
-import com.liferay.chat.service.persistence.StatusFinder;
-import com.liferay.chat.service.persistence.StatusUtil;
-
 import com.liferay.chat.model.Status;
+import com.liferay.chat.service.persistence.StatusFinder;
 import com.liferay.portal.kernel.dao.orm.QueryPos;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.SQLQuery;
@@ -27,9 +25,14 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.model.User;
+import com.liferay.portal.security.auth.CompanyThreadLocal;
+import com.liferay.portal.service.ClassNameLocalServiceUtil;
+import com.liferay.portal.service.persistence.UserUtil;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.util.dao.orm.CustomSQLUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,8 +53,7 @@ public class StatusFinderImpl
 
 	@Override
 	public List<Object[]> findByModifiedDate(
-			long companyId, long userId, long modifiedDate, int start, int end)
-		throws SystemException {
+		long companyId, long userId, long modifiedDate, int start, int end) {
 
 		Session session = null;
 
@@ -62,21 +64,16 @@ public class StatusFinderImpl
 
 			SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
-			q.addScalar("userId", Type.LONG);
-			q.addScalar("screenName", Type.STRING);
-			q.addScalar("firstName", Type.STRING);
-			q.addScalar("middleName", Type.STRING);
-			q.addScalar("lastName", Type.STRING);
-			q.addScalar("portraitId", Type.LONG);
-			q.addScalar("awake", Type.BOOLEAN);
+			addScalars(q);
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
+			qPos.add(ClassNameLocalServiceUtil.getClassNameId(User.class));
 			qPos.add(companyId);
 			qPos.add(userId);
 			qPos.add(modifiedDate);
 
-			return (List<Object[]>)QueryUtil.list(q, getDialect(), start, end);
+			return toObjectArray(QueryUtil.list(q, getDialect(), start, end));
 		}
 		catch (Exception e) {
 			throw new SystemException(e);
@@ -88,8 +85,7 @@ public class StatusFinderImpl
 
 	@Override
 	public List<Object[]> findBySocialRelationTypes(
-			long userId, int[] types, long modifiedDate, int start, int end)
-		throws SystemException {
+		long userId, int[] types, long modifiedDate, int start, int end) {
 
 		Session session = null;
 
@@ -100,26 +96,22 @@ public class StatusFinderImpl
 
 			SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
-			q.addScalar("userId", Type.LONG);
-			q.addScalar("screenName", Type.STRING);
-			q.addScalar("firstName", Type.STRING);
-			q.addScalar("middleName", Type.STRING);
-			q.addScalar("lastName", Type.STRING);
-			q.addScalar("portraitId", Type.LONG);
-			q.addScalar("awake", Type.BOOLEAN);
+			addScalars(q);
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
+			qPos.add(ClassNameLocalServiceUtil.getClassNameId(User.class));
 			qPos.add(userId);
 
 			if (types.length > 0) {
 				qPos.add(types);
 			}
 
-			qPos.add(modifiedDate);
+			qPos.add(CompanyThreadLocal.getCompanyId());
 			qPos.add(userId);
+			qPos.add(modifiedDate);
 
-			return (List<Object[]>)QueryUtil.list(q, getDialect(), start, end);
+			return toObjectArray(QueryUtil.list(q, getDialect(), start, end));
 		}
 		catch (Exception e) {
 			throw new SystemException(e);
@@ -131,9 +123,8 @@ public class StatusFinderImpl
 
 	@Override
 	public List<Object[]> findByUsersGroups(
-			long userId, long modifiedDate, String[] groupNames, int start,
-			int end)
-		throws SystemException {
+		long userId, long modifiedDate, String[] groupNames, int start,
+		int end) {
 
 		Session session = null;
 
@@ -144,16 +135,13 @@ public class StatusFinderImpl
 
 			SQLQuery q = session.createSynchronizedSQLQuery(sql);
 
-			q.addScalar("userId", Type.LONG);
-			q.addScalar("screenName", Type.STRING);
-			q.addScalar("firstName", Type.STRING);
-			q.addScalar("middleName", Type.STRING);
-			q.addScalar("lastName", Type.STRING);
-			q.addScalar("portraitId", Type.LONG);
-			q.addScalar("awake", Type.BOOLEAN);
+			addScalars(q);
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
+			qPos.add(ClassNameLocalServiceUtil.getClassNameId(User.class));
+			qPos.add(CompanyThreadLocal.getCompanyId());
+			qPos.add(userId);
 			qPos.add(userId);
 
 			if (groupNames.length > 0) {
@@ -161,9 +149,8 @@ public class StatusFinderImpl
 			}
 
 			qPos.add(modifiedDate);
-			qPos.add(userId);
 
-			return (List<Object[]>)QueryUtil.list(q, getDialect(), start, end);
+			return toObjectArray(QueryUtil.list(q, getDialect(), start, end));
 		}
 		catch (Exception e) {
 			throw new SystemException(e);
@@ -171,6 +158,19 @@ public class StatusFinderImpl
 		finally {
 			closeSession(session);
 		}
+	}
+
+	protected void addScalars(SQLQuery sqlQuery) {
+		sqlQuery.addScalar("awake", Type.BOOLEAN);
+		sqlQuery.addScalar("firstName", Type.STRING);
+		sqlQuery.addScalar("groupId", Type.LONG);
+		sqlQuery.addScalar("lastName", Type.STRING);
+		//sqlQuery.addScalar("male", Type.BOOLEAN);
+		sqlQuery.addScalar("middleName", Type.STRING);
+		sqlQuery.addScalar("portraitId", Type.LONG);
+		sqlQuery.addScalar("screenName", Type.STRING);
+		sqlQuery.addScalar("userId", Type.LONG);
+		sqlQuery.addScalar("userUuid", Type.STRING);
 	}
 
 	protected String getFindBySocialRelationTypes_SQL(int[] types) {
@@ -225,6 +225,31 @@ public class StatusFinderImpl
 				"INNER JOIN Group_ ON Group_.groupId = Users_Groups.groupId",
 				"AND Group_.name NOT IN (" + sb.toString() + ")"
 			});
+	}
+
+	protected List<Object[]> toObjectArray(List<?> list) throws Exception {
+		List<Object[]> objectArrayList = (List<Object[]>)list;
+
+		List<Object[]> newObjectArrayList = new ArrayList<Object[]>(
+			objectArrayList.size());
+
+		for (Object[] objectArray : objectArrayList) {
+			long userId = (Long)objectArray[7];
+
+			User user = UserUtil.findByPrimaryKey(userId);
+
+			Object[] newObjectArray = new Object[objectArray.length + 1];
+
+			System.arraycopy(objectArray, 0, newObjectArray, 0, 4);
+
+			newObjectArray[4] = user.isMale();
+
+			System.arraycopy(objectArray, 4, newObjectArray, 5, 5);
+
+			newObjectArrayList.add(newObjectArray);
+		}
+
+		return newObjectArrayList;
 	}
 
 }

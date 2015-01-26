@@ -14,6 +14,8 @@
 
 package com.liferay.calendar.service.persistence;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.calendar.model.CalendarResource;
 
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
@@ -36,6 +38,7 @@ import java.util.List;
  * @see CalendarResourcePersistenceImpl
  * @generated
  */
+@ProviderType
 public class CalendarResourceUtil {
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -85,7 +88,7 @@ public class CalendarResourceUtil {
 	 */
 	public static List<CalendarResource> findWithDynamicQuery(
 		DynamicQuery dynamicQuery, int start, int end,
-		OrderByComparator orderByComparator) {
+		OrderByComparator<CalendarResource> orderByComparator) {
 		return getPersistence()
 				   .findWithDynamicQuery(dynamicQuery, start, end,
 			orderByComparator);
@@ -150,7 +153,7 @@ public class CalendarResourceUtil {
 	*/
 	public static java.util.List<com.liferay.calendar.model.CalendarResource> findByResourceBlockId(
 		long resourceBlockId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence()
 				   .findByResourceBlockId(resourceBlockId, start, end,
 			orderByComparator);
@@ -166,7 +169,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource findByResourceBlockId_First(
 		long resourceBlockId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence()
 				   .findByResourceBlockId_First(resourceBlockId,
@@ -182,7 +185,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource fetchByResourceBlockId_First(
 		long resourceBlockId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence()
 				   .fetchByResourceBlockId_First(resourceBlockId,
 			orderByComparator);
@@ -198,7 +201,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource findByResourceBlockId_Last(
 		long resourceBlockId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence()
 				   .findByResourceBlockId_Last(resourceBlockId,
@@ -214,7 +217,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource fetchByResourceBlockId_Last(
 		long resourceBlockId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence()
 				   .fetchByResourceBlockId_Last(resourceBlockId,
 			orderByComparator);
@@ -231,7 +234,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource[] findByResourceBlockId_PrevAndNext(
 		long calendarResourceId, long resourceBlockId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence()
 				   .findByResourceBlockId_PrevAndNext(calendarResourceId,
@@ -300,7 +303,7 @@ public class CalendarResourceUtil {
 	*/
 	public static java.util.List<com.liferay.calendar.model.CalendarResource> findByUuid(
 		java.lang.String uuid, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence().findByUuid(uuid, start, end, orderByComparator);
 	}
 
@@ -314,7 +317,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource findByUuid_First(
 		java.lang.String uuid,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence().findByUuid_First(uuid, orderByComparator);
 	}
@@ -328,7 +331,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource fetchByUuid_First(
 		java.lang.String uuid,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence().fetchByUuid_First(uuid, orderByComparator);
 	}
 
@@ -342,7 +345,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource findByUuid_Last(
 		java.lang.String uuid,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence().findByUuid_Last(uuid, orderByComparator);
 	}
@@ -356,7 +359,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource fetchByUuid_Last(
 		java.lang.String uuid,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence().fetchByUuid_Last(uuid, orderByComparator);
 	}
 
@@ -371,7 +374,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource[] findByUuid_PrevAndNext(
 		long calendarResourceId, java.lang.String uuid,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence()
 				   .findByUuid_PrevAndNext(calendarResourceId, uuid,
@@ -506,7 +509,7 @@ public class CalendarResourceUtil {
 	*/
 	public static java.util.List<com.liferay.calendar.model.CalendarResource> findByUuid_C(
 		java.lang.String uuid, long companyId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence()
 				   .findByUuid_C(uuid, companyId, start, end, orderByComparator);
 	}
@@ -522,7 +525,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource findByUuid_C_First(
 		java.lang.String uuid, long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence()
 				   .findByUuid_C_First(uuid, companyId, orderByComparator);
@@ -538,7 +541,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource fetchByUuid_C_First(
 		java.lang.String uuid, long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence()
 				   .fetchByUuid_C_First(uuid, companyId, orderByComparator);
 	}
@@ -554,7 +557,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource findByUuid_C_Last(
 		java.lang.String uuid, long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence()
 				   .findByUuid_C_Last(uuid, companyId, orderByComparator);
@@ -570,7 +573,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource fetchByUuid_C_Last(
 		java.lang.String uuid, long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence()
 				   .fetchByUuid_C_Last(uuid, companyId, orderByComparator);
 	}
@@ -587,7 +590,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource[] findByUuid_C_PrevAndNext(
 		long calendarResourceId, java.lang.String uuid, long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence()
 				   .findByUuid_C_PrevAndNext(calendarResourceId, uuid,
@@ -658,7 +661,7 @@ public class CalendarResourceUtil {
 	*/
 	public static java.util.List<com.liferay.calendar.model.CalendarResource> findByGroupId(
 		long groupId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence()
 				   .findByGroupId(groupId, start, end, orderByComparator);
 	}
@@ -673,7 +676,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource findByGroupId_First(
 		long groupId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence().findByGroupId_First(groupId, orderByComparator);
 	}
@@ -687,7 +690,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource fetchByGroupId_First(
 		long groupId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence().fetchByGroupId_First(groupId, orderByComparator);
 	}
 
@@ -701,7 +704,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource findByGroupId_Last(
 		long groupId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence().findByGroupId_Last(groupId, orderByComparator);
 	}
@@ -715,7 +718,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource fetchByGroupId_Last(
 		long groupId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence().fetchByGroupId_Last(groupId, orderByComparator);
 	}
 
@@ -730,7 +733,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource[] findByGroupId_PrevAndNext(
 		long calendarResourceId, long groupId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence()
 				   .findByGroupId_PrevAndNext(calendarResourceId, groupId,
@@ -780,7 +783,7 @@ public class CalendarResourceUtil {
 	*/
 	public static java.util.List<com.liferay.calendar.model.CalendarResource> filterFindByGroupId(
 		long groupId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence()
 				   .filterFindByGroupId(groupId, start, end, orderByComparator);
 	}
@@ -796,7 +799,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource[] filterFindByGroupId_PrevAndNext(
 		long calendarResourceId, long groupId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence()
 				   .filterFindByGroupId_PrevAndNext(calendarResourceId,
@@ -875,7 +878,7 @@ public class CalendarResourceUtil {
 	*/
 	public static java.util.List<com.liferay.calendar.model.CalendarResource> findByActive(
 		boolean active, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence()
 				   .findByActive(active, start, end, orderByComparator);
 	}
@@ -890,7 +893,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource findByActive_First(
 		boolean active,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence().findByActive_First(active, orderByComparator);
 	}
@@ -904,7 +907,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource fetchByActive_First(
 		boolean active,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence().fetchByActive_First(active, orderByComparator);
 	}
 
@@ -918,7 +921,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource findByActive_Last(
 		boolean active,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence().findByActive_Last(active, orderByComparator);
 	}
@@ -932,7 +935,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource fetchByActive_Last(
 		boolean active,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence().fetchByActive_Last(active, orderByComparator);
 	}
 
@@ -947,7 +950,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource[] findByActive_PrevAndNext(
 		long calendarResourceId, boolean active,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence()
 				   .findByActive_PrevAndNext(calendarResourceId, active,
@@ -1019,7 +1022,7 @@ public class CalendarResourceUtil {
 	*/
 	public static java.util.List<com.liferay.calendar.model.CalendarResource> findByG_C(
 		long groupId, java.lang.String code, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence()
 				   .findByG_C(groupId, code, start, end, orderByComparator);
 	}
@@ -1035,7 +1038,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource findByG_C_First(
 		long groupId, java.lang.String code,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence().findByG_C_First(groupId, code, orderByComparator);
 	}
@@ -1050,7 +1053,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource fetchByG_C_First(
 		long groupId, java.lang.String code,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence()
 				   .fetchByG_C_First(groupId, code, orderByComparator);
 	}
@@ -1066,7 +1069,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource findByG_C_Last(
 		long groupId, java.lang.String code,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence().findByG_C_Last(groupId, code, orderByComparator);
 	}
@@ -1081,7 +1084,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource fetchByG_C_Last(
 		long groupId, java.lang.String code,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence().fetchByG_C_Last(groupId, code, orderByComparator);
 	}
 
@@ -1097,7 +1100,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource[] findByG_C_PrevAndNext(
 		long calendarResourceId, long groupId, java.lang.String code,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence()
 				   .findByG_C_PrevAndNext(calendarResourceId, groupId, code,
@@ -1150,7 +1153,7 @@ public class CalendarResourceUtil {
 	*/
 	public static java.util.List<com.liferay.calendar.model.CalendarResource> filterFindByG_C(
 		long groupId, java.lang.String code, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence()
 				   .filterFindByG_C(groupId, code, start, end, orderByComparator);
 	}
@@ -1167,7 +1170,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource[] filterFindByG_C_PrevAndNext(
 		long calendarResourceId, long groupId, java.lang.String code,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence()
 				   .filterFindByG_C_PrevAndNext(calendarResourceId, groupId,
@@ -1220,7 +1223,7 @@ public class CalendarResourceUtil {
 	*/
 	public static java.util.List<com.liferay.calendar.model.CalendarResource> filterFindByG_C(
 		long[] groupIds, java.lang.String code, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence()
 				   .filterFindByG_C(groupIds, code, start, end,
 			orderByComparator);
@@ -1276,7 +1279,7 @@ public class CalendarResourceUtil {
 	*/
 	public static java.util.List<com.liferay.calendar.model.CalendarResource> findByG_C(
 		long[] groupIds, java.lang.String code, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence()
 				   .findByG_C(groupIds, code, start, end, orderByComparator);
 	}
@@ -1381,7 +1384,7 @@ public class CalendarResourceUtil {
 	*/
 	public static java.util.List<com.liferay.calendar.model.CalendarResource> findByG_A(
 		long groupId, boolean active, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence()
 				   .findByG_A(groupId, active, start, end, orderByComparator);
 	}
@@ -1397,7 +1400,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource findByG_A_First(
 		long groupId, boolean active,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence()
 				   .findByG_A_First(groupId, active, orderByComparator);
@@ -1413,7 +1416,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource fetchByG_A_First(
 		long groupId, boolean active,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence()
 				   .fetchByG_A_First(groupId, active, orderByComparator);
 	}
@@ -1429,7 +1432,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource findByG_A_Last(
 		long groupId, boolean active,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence()
 				   .findByG_A_Last(groupId, active, orderByComparator);
@@ -1445,7 +1448,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource fetchByG_A_Last(
 		long groupId, boolean active,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence()
 				   .fetchByG_A_Last(groupId, active, orderByComparator);
 	}
@@ -1462,7 +1465,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource[] findByG_A_PrevAndNext(
 		long calendarResourceId, long groupId, boolean active,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence()
 				   .findByG_A_PrevAndNext(calendarResourceId, groupId, active,
@@ -1515,7 +1518,7 @@ public class CalendarResourceUtil {
 	*/
 	public static java.util.List<com.liferay.calendar.model.CalendarResource> filterFindByG_A(
 		long groupId, boolean active, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence()
 				   .filterFindByG_A(groupId, active, start, end,
 			orderByComparator);
@@ -1533,7 +1536,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource[] filterFindByG_A_PrevAndNext(
 		long calendarResourceId, long groupId, boolean active,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence()
 				   .filterFindByG_A_PrevAndNext(calendarResourceId, groupId,
@@ -1687,7 +1690,7 @@ public class CalendarResourceUtil {
 	public static java.util.List<com.liferay.calendar.model.CalendarResource> findByC_C_A(
 		long companyId, java.lang.String code, boolean active, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence()
 				   .findByC_C_A(companyId, code, active, start, end,
 			orderByComparator);
@@ -1705,7 +1708,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource findByC_C_A_First(
 		long companyId, java.lang.String code, boolean active,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence()
 				   .findByC_C_A_First(companyId, code, active, orderByComparator);
@@ -1722,7 +1725,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource fetchByC_C_A_First(
 		long companyId, java.lang.String code, boolean active,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence()
 				   .fetchByC_C_A_First(companyId, code, active,
 			orderByComparator);
@@ -1740,7 +1743,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource findByC_C_A_Last(
 		long companyId, java.lang.String code, boolean active,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence()
 				   .findByC_C_A_Last(companyId, code, active, orderByComparator);
@@ -1757,7 +1760,7 @@ public class CalendarResourceUtil {
 	*/
 	public static com.liferay.calendar.model.CalendarResource fetchByC_C_A_Last(
 		long companyId, java.lang.String code, boolean active,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence()
 				   .fetchByC_C_A_Last(companyId, code, active, orderByComparator);
 	}
@@ -1776,7 +1779,7 @@ public class CalendarResourceUtil {
 	public static com.liferay.calendar.model.CalendarResource[] findByC_C_A_PrevAndNext(
 		long calendarResourceId, long companyId, java.lang.String code,
 		boolean active,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator)
 		throws com.liferay.calendar.NoSuchResourceException {
 		return getPersistence()
 				   .findByC_C_A_PrevAndNext(calendarResourceId, companyId,
@@ -1925,7 +1928,7 @@ public class CalendarResourceUtil {
 	*/
 	public static java.util.List<com.liferay.calendar.model.CalendarResource> findAll(
 		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.CalendarResource> orderByComparator) {
 		return getPersistence().findAll(start, end, orderByComparator);
 	}
 

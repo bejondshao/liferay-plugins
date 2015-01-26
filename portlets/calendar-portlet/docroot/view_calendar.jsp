@@ -145,6 +145,7 @@ boolean columnOptionsVisible = GetterUtil.getBoolean(SessionClicks.get(request, 
 					<portlet:param name="endTimeMinute" value="{endTimeMinute}" />
 					<portlet:param name="endTimeMonth" value="{endTimeMonth}" />
 					<portlet:param name="endTimeYear" value="{endTimeYear}" />
+					<portlet:param name="instanceIndex" value="{instanceIndex}" />
 					<portlet:param name="startTimeDay" value="{startTimeDay}" />
 					<portlet:param name="startTimeHour" value="{startTimeHour}" />
 					<portlet:param name="startTimeMinute" value="{startTimeMinute}" />
@@ -173,6 +174,7 @@ boolean columnOptionsVisible = GetterUtil.getBoolean(SessionClicks.get(request, 
 				<portlet:renderURL var="viewCalendarBookingURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
 					<portlet:param name="mvcPath" value="/view_calendar_booking.jsp" />
 					<portlet:param name="calendarBookingId" value="{calendarBookingId}" />
+					<portlet:param name="instanceIndex" value="{instanceIndex}" />
 				</portlet:renderURL>
 
 				<liferay-util:param name="viewCalendarBookingURL" value="<%= viewCalendarBookingURL %>" />
@@ -352,7 +354,7 @@ boolean columnOptionsVisible = GetterUtil.getBoolean(SessionClicks.get(request, 
 
 			Liferay.Store('calendar-portlet-column-options-visible', columnOptions.hasClass('hide'));
 
-			columnGrid.toggleClass('span9').toggleClass('span12');
+			columnGrid.toggleClass('col-md-9').toggleClass('col-md-12');
 
 			columnOptions.toggleClass('hide');
 

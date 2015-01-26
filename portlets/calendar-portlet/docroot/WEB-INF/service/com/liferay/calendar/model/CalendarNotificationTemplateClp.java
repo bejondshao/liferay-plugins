@@ -14,6 +14,8 @@
 
 package com.liferay.calendar.model;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.calendar.service.CalendarNotificationTemplateLocalServiceUtil;
 import com.liferay.calendar.service.ClpSerializer;
 
@@ -41,6 +43,7 @@ import java.util.Map;
 /**
  * @author Eduardo Lundgren
  */
+@ProviderType
 public class CalendarNotificationTemplateClp extends BaseModelImpl<CalendarNotificationTemplate>
 	implements CalendarNotificationTemplate {
 	public CalendarNotificationTemplateClp() {
@@ -719,6 +722,10 @@ public class CalendarNotificationTemplateClp extends BaseModelImpl<CalendarNotif
 		}
 	}
 
+	public Class<?> getClpSerializerClass() {
+		return _clpSerializerClass;
+	}
+
 	@Override
 	public int hashCode() {
 		return (int)getPrimaryKey();
@@ -856,6 +863,7 @@ public class CalendarNotificationTemplateClp extends BaseModelImpl<CalendarNotif
 	private String _subject;
 	private String _body;
 	private BaseModel<?> _calendarNotificationTemplateRemoteModel;
+	private Class<?> _clpSerializerClass = com.liferay.calendar.service.ClpSerializer.class;
 	private boolean _entityCacheEnabled;
 	private boolean _finderCacheEnabled;
 }

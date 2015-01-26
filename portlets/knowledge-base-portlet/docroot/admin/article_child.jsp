@@ -17,9 +17,9 @@
 <%@ include file="/admin/init.jsp" %>
 
 <%
-int status = (Integer)request.getAttribute(WebKeys.KNOWLEDGE_BASE_STATUS);
-
 KBArticle kbArticle = (KBArticle)request.getAttribute(WebKeys.KNOWLEDGE_BASE_KB_ARTICLE);
+
+int status = (Integer)request.getAttribute(WebKeys.KNOWLEDGE_BASE_STATUS);
 
 List<KBArticle> childKBArticles = KBArticleServiceUtil.getKBArticles(scopeGroupId, kbArticle.getResourcePrimKey(), status, QueryUtil.ALL_POS, QueryUtil.ALL_POS, new KBArticlePriorityComparator(true));
 %>
@@ -32,43 +32,44 @@ List<KBArticle> childKBArticles = KBArticleServiceUtil.getKBArticles(scopeGroupI
 			for (KBArticle childrenKBArticle : childKBArticles) {
 			%>
 
-				<div class="kb-element-header">
-					<liferay-portlet:renderURL var="viewKBArticleURL">
+				<section class="kb-element">
+					<h2 class="kb-element-header">
+						<liferay-portlet:renderURL var="viewKBArticleURL">
+							<c:choose>
+								<c:when test="<%= Validator.isNotNull(childrenKBArticle.getUrlTitle()) %>">
+									<portlet:param name="urlTitle" value="<%= childrenKBArticle.getUrlTitle() %>" />
+
+									<c:if test="<%= childrenKBArticle.getKbFolderId() != KBFolderConstants.DEFAULT_PARENT_FOLDER_ID %>">
+
+										<%
+										KBFolder kbFolder = KBFolderServiceUtil.getKBFolder(childrenKBArticle.getKbFolderId());
+										%>
+
+										<portlet:param name="kbFolderUrlTitle" value="<%= kbFolder.getUrlTitle() %>" />
+									</c:if>
+								</c:when>
+								<c:otherwise>
+									<portlet:param name="resourcePrimKey" value="<%= String.valueOf(childrenKBArticle.getResourcePrimKey()) %>" />
+								</c:otherwise>
+							</c:choose>
+						</liferay-portlet:renderURL>
+
+						<aui:a href="<%= viewKBArticleURL %>"><%= childrenKBArticle.getTitle() %></aui:a>
+					</h2>
+
+					<div class="kb-element-body">
 						<c:choose>
-							<c:when test="<%= Validator.isNotNull(childrenKBArticle.getUrlTitle()) %>">
-								<portlet:param name="urlTitle" value="<%= childrenKBArticle.getUrlTitle() %>" />
+							<c:when test="<%= Validator.isNotNull(childrenKBArticle.getDescription()) %>">
+								<%= childrenKBArticle.getDescription() %>
 							</c:when>
 							<c:otherwise>
-								<portlet:param name="resourcePrimKey" value="<%= String.valueOf(childrenKBArticle.getResourcePrimKey()) %>" />
+								<p><%= StringUtil.shorten(HtmlUtil.extractText(childrenKBArticle.getContent()), 200) %></p>
+
+								<aui:a href="<%= viewKBArticleURL %>"><liferay-ui:message key="read-more" /></aui:a>
 							</c:otherwise>
 						</c:choose>
-					</liferay-portlet:renderURL>
-
-					<liferay-ui:icon
-						image="../trees/page"
-						label="<%= true %>"
-						message="<%= childrenKBArticle.getTitle() %>"
-						method="get"
-						url="<%= viewKBArticleURL %>"
-					/>
-				</div>
-				<div class="kb-element-body">
-
-					<%
-					request.setAttribute("article_icons.jsp-kb_article", childrenKBArticle);
-					%>
-
-					<liferay-util:include page="/admin/article_icons.jsp" servletContext="<%= application %>" />
-
-					<c:choose>
-						<c:when test="<%= Validator.isNotNull(childrenKBArticle.getDescription()) %>">
-							<%= childrenKBArticle.getDescription() %>
-						</c:when>
-						<c:otherwise>
-							<%= StringUtil.shorten(HtmlUtil.extractText(childrenKBArticle.getContent()), 500) %>
-						</c:otherwise>
-					</c:choose>
-				</div>
+					</div>
+				</section>
 
 			<%
 			}

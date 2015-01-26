@@ -15,14 +15,20 @@
 package com.liferay.pushnotifications.sender.apple;
 
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.util.PrefsPropsUtil;
+import com.liferay.portal.kernel.util.Validator;
+import com.liferay.pushnotifications.PushNotificationsException;
 import com.liferay.pushnotifications.sender.PushNotificationsSender;
+import com.liferay.pushnotifications.util.PortletPropsKeys;
 import com.liferay.pushnotifications.util.PortletPropsValues;
+import com.liferay.pushnotifications.util.PushNotificationsConstants;
 
 import com.notnoop.apns.APNS;
 import com.notnoop.apns.ApnsService;
 import com.notnoop.apns.ApnsServiceBuilder;
 import com.notnoop.apns.PayloadBuilder;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -31,39 +37,90 @@ import java.util.List;
  */
 public class ApplePushNotificationsSender implements PushNotificationsSender {
 
-	public ApplePushNotificationsSender() {
-		ApnsServiceBuilder appleServiceBuilder = APNS.newService();
-
-		appleServiceBuilder.withCert(
-			PortletPropsValues.APPLE_CERTIFICATE_PATH,
-			PortletPropsValues.APPLE_CERTIFICATE_PASSWORD);
-
-		if (PortletPropsValues.APPLE_SANDBOX) {
-			appleServiceBuilder.withSandboxDestination();
-		}
-
-		_apnsService = appleServiceBuilder.build();
+	@Override
+	public void reset() {
+		_apnsService = null;
 	}
 
 	@Override
 	public void send(List<String> tokens, JSONObject jsonObject)
 		throws Exception {
 
+		ApnsService apnsService = getApnsService();
+
+		if (apnsService == null) {
+			return;
+		}
+
 		String payload = buildPayload(jsonObject);
 
-		_apnsService.push(tokens, payload);
+		apnsService.push(tokens, payload);
 	}
 
 	protected String buildPayload(JSONObject jsonObject) {
 		PayloadBuilder builder = PayloadBuilder.newPayload();
 
-		String entryTitle = jsonObject.getString("entryTitle");
+		JSONObject payloadJSONObject = jsonObject.getJSONObject(
+			PushNotificationsConstants.KEY_PAYLOAD);
 
-		if (entryTitle != null) {
-			builder.alertBody(entryTitle);
+		String message = payloadJSONObject.getString(
+			PushNotificationsConstants.KEY_MESSAGE);
+
+		if (message != null) {
+			builder.alertBody(message);
+		}
+
+		payloadJSONObject.remove(PushNotificationsConstants.KEY_MESSAGE);
+
+		Iterator<String> keys = jsonObject.keys();
+
+		while (keys.hasNext()) {
+			String key = keys.next();
+
+			builder.customField(key, jsonObject.getString(key));
 		}
 
 		return builder.build();
+	}
+
+	protected ApnsService getApnsService() throws Exception {
+		if (_apnsService == null) {
+			ApnsServiceBuilder appleServiceBuilder = APNS.newService();
+
+			String path = PrefsPropsUtil.getString(
+				PortletPropsKeys.APPLE_CERTIFICATE_PATH,
+				PortletPropsValues.APPLE_CERTIFICATE_PATH);
+
+			if (Validator.isNull(path)) {
+				throw new PushNotificationsException(
+					"The property \"apple.certificate.path\" is not set in " +
+						"portlet.properties");
+			}
+
+			String password = PrefsPropsUtil.getString(
+				PortletPropsKeys.APPLE_CERTIFICATE_PASSWORD,
+				PortletPropsValues.APPLE_CERTIFICATE_PASSWORD);
+
+			if (Validator.isNull(password)) {
+				throw new PushNotificationsException(
+					"The property \"apple.certificate.password\" is not set " +
+						"in portlet.properties");
+			}
+
+			appleServiceBuilder.withCert(path, password);
+
+			boolean sandbox = PrefsPropsUtil.getBoolean(
+				PortletPropsKeys.APPLE_SANDBOX,
+				PortletPropsValues.APPLE_SANDBOX);
+
+			if (sandbox) {
+				appleServiceBuilder.withSandboxDestination();
+			}
+
+			_apnsService = appleServiceBuilder.build();
+		}
+
+		return _apnsService;
 	}
 
 	private ApnsService _apnsService;

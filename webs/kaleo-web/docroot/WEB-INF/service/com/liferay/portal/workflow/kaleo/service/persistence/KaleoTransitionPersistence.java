@@ -14,6 +14,8 @@
 
 package com.liferay.portal.workflow.kaleo.service.persistence;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.service.persistence.BasePersistence;
 import com.liferay.portal.workflow.kaleo.model.KaleoTransition;
 
@@ -29,6 +31,7 @@ import com.liferay.portal.workflow.kaleo.model.KaleoTransition;
  * @see KaleoTransitionUtil
  * @generated
  */
+@ProviderType
 public interface KaleoTransitionPersistence extends BasePersistence<KaleoTransition> {
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -75,7 +78,7 @@ public interface KaleoTransitionPersistence extends BasePersistence<KaleoTransit
 	*/
 	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoTransition> findByCompanyId(
 		long companyId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTransition> orderByComparator);
 
 	/**
 	* Returns the first kaleo transition in the ordered set where companyId = &#63;.
@@ -87,7 +90,7 @@ public interface KaleoTransitionPersistence extends BasePersistence<KaleoTransit
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTransition findByCompanyId_First(
 		long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTransition> orderByComparator)
 		throws com.liferay.portal.workflow.kaleo.NoSuchTransitionException;
 
 	/**
@@ -99,7 +102,7 @@ public interface KaleoTransitionPersistence extends BasePersistence<KaleoTransit
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTransition fetchByCompanyId_First(
 		long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTransition> orderByComparator);
 
 	/**
 	* Returns the last kaleo transition in the ordered set where companyId = &#63;.
@@ -111,7 +114,7 @@ public interface KaleoTransitionPersistence extends BasePersistence<KaleoTransit
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTransition findByCompanyId_Last(
 		long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTransition> orderByComparator)
 		throws com.liferay.portal.workflow.kaleo.NoSuchTransitionException;
 
 	/**
@@ -123,7 +126,7 @@ public interface KaleoTransitionPersistence extends BasePersistence<KaleoTransit
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTransition fetchByCompanyId_Last(
 		long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTransition> orderByComparator);
 
 	/**
 	* Returns the kaleo transitions before and after the current kaleo transition in the ordered set where companyId = &#63;.
@@ -136,7 +139,7 @@ public interface KaleoTransitionPersistence extends BasePersistence<KaleoTransit
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTransition[] findByCompanyId_PrevAndNext(
 		long kaleoTransitionId, long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTransition> orderByComparator)
 		throws com.liferay.portal.workflow.kaleo.NoSuchTransitionException;
 
 	/**
@@ -193,7 +196,7 @@ public interface KaleoTransitionPersistence extends BasePersistence<KaleoTransit
 	*/
 	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoTransition> findByKaleoDefinitionId(
 		long kaleoDefinitionId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTransition> orderByComparator);
 
 	/**
 	* Returns the first kaleo transition in the ordered set where kaleoDefinitionId = &#63;.
@@ -205,7 +208,7 @@ public interface KaleoTransitionPersistence extends BasePersistence<KaleoTransit
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTransition findByKaleoDefinitionId_First(
 		long kaleoDefinitionId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTransition> orderByComparator)
 		throws com.liferay.portal.workflow.kaleo.NoSuchTransitionException;
 
 	/**
@@ -217,7 +220,7 @@ public interface KaleoTransitionPersistence extends BasePersistence<KaleoTransit
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTransition fetchByKaleoDefinitionId_First(
 		long kaleoDefinitionId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTransition> orderByComparator);
 
 	/**
 	* Returns the last kaleo transition in the ordered set where kaleoDefinitionId = &#63;.
@@ -229,7 +232,7 @@ public interface KaleoTransitionPersistence extends BasePersistence<KaleoTransit
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTransition findByKaleoDefinitionId_Last(
 		long kaleoDefinitionId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTransition> orderByComparator)
 		throws com.liferay.portal.workflow.kaleo.NoSuchTransitionException;
 
 	/**
@@ -241,7 +244,7 @@ public interface KaleoTransitionPersistence extends BasePersistence<KaleoTransit
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTransition fetchByKaleoDefinitionId_Last(
 		long kaleoDefinitionId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTransition> orderByComparator);
 
 	/**
 	* Returns the kaleo transitions before and after the current kaleo transition in the ordered set where kaleoDefinitionId = &#63;.
@@ -254,7 +257,7 @@ public interface KaleoTransitionPersistence extends BasePersistence<KaleoTransit
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTransition[] findByKaleoDefinitionId_PrevAndNext(
 		long kaleoTransitionId, long kaleoDefinitionId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTransition> orderByComparator)
 		throws com.liferay.portal.workflow.kaleo.NoSuchTransitionException;
 
 	/**
@@ -311,7 +314,7 @@ public interface KaleoTransitionPersistence extends BasePersistence<KaleoTransit
 	*/
 	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoTransition> findByKaleoNodeId(
 		long kaleoNodeId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTransition> orderByComparator);
 
 	/**
 	* Returns the first kaleo transition in the ordered set where kaleoNodeId = &#63;.
@@ -323,7 +326,7 @@ public interface KaleoTransitionPersistence extends BasePersistence<KaleoTransit
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTransition findByKaleoNodeId_First(
 		long kaleoNodeId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTransition> orderByComparator)
 		throws com.liferay.portal.workflow.kaleo.NoSuchTransitionException;
 
 	/**
@@ -335,7 +338,7 @@ public interface KaleoTransitionPersistence extends BasePersistence<KaleoTransit
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTransition fetchByKaleoNodeId_First(
 		long kaleoNodeId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTransition> orderByComparator);
 
 	/**
 	* Returns the last kaleo transition in the ordered set where kaleoNodeId = &#63;.
@@ -347,7 +350,7 @@ public interface KaleoTransitionPersistence extends BasePersistence<KaleoTransit
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTransition findByKaleoNodeId_Last(
 		long kaleoNodeId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTransition> orderByComparator)
 		throws com.liferay.portal.workflow.kaleo.NoSuchTransitionException;
 
 	/**
@@ -359,7 +362,7 @@ public interface KaleoTransitionPersistence extends BasePersistence<KaleoTransit
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTransition fetchByKaleoNodeId_Last(
 		long kaleoNodeId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTransition> orderByComparator);
 
 	/**
 	* Returns the kaleo transitions before and after the current kaleo transition in the ordered set where kaleoNodeId = &#63;.
@@ -372,7 +375,7 @@ public interface KaleoTransitionPersistence extends BasePersistence<KaleoTransit
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTransition[] findByKaleoNodeId_PrevAndNext(
 		long kaleoTransitionId, long kaleoNodeId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTransition> orderByComparator)
 		throws com.liferay.portal.workflow.kaleo.NoSuchTransitionException;
 
 	/**
@@ -594,7 +597,7 @@ public interface KaleoTransitionPersistence extends BasePersistence<KaleoTransit
 	*/
 	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoTransition> findAll(
 		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTransition> orderByComparator);
 
 	/**
 	* Removes all the kaleo transitions from the database.

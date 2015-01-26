@@ -14,6 +14,8 @@
 
 package com.liferay.mail.service.persistence;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.mail.model.Message;
 
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
@@ -36,6 +38,7 @@ import java.util.List;
  * @see MessagePersistenceImpl
  * @generated
  */
+@ProviderType
 public class MessageUtil {
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -84,7 +87,7 @@ public class MessageUtil {
 	 */
 	public static List<Message> findWithDynamicQuery(
 		DynamicQuery dynamicQuery, int start, int end,
-		OrderByComparator orderByComparator) {
+		OrderByComparator<Message> orderByComparator) {
 		return getPersistence()
 				   .findWithDynamicQuery(dynamicQuery, start, end,
 			orderByComparator);
@@ -147,7 +150,7 @@ public class MessageUtil {
 	*/
 	public static java.util.List<com.liferay.mail.model.Message> findByCompanyId(
 		long companyId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.mail.model.Message> orderByComparator) {
 		return getPersistence()
 				   .findByCompanyId(companyId, start, end, orderByComparator);
 	}
@@ -162,7 +165,7 @@ public class MessageUtil {
 	*/
 	public static com.liferay.mail.model.Message findByCompanyId_First(
 		long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.mail.model.Message> orderByComparator)
 		throws com.liferay.mail.NoSuchMessageException {
 		return getPersistence()
 				   .findByCompanyId_First(companyId, orderByComparator);
@@ -177,7 +180,7 @@ public class MessageUtil {
 	*/
 	public static com.liferay.mail.model.Message fetchByCompanyId_First(
 		long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.mail.model.Message> orderByComparator) {
 		return getPersistence()
 				   .fetchByCompanyId_First(companyId, orderByComparator);
 	}
@@ -192,7 +195,7 @@ public class MessageUtil {
 	*/
 	public static com.liferay.mail.model.Message findByCompanyId_Last(
 		long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.mail.model.Message> orderByComparator)
 		throws com.liferay.mail.NoSuchMessageException {
 		return getPersistence()
 				   .findByCompanyId_Last(companyId, orderByComparator);
@@ -207,7 +210,7 @@ public class MessageUtil {
 	*/
 	public static com.liferay.mail.model.Message fetchByCompanyId_Last(
 		long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.mail.model.Message> orderByComparator) {
 		return getPersistence()
 				   .fetchByCompanyId_Last(companyId, orderByComparator);
 	}
@@ -223,7 +226,7 @@ public class MessageUtil {
 	*/
 	public static com.liferay.mail.model.Message[] findByCompanyId_PrevAndNext(
 		long messageId, long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.mail.model.Message> orderByComparator)
 		throws com.liferay.mail.NoSuchMessageException {
 		return getPersistence()
 				   .findByCompanyId_PrevAndNext(messageId, companyId,
@@ -292,7 +295,7 @@ public class MessageUtil {
 	*/
 	public static java.util.List<com.liferay.mail.model.Message> findByFolderId(
 		long folderId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.mail.model.Message> orderByComparator) {
 		return getPersistence()
 				   .findByFolderId(folderId, start, end, orderByComparator);
 	}
@@ -307,7 +310,7 @@ public class MessageUtil {
 	*/
 	public static com.liferay.mail.model.Message findByFolderId_First(
 		long folderId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.mail.model.Message> orderByComparator)
 		throws com.liferay.mail.NoSuchMessageException {
 		return getPersistence().findByFolderId_First(folderId, orderByComparator);
 	}
@@ -321,7 +324,7 @@ public class MessageUtil {
 	*/
 	public static com.liferay.mail.model.Message fetchByFolderId_First(
 		long folderId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.mail.model.Message> orderByComparator) {
 		return getPersistence()
 				   .fetchByFolderId_First(folderId, orderByComparator);
 	}
@@ -336,7 +339,7 @@ public class MessageUtil {
 	*/
 	public static com.liferay.mail.model.Message findByFolderId_Last(
 		long folderId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.mail.model.Message> orderByComparator)
 		throws com.liferay.mail.NoSuchMessageException {
 		return getPersistence().findByFolderId_Last(folderId, orderByComparator);
 	}
@@ -350,7 +353,7 @@ public class MessageUtil {
 	*/
 	public static com.liferay.mail.model.Message fetchByFolderId_Last(
 		long folderId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.mail.model.Message> orderByComparator) {
 		return getPersistence().fetchByFolderId_Last(folderId, orderByComparator);
 	}
 
@@ -365,7 +368,7 @@ public class MessageUtil {
 	*/
 	public static com.liferay.mail.model.Message[] findByFolderId_PrevAndNext(
 		long messageId, long folderId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.mail.model.Message> orderByComparator)
 		throws com.liferay.mail.NoSuchMessageException {
 		return getPersistence()
 				   .findByFolderId_PrevAndNext(messageId, folderId,
@@ -566,7 +569,7 @@ public class MessageUtil {
 	*/
 	public static java.util.List<com.liferay.mail.model.Message> findAll(
 		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.mail.model.Message> orderByComparator) {
 		return getPersistence().findAll(start, end, orderByComparator);
 	}
 

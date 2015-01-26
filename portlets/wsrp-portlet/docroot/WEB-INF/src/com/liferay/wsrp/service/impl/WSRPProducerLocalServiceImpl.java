@@ -16,8 +16,8 @@ package com.liferay.wsrp.service.impl;
 
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
+import com.liferay.portal.kernel.util.PwdGenerator;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -30,7 +30,6 @@ import com.liferay.portal.model.SystemEventConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.PortletLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
-import com.liferay.util.PwdGenerator;
 import com.liferay.wsrp.NoSuchProducerException;
 import com.liferay.wsrp.WSRPProducerNameException;
 import com.liferay.wsrp.model.WSRPProducer;
@@ -49,7 +48,7 @@ public class WSRPProducerLocalServiceImpl
 	public WSRPProducer addWSRPProducer(
 			long userId, long groupId, String name, String version,
 			String portletIds, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 		portletIds = transformPortletIds(portletIds);
@@ -79,7 +78,7 @@ public class WSRPProducerLocalServiceImpl
 	public WSRPProducer addWSRPProducer(
 			long userId, String name, String version, String portletIds,
 			ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = addGroup(userId, name);
 
@@ -90,7 +89,7 @@ public class WSRPProducerLocalServiceImpl
 
 	@Override
 	public WSRPProducer deleteWSRPProducer(long wsrpProducerId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		WSRPProducer wsrpProducer = wsrpProducerPersistence.findByPrimaryKey(
 			wsrpProducerId);
@@ -103,7 +102,7 @@ public class WSRPProducerLocalServiceImpl
 		action = SystemEventConstants.ACTION_SKIP,
 		type = SystemEventConstants.TYPE_DELETE)
 	public WSRPProducer deleteWSRPProducer(WSRPProducer wsrpProducer)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// WSRP producer
 
@@ -117,9 +116,7 @@ public class WSRPProducerLocalServiceImpl
 	}
 
 	@Override
-	public void deleteWSRPProducers(long companyId)
-		throws PortalException, SystemException {
-
+	public void deleteWSRPProducers(long companyId) throws PortalException {
 		List<WSRPProducer> wsrpProducers =
 			wsrpProducerPersistence.findByCompanyId(companyId);
 
@@ -129,7 +126,7 @@ public class WSRPProducerLocalServiceImpl
 	}
 
 	public WSRPProducer getWSRPProducer(String wsrpProducerUuid)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		List<WSRPProducer> wsrpProducers = wsrpProducerPersistence.findByUuid(
 			wsrpProducerUuid);
@@ -143,19 +140,18 @@ public class WSRPProducerLocalServiceImpl
 	}
 
 	public List<WSRPProducer> getWSRPProducers(
-			long companyId, int start, int end)
-		throws SystemException {
+		long companyId, int start, int end) {
 
 		return wsrpProducerPersistence.findByCompanyId(companyId, start, end);
 	}
 
-	public int getWSRPProducersCount(long companyId) throws SystemException {
+	public int getWSRPProducersCount(long companyId) {
 		return wsrpProducerPersistence.countByCompanyId(companyId);
 	}
 
 	public WSRPProducer updateWSRPProducer(
 			long wsrpProducerId, String name, String version, String portletIds)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		// WSRP producer
 
@@ -180,14 +176,11 @@ public class WSRPProducerLocalServiceImpl
 		return wsrpProducer;
 	}
 
-	protected Group addGroup(long userId, String name)
-		throws PortalException, SystemException {
-
+	protected Group addGroup(long userId, String name) throws PortalException {
 		User user = userPersistence.findByPrimaryKey(userId);
 		name = getGroupName(name);
 
-		LinkedHashMap<String, Object> params =
-			new LinkedHashMap<String, Object>();
+		LinkedHashMap<String, Object> params = new LinkedHashMap<>();
 
 		int type = GroupConstants.TYPE_SITE_SYSTEM;
 
@@ -256,7 +249,7 @@ public class WSRPProducerLocalServiceImpl
 	}
 
 	protected void updateGroup(WSRPProducer wsrpProducer, String name)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Group group = groupLocalService.getGroup(wsrpProducer.getGroupId());
 

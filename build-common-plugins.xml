@@ -3,6 +3,7 @@
 
 <project name="build-common-plugins" xmlns:antelope="antlib:ise.antelope.tasks">
 	<import file="build-common.xml" />
+	<import file="build-common-plugins-inspector.xml" />
 
 	<path id="plugins.includes.path">
 		<dirset dir="." excludes="${plugins.excludes}" includes="${plugins.includes}" />
@@ -83,5 +84,15 @@
 
 	<target name="setup-eclipse-module">
 		<ant dir="${module.name}" target="setup-eclipse" inheritAll="false" />
+	</target>
+
+	<target name="test-class-group">
+		<antcall target="loop-modules">
+			<param name="loop.modules.cmd" value="test-class-group-module" />
+		</antcall>
+	</target>
+
+	<target name="test-class-group-module">
+		<ant dir="${module.name}" target="test-class-group" inheritAll="false" />
 	</target>
 </project>

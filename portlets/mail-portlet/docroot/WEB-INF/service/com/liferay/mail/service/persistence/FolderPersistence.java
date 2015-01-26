@@ -14,6 +14,8 @@
 
 package com.liferay.mail.service.persistence;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.mail.model.Folder;
 
 import com.liferay.portal.service.persistence.BasePersistence;
@@ -30,6 +32,7 @@ import com.liferay.portal.service.persistence.BasePersistence;
  * @see FolderUtil
  * @generated
  */
+@ProviderType
 public interface FolderPersistence extends BasePersistence<Folder> {
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -76,7 +79,7 @@ public interface FolderPersistence extends BasePersistence<Folder> {
 	*/
 	public java.util.List<com.liferay.mail.model.Folder> findByAccountId(
 		long accountId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.mail.model.Folder> orderByComparator);
 
 	/**
 	* Returns the first folder in the ordered set where accountId = &#63;.
@@ -87,7 +90,7 @@ public interface FolderPersistence extends BasePersistence<Folder> {
 	* @throws com.liferay.mail.NoSuchFolderException if a matching folder could not be found
 	*/
 	public com.liferay.mail.model.Folder findByAccountId_First(long accountId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.mail.model.Folder> orderByComparator)
 		throws com.liferay.mail.NoSuchFolderException;
 
 	/**
@@ -99,7 +102,7 @@ public interface FolderPersistence extends BasePersistence<Folder> {
 	*/
 	public com.liferay.mail.model.Folder fetchByAccountId_First(
 		long accountId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.mail.model.Folder> orderByComparator);
 
 	/**
 	* Returns the last folder in the ordered set where accountId = &#63;.
@@ -110,7 +113,7 @@ public interface FolderPersistence extends BasePersistence<Folder> {
 	* @throws com.liferay.mail.NoSuchFolderException if a matching folder could not be found
 	*/
 	public com.liferay.mail.model.Folder findByAccountId_Last(long accountId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.mail.model.Folder> orderByComparator)
 		throws com.liferay.mail.NoSuchFolderException;
 
 	/**
@@ -121,7 +124,7 @@ public interface FolderPersistence extends BasePersistence<Folder> {
 	* @return the last matching folder, or <code>null</code> if a matching folder could not be found
 	*/
 	public com.liferay.mail.model.Folder fetchByAccountId_Last(long accountId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.mail.model.Folder> orderByComparator);
 
 	/**
 	* Returns the folders before and after the current folder in the ordered set where accountId = &#63;.
@@ -134,7 +137,7 @@ public interface FolderPersistence extends BasePersistence<Folder> {
 	*/
 	public com.liferay.mail.model.Folder[] findByAccountId_PrevAndNext(
 		long folderId, long accountId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.mail.model.Folder> orderByComparator)
 		throws com.liferay.mail.NoSuchFolderException;
 
 	/**
@@ -298,7 +301,7 @@ public interface FolderPersistence extends BasePersistence<Folder> {
 	*/
 	public java.util.List<com.liferay.mail.model.Folder> findAll(int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.mail.model.Folder> orderByComparator);
 
 	/**
 	* Removes all the folders from the database.

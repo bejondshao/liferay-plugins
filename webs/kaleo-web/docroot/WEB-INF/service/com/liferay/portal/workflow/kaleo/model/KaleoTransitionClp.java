@@ -14,6 +14,8 @@
 
 package com.liferay.portal.workflow.kaleo.model;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -38,6 +40,7 @@ import java.util.Map;
 /**
  * @author Brian Wing Shun Chan
  */
+@ProviderType
 public class KaleoTransitionClp extends BaseModelImpl<KaleoTransition>
 	implements KaleoTransition {
 	public KaleoTransitionClp() {
@@ -772,6 +775,10 @@ public class KaleoTransitionClp extends BaseModelImpl<KaleoTransition>
 		}
 	}
 
+	public Class<?> getClpSerializerClass() {
+		return _clpSerializerClass;
+	}
+
 	@Override
 	public int hashCode() {
 		return (int)getPrimaryKey();
@@ -923,6 +930,7 @@ public class KaleoTransitionClp extends BaseModelImpl<KaleoTransition>
 	private String _targetKaleoNodeName;
 	private boolean _defaultTransition;
 	private BaseModel<?> _kaleoTransitionRemoteModel;
+	private Class<?> _clpSerializerClass = com.liferay.portal.workflow.kaleo.service.ClpSerializer.class;
 	private boolean _entityCacheEnabled;
 	private boolean _finderCacheEnabled;
 }

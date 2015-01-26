@@ -24,8 +24,6 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.mail.MailMessage;
-import com.liferay.portal.kernel.notifications.NotificationEvent;
-import com.liferay.portal.kernel.notifications.NotificationEventFactoryUtil;
 import com.liferay.portal.kernel.notifications.UserNotificationManagerUtil;
 import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.FastDateFormatConstants;
@@ -51,7 +49,6 @@ import com.liferay.portal.webserver.WebServerServletTokenUtil;
 import com.liferay.portlet.messageboards.model.MBMessage;
 import com.liferay.portlet.messageboards.model.MBMessageConstants;
 import com.liferay.portlet.messageboards.service.MBMessageLocalServiceUtil;
-import com.liferay.portlet.messageboards.service.MBThreadLocalServiceUtil;
 import com.liferay.privatemessaging.model.UserThread;
 import com.liferay.privatemessaging.portlet.PrivateMessagingPortlet;
 import com.liferay.privatemessaging.service.UserThreadLocalServiceUtil;
@@ -120,7 +117,7 @@ public class UserThreadLocalServiceImpl extends UserThreadLocalServiceBaseImpl {
 		MBMessage parentMessage = MBMessageLocalServiceUtil.getMBMessage(
 			parentMBMessageId);
 
-		List<User> recipients = new ArrayList<User>();
+		List<User> recipients = new ArrayList<>();
 
 		recipients.add(UserLocalServiceUtil.getUser(parentMessage.getUserId()));
 
@@ -158,8 +155,6 @@ public class UserThreadLocalServiceImpl extends UserThreadLocalServiceBaseImpl {
 			userId);
 
 		for (UserThread userThread : userThreads) {
-			MBThreadLocalServiceUtil.deleteMBThread(userThread.getMbThreadId());
-
 			userThreadPersistence.remove(userThread.getUserThreadId());
 		}
 	}
@@ -361,7 +356,7 @@ public class UserThreadLocalServiceImpl extends UserThreadLocalServiceBaseImpl {
 
 		String[] recipients = StringUtil.split(to);
 
-		List<User> users = new ArrayList<User>();
+		List<User> users = new ArrayList<>();
 
 		for (String recipient : recipients) {
 			int x = recipient.indexOf(CharPool.LESS_THAN);
@@ -511,15 +506,10 @@ public class UserThreadLocalServiceImpl extends UserThreadLocalServiceBaseImpl {
 				continue;
 			}
 
-			NotificationEvent notificationEvent =
-				NotificationEventFactoryUtil.createNotificationEvent(
-					System.currentTimeMillis(), PortletKeys.PRIVATE_MESSAGING,
-					notificationEventJSONObject);
-
-			notificationEvent.setDeliveryRequired(0);
-
-			UserNotificationEventLocalServiceUtil.addUserNotificationEvent(
-				userThread.getUserId(), notificationEvent);
+			UserNotificationEventLocalServiceUtil.sendUserNotificationEvents(
+				userThread.getUserId(), PortletKeys.PRIVATE_MESSAGING,
+				UserNotificationDeliveryConstants.TYPE_WEBSITE,
+				notificationEventJSONObject);
 		}
 	}
 

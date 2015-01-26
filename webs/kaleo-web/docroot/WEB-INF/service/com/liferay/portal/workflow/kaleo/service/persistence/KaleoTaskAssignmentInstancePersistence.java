@@ -14,6 +14,8 @@
 
 package com.liferay.portal.workflow.kaleo.service.persistence;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.service.persistence.BasePersistence;
 import com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance;
 
@@ -29,6 +31,7 @@ import com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance;
  * @see KaleoTaskAssignmentInstanceUtil
  * @generated
  */
+@ProviderType
 public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<KaleoTaskAssignmentInstance> {
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -75,7 +78,7 @@ public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<
 	*/
 	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> findByCompanyId(
 		long companyId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> orderByComparator);
 
 	/**
 	* Returns the first kaleo task assignment instance in the ordered set where companyId = &#63;.
@@ -87,7 +90,7 @@ public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance findByCompanyId_First(
 		long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> orderByComparator)
 		throws com.liferay.portal.workflow.kaleo.NoSuchTaskAssignmentInstanceException;
 
 	/**
@@ -99,7 +102,7 @@ public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance fetchByCompanyId_First(
 		long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> orderByComparator);
 
 	/**
 	* Returns the last kaleo task assignment instance in the ordered set where companyId = &#63;.
@@ -111,7 +114,7 @@ public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance findByCompanyId_Last(
 		long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> orderByComparator)
 		throws com.liferay.portal.workflow.kaleo.NoSuchTaskAssignmentInstanceException;
 
 	/**
@@ -123,7 +126,7 @@ public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance fetchByCompanyId_Last(
 		long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> orderByComparator);
 
 	/**
 	* Returns the kaleo task assignment instances before and after the current kaleo task assignment instance in the ordered set where companyId = &#63;.
@@ -136,7 +139,7 @@ public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance[] findByCompanyId_PrevAndNext(
 		long kaleoTaskAssignmentInstanceId, long companyId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> orderByComparator)
 		throws com.liferay.portal.workflow.kaleo.NoSuchTaskAssignmentInstanceException;
 
 	/**
@@ -193,7 +196,7 @@ public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<
 	*/
 	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> findByKaleoDefinitionId(
 		long kaleoDefinitionId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> orderByComparator);
 
 	/**
 	* Returns the first kaleo task assignment instance in the ordered set where kaleoDefinitionId = &#63;.
@@ -205,7 +208,7 @@ public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance findByKaleoDefinitionId_First(
 		long kaleoDefinitionId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> orderByComparator)
 		throws com.liferay.portal.workflow.kaleo.NoSuchTaskAssignmentInstanceException;
 
 	/**
@@ -217,7 +220,7 @@ public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance fetchByKaleoDefinitionId_First(
 		long kaleoDefinitionId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> orderByComparator);
 
 	/**
 	* Returns the last kaleo task assignment instance in the ordered set where kaleoDefinitionId = &#63;.
@@ -229,7 +232,7 @@ public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance findByKaleoDefinitionId_Last(
 		long kaleoDefinitionId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> orderByComparator)
 		throws com.liferay.portal.workflow.kaleo.NoSuchTaskAssignmentInstanceException;
 
 	/**
@@ -241,7 +244,7 @@ public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance fetchByKaleoDefinitionId_Last(
 		long kaleoDefinitionId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> orderByComparator);
 
 	/**
 	* Returns the kaleo task assignment instances before and after the current kaleo task assignment instance in the ordered set where kaleoDefinitionId = &#63;.
@@ -254,7 +257,7 @@ public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance[] findByKaleoDefinitionId_PrevAndNext(
 		long kaleoTaskAssignmentInstanceId, long kaleoDefinitionId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> orderByComparator)
 		throws com.liferay.portal.workflow.kaleo.NoSuchTaskAssignmentInstanceException;
 
 	/**
@@ -311,7 +314,7 @@ public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<
 	*/
 	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> findByKaleoInstanceId(
 		long kaleoInstanceId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> orderByComparator);
 
 	/**
 	* Returns the first kaleo task assignment instance in the ordered set where kaleoInstanceId = &#63;.
@@ -323,7 +326,7 @@ public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance findByKaleoInstanceId_First(
 		long kaleoInstanceId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> orderByComparator)
 		throws com.liferay.portal.workflow.kaleo.NoSuchTaskAssignmentInstanceException;
 
 	/**
@@ -335,7 +338,7 @@ public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance fetchByKaleoInstanceId_First(
 		long kaleoInstanceId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> orderByComparator);
 
 	/**
 	* Returns the last kaleo task assignment instance in the ordered set where kaleoInstanceId = &#63;.
@@ -347,7 +350,7 @@ public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance findByKaleoInstanceId_Last(
 		long kaleoInstanceId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> orderByComparator)
 		throws com.liferay.portal.workflow.kaleo.NoSuchTaskAssignmentInstanceException;
 
 	/**
@@ -359,7 +362,7 @@ public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance fetchByKaleoInstanceId_Last(
 		long kaleoInstanceId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> orderByComparator);
 
 	/**
 	* Returns the kaleo task assignment instances before and after the current kaleo task assignment instance in the ordered set where kaleoInstanceId = &#63;.
@@ -372,7 +375,7 @@ public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance[] findByKaleoInstanceId_PrevAndNext(
 		long kaleoTaskAssignmentInstanceId, long kaleoInstanceId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> orderByComparator)
 		throws com.liferay.portal.workflow.kaleo.NoSuchTaskAssignmentInstanceException;
 
 	/**
@@ -429,7 +432,7 @@ public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<
 	*/
 	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> findBykaleoTaskInstanceTokenId(
 		long kaleoTaskInstanceTokenId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> orderByComparator);
 
 	/**
 	* Returns the first kaleo task assignment instance in the ordered set where kaleoTaskInstanceTokenId = &#63;.
@@ -441,7 +444,7 @@ public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance findBykaleoTaskInstanceTokenId_First(
 		long kaleoTaskInstanceTokenId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> orderByComparator)
 		throws com.liferay.portal.workflow.kaleo.NoSuchTaskAssignmentInstanceException;
 
 	/**
@@ -453,7 +456,7 @@ public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance fetchBykaleoTaskInstanceTokenId_First(
 		long kaleoTaskInstanceTokenId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> orderByComparator);
 
 	/**
 	* Returns the last kaleo task assignment instance in the ordered set where kaleoTaskInstanceTokenId = &#63;.
@@ -465,7 +468,7 @@ public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance findBykaleoTaskInstanceTokenId_Last(
 		long kaleoTaskInstanceTokenId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> orderByComparator)
 		throws com.liferay.portal.workflow.kaleo.NoSuchTaskAssignmentInstanceException;
 
 	/**
@@ -477,7 +480,7 @@ public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance fetchBykaleoTaskInstanceTokenId_Last(
 		long kaleoTaskInstanceTokenId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> orderByComparator);
 
 	/**
 	* Returns the kaleo task assignment instances before and after the current kaleo task assignment instance in the ordered set where kaleoTaskInstanceTokenId = &#63;.
@@ -490,7 +493,7 @@ public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<
 	*/
 	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance[] findBykaleoTaskInstanceTokenId_PrevAndNext(
 		long kaleoTaskAssignmentInstanceId, long kaleoTaskInstanceTokenId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> orderByComparator)
 		throws com.liferay.portal.workflow.kaleo.NoSuchTaskAssignmentInstanceException;
 
 	/**
@@ -606,7 +609,7 @@ public interface KaleoTaskAssignmentInstancePersistence extends BasePersistence<
 	*/
 	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> findAll(
 		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignmentInstance> orderByComparator);
 
 	/**
 	* Removes all the kaleo task assignment instances from the database.

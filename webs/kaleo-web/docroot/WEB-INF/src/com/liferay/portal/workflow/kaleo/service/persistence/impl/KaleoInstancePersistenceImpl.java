@@ -14,6 +14,8 @@
 
 package com.liferay.portal.workflow.kaleo.service.persistence.impl;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
@@ -25,16 +27,13 @@ import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.InstanceFactory;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.workflow.kaleo.NoSuchInstanceException;
 import com.liferay.portal.workflow.kaleo.model.KaleoInstance;
@@ -46,7 +45,6 @@ import java.io.Serializable;
 
 import java.sql.Timestamp;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -68,6 +66,7 @@ import java.util.Set;
  * @see KaleoInstanceUtil
  * @generated
  */
+@ProviderType
 public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInstance>
 	implements KaleoInstancePersistence {
 	/*
@@ -158,7 +157,7 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	 */
 	@Override
 	public List<KaleoInstance> findByCompanyId(long companyId, int start,
-		int end, OrderByComparator orderByComparator) {
+		int end, OrderByComparator<KaleoInstance> orderByComparator) {
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -264,7 +263,8 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	 */
 	@Override
 	public KaleoInstance findByCompanyId_First(long companyId,
-		OrderByComparator orderByComparator) throws NoSuchInstanceException {
+		OrderByComparator<KaleoInstance> orderByComparator)
+		throws NoSuchInstanceException {
 		KaleoInstance kaleoInstance = fetchByCompanyId_First(companyId,
 				orderByComparator);
 
@@ -293,7 +293,7 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	 */
 	@Override
 	public KaleoInstance fetchByCompanyId_First(long companyId,
-		OrderByComparator orderByComparator) {
+		OrderByComparator<KaleoInstance> orderByComparator) {
 		List<KaleoInstance> list = findByCompanyId(companyId, 0, 1,
 				orderByComparator);
 
@@ -314,7 +314,8 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	 */
 	@Override
 	public KaleoInstance findByCompanyId_Last(long companyId,
-		OrderByComparator orderByComparator) throws NoSuchInstanceException {
+		OrderByComparator<KaleoInstance> orderByComparator)
+		throws NoSuchInstanceException {
 		KaleoInstance kaleoInstance = fetchByCompanyId_Last(companyId,
 				orderByComparator);
 
@@ -343,7 +344,7 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	 */
 	@Override
 	public KaleoInstance fetchByCompanyId_Last(long companyId,
-		OrderByComparator orderByComparator) {
+		OrderByComparator<KaleoInstance> orderByComparator) {
 		int count = countByCompanyId(companyId);
 
 		if (count == 0) {
@@ -371,7 +372,7 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	 */
 	@Override
 	public KaleoInstance[] findByCompanyId_PrevAndNext(long kaleoInstanceId,
-		long companyId, OrderByComparator orderByComparator)
+		long companyId, OrderByComparator<KaleoInstance> orderByComparator)
 		throws NoSuchInstanceException {
 		KaleoInstance kaleoInstance = findByPrimaryKey(kaleoInstanceId);
 
@@ -402,7 +403,7 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 
 	protected KaleoInstance getByCompanyId_PrevAndNext(Session session,
 		KaleoInstance kaleoInstance, long companyId,
-		OrderByComparator orderByComparator, boolean previous) {
+		OrderByComparator<KaleoInstance> orderByComparator, boolean previous) {
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
@@ -638,7 +639,7 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	 */
 	@Override
 	public List<KaleoInstance> findByKaleoDefinitionId(long kaleoDefinitionId,
-		int start, int end, OrderByComparator orderByComparator) {
+		int start, int end, OrderByComparator<KaleoInstance> orderByComparator) {
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -748,7 +749,8 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	 */
 	@Override
 	public KaleoInstance findByKaleoDefinitionId_First(long kaleoDefinitionId,
-		OrderByComparator orderByComparator) throws NoSuchInstanceException {
+		OrderByComparator<KaleoInstance> orderByComparator)
+		throws NoSuchInstanceException {
 		KaleoInstance kaleoInstance = fetchByKaleoDefinitionId_First(kaleoDefinitionId,
 				orderByComparator);
 
@@ -777,7 +779,8 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	 */
 	@Override
 	public KaleoInstance fetchByKaleoDefinitionId_First(
-		long kaleoDefinitionId, OrderByComparator orderByComparator) {
+		long kaleoDefinitionId,
+		OrderByComparator<KaleoInstance> orderByComparator) {
 		List<KaleoInstance> list = findByKaleoDefinitionId(kaleoDefinitionId,
 				0, 1, orderByComparator);
 
@@ -798,7 +801,8 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	 */
 	@Override
 	public KaleoInstance findByKaleoDefinitionId_Last(long kaleoDefinitionId,
-		OrderByComparator orderByComparator) throws NoSuchInstanceException {
+		OrderByComparator<KaleoInstance> orderByComparator)
+		throws NoSuchInstanceException {
 		KaleoInstance kaleoInstance = fetchByKaleoDefinitionId_Last(kaleoDefinitionId,
 				orderByComparator);
 
@@ -827,7 +831,7 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	 */
 	@Override
 	public KaleoInstance fetchByKaleoDefinitionId_Last(long kaleoDefinitionId,
-		OrderByComparator orderByComparator) {
+		OrderByComparator<KaleoInstance> orderByComparator) {
 		int count = countByKaleoDefinitionId(kaleoDefinitionId);
 
 		if (count == 0) {
@@ -856,7 +860,8 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	@Override
 	public KaleoInstance[] findByKaleoDefinitionId_PrevAndNext(
 		long kaleoInstanceId, long kaleoDefinitionId,
-		OrderByComparator orderByComparator) throws NoSuchInstanceException {
+		OrderByComparator<KaleoInstance> orderByComparator)
+		throws NoSuchInstanceException {
 		KaleoInstance kaleoInstance = findByPrimaryKey(kaleoInstanceId);
 
 		Session session = null;
@@ -886,7 +891,7 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 
 	protected KaleoInstance getByKaleoDefinitionId_PrevAndNext(
 		Session session, KaleoInstance kaleoInstance, long kaleoDefinitionId,
-		OrderByComparator orderByComparator, boolean previous) {
+		OrderByComparator<KaleoInstance> orderByComparator, boolean previous) {
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
@@ -1128,7 +1133,7 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	@Override
 	public List<KaleoInstance> findByKDI_C(long kaleoDefinitionId,
 		boolean completed, int start, int end,
-		OrderByComparator orderByComparator) {
+		OrderByComparator<KaleoInstance> orderByComparator) {
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -1244,7 +1249,7 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	 */
 	@Override
 	public KaleoInstance findByKDI_C_First(long kaleoDefinitionId,
-		boolean completed, OrderByComparator orderByComparator)
+		boolean completed, OrderByComparator<KaleoInstance> orderByComparator)
 		throws NoSuchInstanceException {
 		KaleoInstance kaleoInstance = fetchByKDI_C_First(kaleoDefinitionId,
 				completed, orderByComparator);
@@ -1278,7 +1283,7 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	 */
 	@Override
 	public KaleoInstance fetchByKDI_C_First(long kaleoDefinitionId,
-		boolean completed, OrderByComparator orderByComparator) {
+		boolean completed, OrderByComparator<KaleoInstance> orderByComparator) {
 		List<KaleoInstance> list = findByKDI_C(kaleoDefinitionId, completed, 0,
 				1, orderByComparator);
 
@@ -1300,7 +1305,7 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	 */
 	@Override
 	public KaleoInstance findByKDI_C_Last(long kaleoDefinitionId,
-		boolean completed, OrderByComparator orderByComparator)
+		boolean completed, OrderByComparator<KaleoInstance> orderByComparator)
 		throws NoSuchInstanceException {
 		KaleoInstance kaleoInstance = fetchByKDI_C_Last(kaleoDefinitionId,
 				completed, orderByComparator);
@@ -1334,7 +1339,7 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	 */
 	@Override
 	public KaleoInstance fetchByKDI_C_Last(long kaleoDefinitionId,
-		boolean completed, OrderByComparator orderByComparator) {
+		boolean completed, OrderByComparator<KaleoInstance> orderByComparator) {
 		int count = countByKDI_C(kaleoDefinitionId, completed);
 
 		if (count == 0) {
@@ -1364,7 +1369,8 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	@Override
 	public KaleoInstance[] findByKDI_C_PrevAndNext(long kaleoInstanceId,
 		long kaleoDefinitionId, boolean completed,
-		OrderByComparator orderByComparator) throws NoSuchInstanceException {
+		OrderByComparator<KaleoInstance> orderByComparator)
+		throws NoSuchInstanceException {
 		KaleoInstance kaleoInstance = findByPrimaryKey(kaleoInstanceId);
 
 		Session session = null;
@@ -1394,7 +1400,7 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 
 	protected KaleoInstance getByKDI_C_PrevAndNext(Session session,
 		KaleoInstance kaleoInstance, long kaleoDefinitionId, boolean completed,
-		OrderByComparator orderByComparator, boolean previous) {
+		OrderByComparator<KaleoInstance> orderByComparator, boolean previous) {
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
@@ -1668,7 +1674,7 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	public List<KaleoInstance> findByC_KDN_KDV_CD(long companyId,
 		String kaleoDefinitionName, int kaleoDefinitionVersion,
 		Date completionDate, int start, int end,
-		OrderByComparator orderByComparator) {
+		OrderByComparator<KaleoInstance> orderByComparator) {
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -1828,7 +1834,7 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	@Override
 	public KaleoInstance findByC_KDN_KDV_CD_First(long companyId,
 		String kaleoDefinitionName, int kaleoDefinitionVersion,
-		Date completionDate, OrderByComparator orderByComparator)
+		Date completionDate, OrderByComparator<KaleoInstance> orderByComparator)
 		throws NoSuchInstanceException {
 		KaleoInstance kaleoInstance = fetchByC_KDN_KDV_CD_First(companyId,
 				kaleoDefinitionName, kaleoDefinitionVersion, completionDate,
@@ -1872,7 +1878,7 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	@Override
 	public KaleoInstance fetchByC_KDN_KDV_CD_First(long companyId,
 		String kaleoDefinitionName, int kaleoDefinitionVersion,
-		Date completionDate, OrderByComparator orderByComparator) {
+		Date completionDate, OrderByComparator<KaleoInstance> orderByComparator) {
 		List<KaleoInstance> list = findByC_KDN_KDV_CD(companyId,
 				kaleoDefinitionName, kaleoDefinitionVersion, completionDate, 0,
 				1, orderByComparator);
@@ -1898,7 +1904,7 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	@Override
 	public KaleoInstance findByC_KDN_KDV_CD_Last(long companyId,
 		String kaleoDefinitionName, int kaleoDefinitionVersion,
-		Date completionDate, OrderByComparator orderByComparator)
+		Date completionDate, OrderByComparator<KaleoInstance> orderByComparator)
 		throws NoSuchInstanceException {
 		KaleoInstance kaleoInstance = fetchByC_KDN_KDV_CD_Last(companyId,
 				kaleoDefinitionName, kaleoDefinitionVersion, completionDate,
@@ -1942,7 +1948,7 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	@Override
 	public KaleoInstance fetchByC_KDN_KDV_CD_Last(long companyId,
 		String kaleoDefinitionName, int kaleoDefinitionVersion,
-		Date completionDate, OrderByComparator orderByComparator) {
+		Date completionDate, OrderByComparator<KaleoInstance> orderByComparator) {
 		int count = countByC_KDN_KDV_CD(companyId, kaleoDefinitionName,
 				kaleoDefinitionVersion, completionDate);
 
@@ -1977,7 +1983,8 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	public KaleoInstance[] findByC_KDN_KDV_CD_PrevAndNext(
 		long kaleoInstanceId, long companyId, String kaleoDefinitionName,
 		int kaleoDefinitionVersion, Date completionDate,
-		OrderByComparator orderByComparator) throws NoSuchInstanceException {
+		OrderByComparator<KaleoInstance> orderByComparator)
+		throws NoSuchInstanceException {
 		KaleoInstance kaleoInstance = findByPrimaryKey(kaleoInstanceId);
 
 		Session session = null;
@@ -2010,8 +2017,8 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	protected KaleoInstance getByC_KDN_KDV_CD_PrevAndNext(Session session,
 		KaleoInstance kaleoInstance, long companyId,
 		String kaleoDefinitionName, int kaleoDefinitionVersion,
-		Date completionDate, OrderByComparator orderByComparator,
-		boolean previous) {
+		Date completionDate,
+		OrderByComparator<KaleoInstance> orderByComparator, boolean previous) {
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
@@ -2854,7 +2861,7 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	 */
 	@Override
 	public List<KaleoInstance> findAll(int start, int end,
-		OrderByComparator orderByComparator) {
+		OrderByComparator<KaleoInstance> orderByComparator) {
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -2985,25 +2992,6 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	 * Initializes the kaleo instance persistence.
 	 */
 	public void afterPropertiesSet() {
-		String[] listenerClassNames = StringUtil.split(GetterUtil.getString(
-					com.liferay.util.service.ServiceProps.get(
-						"value.object.listener.com.liferay.portal.workflow.kaleo.model.KaleoInstance")));
-
-		if (listenerClassNames.length > 0) {
-			try {
-				List<ModelListener<KaleoInstance>> listenersList = new ArrayList<ModelListener<KaleoInstance>>();
-
-				for (String listenerClassName : listenerClassNames) {
-					listenersList.add((ModelListener<KaleoInstance>)InstanceFactory.newInstance(
-							getClassLoader(), listenerClassName));
-				}
-
-				listeners = listenersList.toArray(new ModelListener[listenersList.size()]);
-			}
-			catch (Exception e) {
-				_log.error(e);
-			}
-		}
 	}
 
 	public void destroy() {
@@ -3023,8 +3011,8 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No KaleoInstance exists with the key {";
 	private static final boolean _HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE = GetterUtil.getBoolean(PropsUtil.get(
 				PropsKeys.HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE));
-	private static Log _log = LogFactoryUtil.getLog(KaleoInstancePersistenceImpl.class);
-	private static KaleoInstance _nullKaleoInstance = new KaleoInstanceImpl() {
+	private static final Log _log = LogFactoryUtil.getLog(KaleoInstancePersistenceImpl.class);
+	private static final KaleoInstance _nullKaleoInstance = new KaleoInstanceImpl() {
 			@Override
 			public Object clone() {
 				return this;
@@ -3036,7 +3024,7 @@ public class KaleoInstancePersistenceImpl extends BasePersistenceImpl<KaleoInsta
 			}
 		};
 
-	private static CacheModel<KaleoInstance> _nullKaleoInstanceCacheModel = new CacheModel<KaleoInstance>() {
+	private static final CacheModel<KaleoInstance> _nullKaleoInstanceCacheModel = new CacheModel<KaleoInstance>() {
 			@Override
 			public KaleoInstance toEntityModel() {
 				return _nullKaleoInstance;

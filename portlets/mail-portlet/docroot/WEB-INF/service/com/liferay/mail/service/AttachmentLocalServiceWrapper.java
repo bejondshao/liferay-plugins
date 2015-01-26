@@ -14,6 +14,8 @@
 
 package com.liferay.mail.service;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.service.ServiceWrapper;
 
 /**
@@ -23,6 +25,7 @@ import com.liferay.portal.service.ServiceWrapper;
  * @see AttachmentLocalService
  * @generated
  */
+@ProviderType
 public class AttachmentLocalServiceWrapper implements AttachmentLocalService,
 	ServiceWrapper<AttachmentLocalService> {
 	public AttachmentLocalServiceWrapper(
@@ -42,6 +45,15 @@ public class AttachmentLocalServiceWrapper implements AttachmentLocalService,
 		return _attachmentLocalService.addAttachment(attachment);
 	}
 
+	@Override
+	public com.liferay.mail.model.Attachment addAttachment(long userId,
+		long messageId, java.lang.String contentPath,
+		java.lang.String fileName, long size, java.io.File file)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _attachmentLocalService.addAttachment(userId, messageId,
+			contentPath, fileName, size, file);
+	}
+
 	/**
 	* Creates a new attachment with the primary key. Does not add the attachment to the database.
 	*
@@ -51,21 +63,6 @@ public class AttachmentLocalServiceWrapper implements AttachmentLocalService,
 	@Override
 	public com.liferay.mail.model.Attachment createAttachment(long attachmentId) {
 		return _attachmentLocalService.createAttachment(attachmentId);
-	}
-
-	/**
-	* Deletes the attachment with the primary key from the database. Also notifies the appropriate model listeners.
-	*
-	* @param attachmentId the primary key of the attachment
-	* @return the attachment that was removed
-	* @throws PortalException if a attachment with the primary key could not be found
-	* @throws SystemException
-	*/
-	@Override
-	public com.liferay.mail.model.Attachment deleteAttachment(long attachmentId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _attachmentLocalService.deleteAttachment(attachmentId);
 	}
 
 	/**
@@ -80,6 +77,35 @@ public class AttachmentLocalServiceWrapper implements AttachmentLocalService,
 		return _attachmentLocalService.deleteAttachment(attachment);
 	}
 
+	/**
+	* Deletes the attachment with the primary key from the database. Also notifies the appropriate model listeners.
+	*
+	* @param attachmentId the primary key of the attachment
+	* @return the attachment that was removed
+	* @throws PortalException if a attachment with the primary key could not be found
+	*/
+	@Override
+	public com.liferay.mail.model.Attachment deleteAttachment(long attachmentId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _attachmentLocalService.deleteAttachment(attachmentId);
+	}
+
+	@Override
+	public void deleteAttachments(long companyId, long messageId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		_attachmentLocalService.deleteAttachments(companyId, messageId);
+	}
+
+	/**
+	* @throws PortalException
+	*/
+	@Override
+	public com.liferay.portal.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.model.PersistedModel persistedModel)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _attachmentLocalService.deletePersistedModel(persistedModel);
+	}
+
 	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _attachmentLocalService.dynamicQuery();
@@ -92,8 +118,7 @@ public class AttachmentLocalServiceWrapper implements AttachmentLocalService,
 	* @return the matching rows
 	*/
 	@Override
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
 		return _attachmentLocalService.dynamicQuery(dynamicQuery);
 	}
@@ -111,8 +136,7 @@ public class AttachmentLocalServiceWrapper implements AttachmentLocalService,
 	* @return the range of matching rows
 	*/
 	@Override
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end) {
 		return _attachmentLocalService.dynamicQuery(dynamicQuery, start, end);
@@ -132,20 +156,19 @@ public class AttachmentLocalServiceWrapper implements AttachmentLocalService,
 	* @return the ordered range of matching rows
 	*/
 	@Override
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
 		return _attachmentLocalService.dynamicQuery(dynamicQuery, start, end,
 			orderByComparator);
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	@Override
 	public long dynamicQueryCount(
@@ -154,11 +177,11 @@ public class AttachmentLocalServiceWrapper implements AttachmentLocalService,
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
 	* @param projection the projection to apply to the query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	@Override
 	public long dynamicQueryCount(
@@ -171,6 +194,11 @@ public class AttachmentLocalServiceWrapper implements AttachmentLocalService,
 	@Override
 	public com.liferay.mail.model.Attachment fetchAttachment(long attachmentId) {
 		return _attachmentLocalService.fetchAttachment(attachmentId);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
+		return _attachmentLocalService.getActionableDynamicQuery();
 	}
 
 	/**
@@ -187,25 +215,9 @@ public class AttachmentLocalServiceWrapper implements AttachmentLocalService,
 	}
 
 	@Override
-	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
-		return _attachmentLocalService.getActionableDynamicQuery();
-	}
-
-	/**
-	* @throws PortalException
-	*/
-	@Override
-	public com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _attachmentLocalService.deletePersistedModel(persistedModel);
-	}
-
-	@Override
-	public com.liferay.portal.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _attachmentLocalService.getPersistedModel(primaryKeyObj);
+	public java.util.List<com.liferay.mail.model.Attachment> getAttachments(
+		long messageId) {
+		return _attachmentLocalService.getAttachments(messageId);
 	}
 
 	/**
@@ -236,18 +248,6 @@ public class AttachmentLocalServiceWrapper implements AttachmentLocalService,
 	}
 
 	/**
-	* Updates the attachment in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	*
-	* @param attachment the attachment
-	* @return the attachment that was updated
-	*/
-	@Override
-	public com.liferay.mail.model.Attachment updateAttachment(
-		com.liferay.mail.model.Attachment attachment) {
-		return _attachmentLocalService.updateAttachment(attachment);
-	}
-
-	/**
 	* Returns the Spring bean ID for this bean.
 	*
 	* @return the Spring bean ID for this bean
@@ -255,6 +255,33 @@ public class AttachmentLocalServiceWrapper implements AttachmentLocalService,
 	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _attachmentLocalService.getBeanIdentifier();
+	}
+
+	@Override
+	public java.io.File getFile(long attachmentId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _attachmentLocalService.getFile(attachmentId);
+	}
+
+	@Override
+	public java.io.InputStream getInputStream(long attachmentId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _attachmentLocalService.getInputStream(attachmentId);
+	}
+
+	@Override
+	public com.liferay.portal.model.PersistedModel getPersistedModel(
+		java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _attachmentLocalService.getPersistedModel(primaryKeyObj);
+	}
+
+	@Override
+	public java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable {
+		return _attachmentLocalService.invokeMethod(name, parameterTypes,
+			arguments);
 	}
 
 	/**
@@ -267,50 +294,16 @@ public class AttachmentLocalServiceWrapper implements AttachmentLocalService,
 		_attachmentLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	/**
+	* Updates the attachment in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	*
+	* @param attachment the attachment
+	* @return the attachment that was updated
+	*/
 	@Override
-	public java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable {
-		return _attachmentLocalService.invokeMethod(name, parameterTypes,
-			arguments);
-	}
-
-	@Override
-	public com.liferay.mail.model.Attachment addAttachment(long userId,
-		long messageId, java.lang.String contentPath,
-		java.lang.String fileName, long size, java.io.File file)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _attachmentLocalService.addAttachment(userId, messageId,
-			contentPath, fileName, size, file);
-	}
-
-	@Override
-	public void deleteAttachments(long companyId, long messageId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		_attachmentLocalService.deleteAttachments(companyId, messageId);
-	}
-
-	@Override
-	public java.util.List<com.liferay.mail.model.Attachment> getAttachments(
-		long messageId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _attachmentLocalService.getAttachments(messageId);
-	}
-
-	@Override
-	public java.io.File getFile(long attachmentId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _attachmentLocalService.getFile(attachmentId);
-	}
-
-	@Override
-	public java.io.InputStream getInputStream(long attachmentId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _attachmentLocalService.getInputStream(attachmentId);
+	public com.liferay.mail.model.Attachment updateAttachment(
+		com.liferay.mail.model.Attachment attachment) {
+		return _attachmentLocalService.updateAttachment(attachment);
 	}
 
 	/**

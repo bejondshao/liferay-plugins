@@ -20,29 +20,30 @@
 <%@ include file="/sites/init.jsp" %>
 
 <%
+String defaultSearchTab = userPortletPreferences.getValue("defaultSearchTab", "my-favorites");
+
 String name = ParamUtil.getString(request, "name");
 
-int favoriteSitesGroupsCount = SitesUtil.getFavoriteSitesGroupsCount(themeDisplay.getUserId(), name);
-int mySitesGroupsCount = SitesUtil.getVisibleSitesCount(themeDisplay.getCompanyId(), themeDisplay.getUserId(), name, true);
+int myFavoritesGroupsCount = SitesUtil.getFavoriteSitesGroupsCount(themeDisplay.getUserId(), name);
 
-String defaultTabs1Name = "my-favorites";
-
-if (favoriteSitesGroupsCount == 0) {
-	defaultTabs1Name = "my-sites";
-
-	if (mySitesGroupsCount == 0) {
-		defaultTabs1Name = "all-sites";
-	}
+if (defaultSearchTab.equals("my-favorites") && (myFavoritesGroupsCount == 0)) {
+	defaultSearchTab = "my-sites";
 }
 
-String tabs1 = ParamUtil.getString(request, "tabs1", defaultTabs1Name);
+int mySitesGroupsCount = SitesUtil.getVisibleSitesCount(themeDisplay.getCompanyId(), themeDisplay.getUserId(), name, true);
+
+if (defaultSearchTab.equals("my-sites") && (mySitesGroupsCount == 0)) {
+	defaultSearchTab = "all-sites";
+}
+
+String tabs1 = ParamUtil.getString(request, "tabs1", defaultSearchTab);
 
 List<Group> groups = null;
 int groupsCount = 0;
 
 if (tabs1.equals("my-favorites")) {
 	groups = SitesUtil.getFavoriteSitesGroups(themeDisplay.getUserId(), name, 0, maxResultSize);
-	groupsCount = favoriteSitesGroupsCount;
+	groupsCount = myFavoritesGroupsCount;
 }
 else if (tabs1.equals("my-sites")) {
 	groups = SitesUtil.getVisibleSites(themeDisplay.getCompanyId(), themeDisplay.getUserId(), name, true, 0, maxResultSize);
@@ -108,8 +109,14 @@ pageContext.setAttribute("portletURL", portletURL);
 		var addSiteButton = new A.Toolbar(
 			{
 				children: [
-					<c:if test="<%= PortalPermissionUtil.contains(permissionChecker, ActionKeys.ADD_COMMUNITY) && (enableOpenSites || enablePublicRestrictedSites || enablePrivateRestrictedSites || enablePrivateSites) %>">
+
+					<%
+					boolean addSiteEnabled = PortalPermissionUtil.contains(permissionChecker, ActionKeys.ADD_COMMUNITY) && (enableOpenSites || enablePublicRestrictedSites || enablePrivateRestrictedSites || enablePrivateSites);
+					%>
+
+					<c:if test="<%= addSiteEnabled %>">
 						{
+							cssClass: 'site-controls-double',
 							icon: 'icon-plus',
 							label: '<liferay-ui:message key="add-site" unicode="<%= true %>" />',
 							on: {
@@ -124,6 +131,7 @@ pageContext.setAttribute("portletURL", portletURL);
 						},
 					</c:if>
 					{
+						cssClass: '<%= addSiteEnabled ? "site-controls-double" : "site-controls-single" %>',
 						icon: 'icon-reorder',
 						label: '<liferay-ui:message key="sites-directory" unicode="<%= true %>" />',
 						on: {

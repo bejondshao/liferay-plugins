@@ -14,6 +14,8 @@
 
 package com.liferay.calendar.service.base;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.calendar.model.CalendarBooking;
 import com.liferay.calendar.service.CalendarBookingLocalService;
 import com.liferay.calendar.service.persistence.CalendarBookingFinder;
@@ -85,6 +87,7 @@ import javax.sql.DataSource;
  * @see com.liferay.calendar.service.CalendarBookingLocalServiceUtil
  * @generated
  */
+@ProviderType
 public abstract class CalendarBookingLocalServiceBaseImpl
 	extends BaseLocalServiceImpl implements CalendarBookingLocalService,
 		IdentifiableBean {
@@ -125,12 +128,11 @@ public abstract class CalendarBookingLocalServiceBaseImpl
 	 * @param calendarBookingId the primary key of the calendar booking
 	 * @return the calendar booking that was removed
 	 * @throws PortalException if a calendar booking with the primary key could not be found
-	 * @throws SystemException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public CalendarBooking deleteCalendarBooking(long calendarBookingId)
-		throws PortalException, SystemException {
+		throws PortalException {
 		return calendarBookingPersistence.remove(calendarBookingId);
 	}
 
@@ -140,13 +142,11 @@ public abstract class CalendarBookingLocalServiceBaseImpl
 	 * @param calendarBooking the calendar booking
 	 * @return the calendar booking that was removed
 	 * @throws PortalException
-	 * @throws SystemException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public CalendarBooking deleteCalendarBooking(
-		CalendarBooking calendarBooking)
-		throws PortalException, SystemException {
+		CalendarBooking calendarBooking) throws PortalException {
 		return calendarBookingPersistence.remove(calendarBooking);
 	}
 
@@ -165,8 +165,7 @@ public abstract class CalendarBookingLocalServiceBaseImpl
 	 * @return the matching rows
 	 */
 	@Override
-	@SuppressWarnings("rawtypes")
-	public List dynamicQuery(DynamicQuery dynamicQuery) {
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return calendarBookingPersistence.findWithDynamicQuery(dynamicQuery);
 	}
 
@@ -183,8 +182,8 @@ public abstract class CalendarBookingLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 */
 	@Override
-	@SuppressWarnings("rawtypes")
-	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end) {
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
+		int end) {
 		return calendarBookingPersistence.findWithDynamicQuery(dynamicQuery,
 			start, end);
 	}
@@ -203,18 +202,17 @@ public abstract class CalendarBookingLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 */
 	@Override
-	@SuppressWarnings("rawtypes")
-	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
-		OrderByComparator orderByComparator) {
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
+		int end, OrderByComparator<T> orderByComparator) {
 		return calendarBookingPersistence.findWithDynamicQuery(dynamicQuery,
 			start, end, orderByComparator);
 	}
 
 	/**
-	 * Returns the number of rows that match the dynamic query.
+	 * Returns the number of rows matching the dynamic query.
 	 *
 	 * @param dynamicQuery the dynamic query
-	 * @return the number of rows that match the dynamic query
+	 * @return the number of rows matching the dynamic query
 	 */
 	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery) {
@@ -222,11 +220,11 @@ public abstract class CalendarBookingLocalServiceBaseImpl
 	}
 
 	/**
-	 * Returns the number of rows that match the dynamic query.
+	 * Returns the number of rows matching the dynamic query.
 	 *
 	 * @param dynamicQuery the dynamic query
 	 * @param projection the projection to apply to the query
-	 * @return the number of rows that match the dynamic query
+	 * @return the number of rows matching the dynamic query
 	 */
 	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery,
@@ -238,20 +236,6 @@ public abstract class CalendarBookingLocalServiceBaseImpl
 	@Override
 	public CalendarBooking fetchCalendarBooking(long calendarBookingId) {
 		return calendarBookingPersistence.fetchByPrimaryKey(calendarBookingId);
-	}
-
-	/**
-	 * Returns the calendar booking with the matching UUID and company.
-	 *
-	 * @param uuid the calendar booking's UUID
-	 * @param  companyId the primary key of the company
-	 * @return the matching calendar booking, or <code>null</code> if a matching calendar booking could not be found
-	 */
-	@Override
-	public CalendarBooking fetchCalendarBookingByUuidAndCompanyId(String uuid,
-		long companyId) {
-		return calendarBookingPersistence.fetchByUuid_C_First(uuid, companyId,
-			null);
 	}
 
 	/**
@@ -273,11 +257,10 @@ public abstract class CalendarBookingLocalServiceBaseImpl
 	 * @param calendarBookingId the primary key of the calendar booking
 	 * @return the calendar booking
 	 * @throws PortalException if a calendar booking with the primary key could not be found
-	 * @throws SystemException
 	 */
 	@Override
 	public CalendarBooking getCalendarBooking(long calendarBookingId)
-		throws PortalException, SystemException {
+		throws PortalException {
 		return calendarBookingPersistence.findByPrimaryKey(calendarBookingId);
 	}
 
@@ -372,7 +355,7 @@ public abstract class CalendarBookingLocalServiceBaseImpl
 	@Override
 	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
 		throws PortalException {
-		return deleteCalendarBooking((CalendarBooking)persistedModel);
+		return calendarBookingLocalService.deleteCalendarBooking((CalendarBooking)persistedModel);
 	}
 
 	@Override
@@ -382,19 +365,34 @@ public abstract class CalendarBookingLocalServiceBaseImpl
 	}
 
 	/**
-	 * Returns the calendar booking with the matching UUID and company.
+	 * Returns all the calendar bookings matching the UUID and company.
 	 *
-	 * @param uuid the calendar booking's UUID
-	 * @param  companyId the primary key of the company
-	 * @return the matching calendar booking
-	 * @throws PortalException if a matching calendar booking could not be found
-	 * @throws SystemException
+	 * @param uuid the UUID of the calendar bookings
+	 * @param companyId the primary key of the company
+	 * @return the matching calendar bookings, or an empty list if no matches were found
 	 */
 	@Override
-	public CalendarBooking getCalendarBookingByUuidAndCompanyId(String uuid,
-		long companyId) throws PortalException, SystemException {
-		return calendarBookingPersistence.findByUuid_C_First(uuid, companyId,
-			null);
+	public List<CalendarBooking> getCalendarBookingsByUuidAndCompanyId(
+		String uuid, long companyId) {
+		return calendarBookingPersistence.findByUuid_C(uuid, companyId);
+	}
+
+	/**
+	 * Returns a range of calendar bookings matching the UUID and company.
+	 *
+	 * @param uuid the UUID of the calendar bookings
+	 * @param companyId the primary key of the company
+	 * @param start the lower bound of the range of calendar bookings
+	 * @param end the upper bound of the range of calendar bookings (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the range of matching calendar bookings, or an empty list if no matches were found
+	 */
+	@Override
+	public List<CalendarBooking> getCalendarBookingsByUuidAndCompanyId(
+		String uuid, long companyId, int start, int end,
+		OrderByComparator<CalendarBooking> orderByComparator) {
+		return calendarBookingPersistence.findByUuid_C(uuid, companyId, start,
+			end, orderByComparator);
 	}
 
 	/**
@@ -404,11 +402,10 @@ public abstract class CalendarBookingLocalServiceBaseImpl
 	 * @param groupId the primary key of the group
 	 * @return the matching calendar booking
 	 * @throws PortalException if a matching calendar booking could not be found
-	 * @throws SystemException
 	 */
 	@Override
 	public CalendarBooking getCalendarBookingByUuidAndGroupId(String uuid,
-		long groupId) throws PortalException, SystemException {
+		long groupId) throws PortalException {
 		return calendarBookingPersistence.findByUUID_G(uuid, groupId);
 	}
 

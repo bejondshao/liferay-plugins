@@ -14,6 +14,8 @@
 
 package com.liferay.calendar.service.base;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.calendar.model.CalendarNotificationTemplate;
 import com.liferay.calendar.service.CalendarNotificationTemplateLocalService;
 import com.liferay.calendar.service.persistence.CalendarBookingFinder;
@@ -71,6 +73,7 @@ import javax.sql.DataSource;
  * @see com.liferay.calendar.service.CalendarNotificationTemplateLocalServiceUtil
  * @generated
  */
+@ProviderType
 public abstract class CalendarNotificationTemplateLocalServiceBaseImpl
 	extends BaseLocalServiceImpl
 	implements CalendarNotificationTemplateLocalService, IdentifiableBean {
@@ -126,13 +129,11 @@ public abstract class CalendarNotificationTemplateLocalServiceBaseImpl
 	 *
 	 * @param calendarNotificationTemplate the calendar notification template
 	 * @return the calendar notification template that was removed
-	 * @throws SystemException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public CalendarNotificationTemplate deleteCalendarNotificationTemplate(
-		CalendarNotificationTemplate calendarNotificationTemplate)
-		throws SystemException {
+		CalendarNotificationTemplate calendarNotificationTemplate) {
 		return calendarNotificationTemplatePersistence.remove(calendarNotificationTemplate);
 	}
 
@@ -151,8 +152,7 @@ public abstract class CalendarNotificationTemplateLocalServiceBaseImpl
 	 * @return the matching rows
 	 */
 	@Override
-	@SuppressWarnings("rawtypes")
-	public List dynamicQuery(DynamicQuery dynamicQuery) {
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return calendarNotificationTemplatePersistence.findWithDynamicQuery(dynamicQuery);
 	}
 
@@ -169,8 +169,8 @@ public abstract class CalendarNotificationTemplateLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 */
 	@Override
-	@SuppressWarnings("rawtypes")
-	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end) {
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
+		int end) {
 		return calendarNotificationTemplatePersistence.findWithDynamicQuery(dynamicQuery,
 			start, end);
 	}
@@ -189,18 +189,17 @@ public abstract class CalendarNotificationTemplateLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 */
 	@Override
-	@SuppressWarnings("rawtypes")
-	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
-		OrderByComparator orderByComparator) {
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
+		int end, OrderByComparator<T> orderByComparator) {
 		return calendarNotificationTemplatePersistence.findWithDynamicQuery(dynamicQuery,
 			start, end, orderByComparator);
 	}
 
 	/**
-	 * Returns the number of rows that match the dynamic query.
+	 * Returns the number of rows matching the dynamic query.
 	 *
 	 * @param dynamicQuery the dynamic query
-	 * @return the number of rows that match the dynamic query
+	 * @return the number of rows matching the dynamic query
 	 */
 	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery) {
@@ -208,11 +207,11 @@ public abstract class CalendarNotificationTemplateLocalServiceBaseImpl
 	}
 
 	/**
-	 * Returns the number of rows that match the dynamic query.
+	 * Returns the number of rows matching the dynamic query.
 	 *
 	 * @param dynamicQuery the dynamic query
 	 * @param projection the projection to apply to the query
-	 * @return the number of rows that match the dynamic query
+	 * @return the number of rows matching the dynamic query
 	 */
 	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery,
@@ -225,20 +224,6 @@ public abstract class CalendarNotificationTemplateLocalServiceBaseImpl
 	public CalendarNotificationTemplate fetchCalendarNotificationTemplate(
 		long calendarNotificationTemplateId) {
 		return calendarNotificationTemplatePersistence.fetchByPrimaryKey(calendarNotificationTemplateId);
-	}
-
-	/**
-	 * Returns the calendar notification template with the matching UUID and company.
-	 *
-	 * @param uuid the calendar notification template's UUID
-	 * @param  companyId the primary key of the company
-	 * @return the matching calendar notification template, or <code>null</code> if a matching calendar notification template could not be found
-	 */
-	@Override
-	public CalendarNotificationTemplate fetchCalendarNotificationTemplateByUuidAndCompanyId(
-		String uuid, long companyId) {
-		return calendarNotificationTemplatePersistence.fetchByUuid_C_First(uuid,
-			companyId, null);
 	}
 
 	/**
@@ -354,7 +339,7 @@ public abstract class CalendarNotificationTemplateLocalServiceBaseImpl
 	@Override
 	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
 		throws PortalException {
-		return deleteCalendarNotificationTemplate((CalendarNotificationTemplate)persistedModel);
+		return calendarNotificationTemplateLocalService.deleteCalendarNotificationTemplate((CalendarNotificationTemplate)persistedModel);
 	}
 
 	@Override
@@ -364,18 +349,35 @@ public abstract class CalendarNotificationTemplateLocalServiceBaseImpl
 	}
 
 	/**
-	 * Returns the calendar notification template with the matching UUID and company.
+	 * Returns all the calendar notification templates matching the UUID and company.
 	 *
-	 * @param uuid the calendar notification template's UUID
-	 * @param  companyId the primary key of the company
-	 * @return the matching calendar notification template
-	 * @throws PortalException if a matching calendar notification template could not be found
+	 * @param uuid the UUID of the calendar notification templates
+	 * @param companyId the primary key of the company
+	 * @return the matching calendar notification templates, or an empty list if no matches were found
 	 */
 	@Override
-	public CalendarNotificationTemplate getCalendarNotificationTemplateByUuidAndCompanyId(
-		String uuid, long companyId) throws PortalException {
-		return calendarNotificationTemplatePersistence.findByUuid_C_First(uuid,
-			companyId, null);
+	public List<CalendarNotificationTemplate> getCalendarNotificationTemplatesByUuidAndCompanyId(
+		String uuid, long companyId) {
+		return calendarNotificationTemplatePersistence.findByUuid_C(uuid,
+			companyId);
+	}
+
+	/**
+	 * Returns a range of calendar notification templates matching the UUID and company.
+	 *
+	 * @param uuid the UUID of the calendar notification templates
+	 * @param companyId the primary key of the company
+	 * @param start the lower bound of the range of calendar notification templates
+	 * @param end the upper bound of the range of calendar notification templates (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the range of matching calendar notification templates, or an empty list if no matches were found
+	 */
+	@Override
+	public List<CalendarNotificationTemplate> getCalendarNotificationTemplatesByUuidAndCompanyId(
+		String uuid, long companyId, int start, int end,
+		OrderByComparator<CalendarNotificationTemplate> orderByComparator) {
+		return calendarNotificationTemplatePersistence.findByUuid_C(uuid,
+			companyId, start, end, orderByComparator);
 	}
 
 	/**

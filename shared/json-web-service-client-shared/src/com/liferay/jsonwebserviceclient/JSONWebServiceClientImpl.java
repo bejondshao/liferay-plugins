@@ -16,6 +16,7 @@ package com.liferay.jsonwebserviceclient;
 
 import java.io.IOException;
 import java.io.InterruptedIOException;
+import java.io.UnsupportedEncodingException;
 
 import java.net.SocketException;
 import java.net.UnknownHostException;
@@ -24,6 +25,7 @@ import java.security.KeyStore;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -35,11 +37,8 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
-import javax.security.auth.login.CredentialException;
-
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.codec.Charsets;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpEntityEnclosingRequest;
 import org.apache.http.HttpHost;
@@ -60,15 +59,19 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
 import org.apache.http.conn.ConnectTimeoutException;
+import org.apache.http.conn.HttpClientConnectionManager;
+import org.apache.http.conn.routing.HttpRoutePlanner;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLContextBuilder;
 import org.apache.http.conn.ssl.SSLContexts;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.DefaultProxyRoutePlanner;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HttpContext;
@@ -86,8 +89,10 @@ public class JSONWebServiceClientImpl implements JSONWebServiceClient {
 	public void afterPropertiesSet() {
 		HttpClientBuilder httpClientBuilder = HttpClients.custom();
 
-		httpClientBuilder.setConnectionManager(
-			getPoolingHttpClientConnectionManager());
+		HttpClientConnectionManager httpClientConnectionManager =
+			getPoolingHttpClientConnectionManager();
+
+		httpClientBuilder.setConnectionManager(httpClientConnectionManager);
 
 		if ((_login != null) && (_password != null)) {
 			CredentialsProvider credentialsProvider =
@@ -109,7 +114,14 @@ public class JSONWebServiceClientImpl implements JSONWebServiceClient {
 		}
 
 		try {
+			setProxyHost(httpClientBuilder);
+
 			_closeableHttpClient = httpClientBuilder.build();
+
+			_idleConnectionMonitorThread = new IdleConnectionMonitorThread(
+				httpClientConnectionManager);
+
+			_idleConnectionMonitorThread.start();
 
 			if (_logger.isDebugEnabled()) {
 				_logger.debug(
@@ -121,29 +133,6 @@ public class JSONWebServiceClientImpl implements JSONWebServiceClient {
 		}
 	}
 
-	protected PoolingHttpClientConnectionManager
-		getPoolingHttpClientConnectionManager() {
-
-		PoolingHttpClientConnectionManager poolingHttpClientConnectionManager =
-			null;
-
-		if (_keyStore != null) {
-			poolingHttpClientConnectionManager =
-				new PoolingHttpClientConnectionManager(
-					getSocketFactoryRegistry(), null, null, null, 60000,
-					TimeUnit.MILLISECONDS);
-		}
-		else {
-			poolingHttpClientConnectionManager =
-				new PoolingHttpClientConnectionManager(
-					60000, TimeUnit.MILLISECONDS);
-		}
-
-		poolingHttpClientConnectionManager.setMaxTotal(20);
-
-		return poolingHttpClientConnectionManager;
-	}
-
 	public void destroy() {
 		try {
 			_closeableHttpClient.close();
@@ -153,17 +142,18 @@ public class JSONWebServiceClientImpl implements JSONWebServiceClient {
 		}
 
 		_closeableHttpClient = null;
+
+		_idleConnectionMonitorThread.shutdown();
 	}
 
 	@Override
 	public String doGet(String url, Map<String, String> parameters)
-		throws CredentialException, IOException {
+		throws JSONWebServiceTransportException {
 
 		List<NameValuePair> nameValuePairs = toNameValuePairs(parameters);
 
 		if (!nameValuePairs.isEmpty()) {
-			String queryString = URLEncodedUtils.format(
-				nameValuePairs, Charsets.UTF_8);
+			String queryString = URLEncodedUtils.format(nameValuePairs, "utf8");
 
 			url += "?" + queryString;
 		}
@@ -175,35 +165,72 @@ public class JSONWebServiceClientImpl implements JSONWebServiceClient {
 
 		HttpGet httpGet = new HttpGet(url);
 
+		for (String key : _headers.keySet()) {
+			httpGet.addHeader(key, _headers.get(key));
+		}
+
 		return execute(httpGet);
 	}
 
 	@Override
 	public String doPost(String url, Map<String, String> parameters)
-		throws CredentialException, IOException {
+		throws JSONWebServiceTransportException {
 
 		if (_logger.isDebugEnabled()) {
 			_logger.debug(
 				"Sending POST request to " + _login + "@" + _hostName + url);
 		}
 
+		try {
+			HttpPost httpPost = new HttpPost(url);
+
+			List<NameValuePair> nameValuePairs = toNameValuePairs(parameters);
+
+			HttpEntity httpEntity = new UrlEncodedFormEntity(
+				nameValuePairs, "utf8");
+
+			for (String key : _headers.keySet()) {
+				httpPost.addHeader(key, _headers.get(key));
+			}
+
+			httpPost.setEntity(httpEntity);
+
+			return execute(httpPost);
+		}
+		catch (UnsupportedEncodingException uee) {
+			throw new JSONWebServiceTransportException.CommunicationFailure(
+				uee);
+		}
+	}
+
+	@Override
+	public String doPostAsJSON(String url, String json)
+		throws JSONWebServiceTransportException {
+
 		HttpPost httpPost = new HttpPost(url);
 
-		List<NameValuePair> nameValuePairs = toNameValuePairs(parameters);
+		for (String key : _headers.keySet()) {
+			httpPost.addHeader(key, _headers.get(key));
+		}
 
-		HttpEntity httpEntity = new UrlEncodedFormEntity(
-			nameValuePairs, Charsets.UTF_8);
+		StringEntity stringEntity = new StringEntity(json.toString(), "utf8");
 
-		httpPost.setEntity(httpEntity);
+		stringEntity.setContentType("application/json");
+
+		httpPost.setEntity(stringEntity);
 
 		return execute(httpPost);
+	}
+
+	public Map<String, String> getHeaders() {
+		return _headers;
 	}
 
 	public String getHostName() {
 		return _hostName;
 	}
 
-	public int getPort() {
+	public int getHostPort() {
 		return _hostPort;
 	}
 
@@ -216,6 +243,10 @@ public class JSONWebServiceClientImpl implements JSONWebServiceClient {
 		destroy();
 
 		afterPropertiesSet();
+	}
+
+	public void setHeaders(Map<String, String> headers) {
+		_headers = headers;
 	}
 
 	public void setHostName(String hostName) {
@@ -245,8 +276,16 @@ public class JSONWebServiceClientImpl implements JSONWebServiceClient {
 		_protocol = protocol;
 	}
 
+	public void setProxyHostName(String proxyHostName) {
+		_proxyHostName = proxyHostName;
+	}
+
+	public void setProxyHostPort(int proxyHostPort) {
+		_proxyHostPort = proxyHostPort;
+	}
+
 	protected String execute(HttpRequestBase httpRequestBase)
-		throws CredentialException, IOException {
+		throws JSONWebServiceTransportException {
 
 		HttpHost httpHost = new HttpHost(_hostName, _hostPort, _protocol);
 
@@ -261,33 +300,49 @@ public class JSONWebServiceClientImpl implements JSONWebServiceClient {
 			StatusLine statusLine = httpResponse.getStatusLine();
 
 			if (statusLine.getStatusCode() ==
-					HttpServletResponse.SC_NOT_FOUND) {
+					HttpServletResponse.SC_UNAUTHORIZED) {
 
-				if (_logger.isWarnEnabled()) {
-					_logger.warn("Status code " + statusLine.getStatusCode());
-				}
-
-				return null;
+				throw new JSONWebServiceTransportException.
+					AuthenticationFailure(
+						"Not authorized to access JSON web service");
 			}
-			else if (statusLine.getStatusCode() ==
-						HttpServletResponse.SC_UNAUTHORIZED) {
-
-				throw new CredentialException(
-					"Not authorized to access JSON web service");
-			}
-			else if (statusLine.getStatusCode() ==
-						HttpServletResponse.SC_SERVICE_UNAVAILABLE) {
-
-				throw new JSONWebServiceUnavailableException(
-					"Service unavailable");
+			else if (statusLine.getStatusCode() >= 400) {
+				throw new JSONWebServiceTransportException.CommunicationFailure(
+					statusLine.getStatusCode());
 			}
 
-			return EntityUtils.toString(
-				httpResponse.getEntity(), Charsets.UTF_8);
+			return EntityUtils.toString(httpResponse.getEntity(), "utf8");
+		}
+		catch (IOException ioe) {
+			throw new JSONWebServiceTransportException.CommunicationFailure(
+				"Unable to transmit request", ioe);
 		}
 		finally {
 			httpRequestBase.releaseConnection();
 		}
+	}
+
+	protected PoolingHttpClientConnectionManager
+		getPoolingHttpClientConnectionManager() {
+
+		PoolingHttpClientConnectionManager poolingHttpClientConnectionManager =
+			null;
+
+		if (_keyStore != null) {
+			poolingHttpClientConnectionManager =
+				new PoolingHttpClientConnectionManager(
+					getSocketFactoryRegistry(), null, null, null, 60000,
+					TimeUnit.MILLISECONDS);
+		}
+		else {
+			poolingHttpClientConnectionManager =
+				new PoolingHttpClientConnectionManager(
+					60000, TimeUnit.MILLISECONDS);
+		}
+
+		poolingHttpClientConnectionManager.setMaxTotal(20);
+
+		return poolingHttpClientConnectionManager;
 	}
 
 	protected Registry<ConnectionSocketFactory> getSocketFactoryRegistry() {
@@ -322,10 +377,23 @@ public class JSONWebServiceClientImpl implements JSONWebServiceClient {
 			SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);
 	}
 
+	protected void setProxyHost(HttpClientBuilder httpClientBuilder) {
+		if ((_proxyHostName == null) || _proxyHostName.equals("")) {
+			return;
+		}
+
+		HttpHost httpHost = new HttpHost(_proxyHostName, _proxyHostPort);
+
+		HttpRoutePlanner httpRoutePlanner = new DefaultProxyRoutePlanner(
+			httpHost);
+
+		httpClientBuilder.setRoutePlanner(httpRoutePlanner);
+	}
+
 	protected List<NameValuePair> toNameValuePairs(
 		Map<String, String> parameters) {
 
-		List<NameValuePair> nameValuePairs = new LinkedList<NameValuePair>();
+		List<NameValuePair> nameValuePairs = new LinkedList<>();
 
 		for (Map.Entry<String, String> entry : parameters.entrySet()) {
 			String key = entry.getKey();
@@ -350,12 +418,16 @@ public class JSONWebServiceClientImpl implements JSONWebServiceClient {
 		JSONWebServiceClientImpl.class);
 
 	private CloseableHttpClient _closeableHttpClient;
+	private Map<String, String> _headers = Collections.emptyMap();
 	private String _hostName;
 	private int _hostPort = 80;
+	private IdleConnectionMonitorThread _idleConnectionMonitorThread;
 	private KeyStore _keyStore;
 	private String _login;
 	private String _password;
 	private String _protocol = "http";
+	private String _proxyHostName;
+	private int _proxyHostPort;
 
 	private class HttpRequestRetryHandlerImpl
 		implements HttpRequestRetryHandler {
@@ -399,7 +471,46 @@ public class JSONWebServiceClientImpl implements JSONWebServiceClient {
 			return true;
 		}
 
-	};
+	}
+
+	private class IdleConnectionMonitorThread extends Thread {
+
+		public IdleConnectionMonitorThread(
+			HttpClientConnectionManager httpClientConnectionManager) {
+
+			_httpClientConnectionManager = httpClientConnectionManager;
+		}
+
+		@Override
+		public void run() {
+			try {
+				while (!_shutdown) {
+					synchronized (this) {
+						wait(5000);
+
+						_httpClientConnectionManager.closeExpiredConnections();
+
+						_httpClientConnectionManager.closeIdleConnections(
+							30, TimeUnit.SECONDS);
+					}
+				}
+			}
+			catch (InterruptedException ie) {
+			}
+		}
+
+		public void shutdown() {
+			_shutdown = true;
+
+			synchronized (this) {
+				notifyAll();
+			}
+		}
+
+		private final HttpClientConnectionManager _httpClientConnectionManager;
+		private volatile boolean _shutdown;
+
+	}
 
 	private class X509TrustManagerImpl implements X509TrustManager {
 

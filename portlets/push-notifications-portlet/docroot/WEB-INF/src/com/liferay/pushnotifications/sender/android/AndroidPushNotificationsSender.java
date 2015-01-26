@@ -19,9 +19,14 @@ import com.google.android.gcm.server.Message.Builder;
 import com.google.android.gcm.server.Sender;
 
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.util.PrefsPropsUtil;
+import com.liferay.portal.kernel.util.Validator;
+import com.liferay.pushnotifications.PushNotificationsException;
 import com.liferay.pushnotifications.sender.PushNotificationsSender;
+import com.liferay.pushnotifications.util.PortletPropsKeys;
 import com.liferay.pushnotifications.util.PortletPropsValues;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -30,29 +35,60 @@ import java.util.List;
  */
 public class AndroidPushNotificationsSender implements PushNotificationsSender {
 
-	public AndroidPushNotificationsSender() {
-		_sender = new Sender(PortletPropsValues.ANDROID_API_KEY);
+	@Override
+	public void reset() {
+		_sender = null;
 	}
 
 	@Override
 	public void send(List<String> tokens, JSONObject jsonObject)
 		throws Exception {
 
+		Sender sender = getSender();
+
+		if (sender == null) {
+			return;
+		}
+
 		Message message = buildMessage(jsonObject);
 
-		_sender.send(message, tokens, PortletPropsValues.ANDROID_RETRIES);
+		int retries = PrefsPropsUtil.getInteger(
+			PortletPropsKeys.ANDROID_RETRIES,
+			PortletPropsValues.ANDROID_RETRIES);
+
+		sender.send(message, tokens, retries);
 	}
 
 	protected Message buildMessage(JSONObject jsonObject) {
 		Builder builder = new Builder();
 
-		String entryTitle = jsonObject.getString("entryTitle");
+		Iterator<String> keys = jsonObject.keys();
 
-		if (entryTitle != null) {
-			builder.addData("data", entryTitle);
+		while (keys.hasNext()) {
+			String key = keys.next();
+
+			builder.addData(key, jsonObject.getString(key));
 		}
 
 		return builder.build();
+	}
+
+	protected Sender getSender() throws Exception {
+		if (_sender == null) {
+			String key = PrefsPropsUtil.getString(
+				PortletPropsKeys.ANDROID_API_KEY,
+				PortletPropsValues.ANDROID_API_KEY);
+
+			if (Validator.isNull(key)) {
+				throw new PushNotificationsException(
+					"The property \"android.api.key\" is not set in " +
+						"portlet.properties");
+			}
+
+			_sender = new Sender(key);
+		}
+
+		return _sender;
 	}
 
 	private Sender _sender;

@@ -14,6 +14,8 @@
 
 package com.liferay.mail.service.base;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.mail.service.MessageLocalServiceUtil;
 
 import java.util.Arrays;
@@ -22,6 +24,7 @@ import java.util.Arrays;
  * @author Brian Wing Shun Chan
  * @generated
  */
+@ProviderType
 public class MessageLocalServiceClpInvoker {
 	public MessageLocalServiceClpInvoker() {
 		_methodName0 = "addMessage";
@@ -124,7 +127,7 @@ public class MessageLocalServiceClpInvoker {
 				"long", "long", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.util.Date",
 				"java.lang.String", "java.lang.String", "java.lang.String",
-				"long"
+				"long", "java.lang.String"
 			};
 
 		_methodName60 = "deleteMessage";
@@ -242,7 +245,7 @@ public class MessageLocalServiceClpInvoker {
 			return MessageLocalServiceUtil.dynamicQuery((com.liferay.portal.kernel.dao.orm.DynamicQuery)arguments[0],
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
-				(com.liferay.portal.kernel.util.OrderByComparator)arguments[3]);
+				(com.liferay.portal.kernel.util.OrderByComparator<?>)arguments[3]);
 		}
 
 		if (_methodName8.equals(name) &&
@@ -317,7 +320,8 @@ public class MessageLocalServiceClpInvoker {
 				(java.lang.String)arguments[4], (java.lang.String)arguments[5],
 				(java.util.Date)arguments[6], (java.lang.String)arguments[7],
 				(java.lang.String)arguments[8], (java.lang.String)arguments[9],
-				((Long)arguments[10]).longValue());
+				((Long)arguments[10]).longValue(),
+				(java.lang.String)arguments[11]);
 		}
 
 		if (_methodName60.equals(name) &&

@@ -14,6 +14,8 @@
 
 package com.liferay.portal.workflow.kaleo.service.base;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.workflow.kaleo.service.KaleoTaskInstanceTokenLocalServiceUtil;
 
 import java.util.Arrays;
@@ -22,6 +24,7 @@ import java.util.Arrays;
  * @author Brian Wing Shun Chan
  * @generated
  */
+@ProviderType
 public class KaleoTaskInstanceTokenLocalServiceClpInvoker {
 	public KaleoTaskInstanceTokenLocalServiceClpInvoker() {
 		_methodName0 = "addKaleoTaskInstanceToken";
@@ -364,7 +367,7 @@ public class KaleoTaskInstanceTokenLocalServiceClpInvoker {
 			return KaleoTaskInstanceTokenLocalServiceUtil.dynamicQuery((com.liferay.portal.kernel.dao.orm.DynamicQuery)arguments[0],
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
-				(com.liferay.portal.kernel.util.OrderByComparator)arguments[3]);
+				(com.liferay.portal.kernel.util.OrderByComparator<?>)arguments[3]);
 		}
 
 		if (_methodName8.equals(name) &&
@@ -495,7 +498,7 @@ public class KaleoTaskInstanceTokenLocalServiceClpInvoker {
 			return KaleoTaskInstanceTokenLocalServiceUtil.getKaleoTaskInstanceTokens((java.lang.Boolean)arguments[0],
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
-				(com.liferay.portal.kernel.util.OrderByComparator)arguments[3],
+				(com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken>)arguments[3],
 				(com.liferay.portal.service.ServiceContext)arguments[4]);
 		}
 
@@ -505,7 +508,7 @@ public class KaleoTaskInstanceTokenLocalServiceClpInvoker {
 				(java.lang.Boolean)arguments[1],
 				((Integer)arguments[2]).intValue(),
 				((Integer)arguments[3]).intValue(),
-				(com.liferay.portal.kernel.util.OrderByComparator)arguments[4],
+				(com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken>)arguments[4],
 				(com.liferay.portal.service.ServiceContext)arguments[5]);
 		}
 
@@ -515,7 +518,7 @@ public class KaleoTaskInstanceTokenLocalServiceClpInvoker {
 				(java.lang.Boolean)arguments[1],
 				((Integer)arguments[2]).intValue(),
 				((Integer)arguments[3]).intValue(),
-				(com.liferay.portal.kernel.util.OrderByComparator)arguments[4],
+				(com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken>)arguments[4],
 				(com.liferay.portal.service.ServiceContext)arguments[5]);
 		}
 
@@ -532,7 +535,7 @@ public class KaleoTaskInstanceTokenLocalServiceClpInvoker {
 				(java.lang.Boolean)arguments[2],
 				((Integer)arguments[3]).intValue(),
 				((Integer)arguments[4]).intValue(),
-				(com.liferay.portal.kernel.util.OrderByComparator)arguments[5],
+				(com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken>)arguments[5],
 				(com.liferay.portal.service.ServiceContext)arguments[6]);
 		}
 
@@ -570,7 +573,7 @@ public class KaleoTaskInstanceTokenLocalServiceClpInvoker {
 				(java.lang.Boolean)arguments[1],
 				((Integer)arguments[2]).intValue(),
 				((Integer)arguments[3]).intValue(),
-				(com.liferay.portal.kernel.util.OrderByComparator)arguments[4],
+				(com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken>)arguments[4],
 				(com.liferay.portal.service.ServiceContext)arguments[5]);
 		}
 
@@ -588,7 +591,7 @@ public class KaleoTaskInstanceTokenLocalServiceClpInvoker {
 				(java.lang.Boolean)arguments[2],
 				((Integer)arguments[3]).intValue(),
 				((Integer)arguments[4]).intValue(),
-				(com.liferay.portal.kernel.util.OrderByComparator)arguments[5],
+				(com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken>)arguments[5],
 				(com.liferay.portal.service.ServiceContext)arguments[6]);
 		}
 
@@ -602,7 +605,7 @@ public class KaleoTaskInstanceTokenLocalServiceClpInvoker {
 				((Boolean)arguments[7]).booleanValue(),
 				((Integer)arguments[8]).intValue(),
 				((Integer)arguments[9]).intValue(),
-				(com.liferay.portal.kernel.util.OrderByComparator)arguments[10],
+				(com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken>)arguments[10],
 				(com.liferay.portal.service.ServiceContext)arguments[11]);
 		}
 
@@ -614,7 +617,7 @@ public class KaleoTaskInstanceTokenLocalServiceClpInvoker {
 				(java.lang.Boolean)arguments[3],
 				((Integer)arguments[4]).intValue(),
 				((Integer)arguments[5]).intValue(),
-				(com.liferay.portal.kernel.util.OrderByComparator)arguments[6],
+				(com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken>)arguments[6],
 				(com.liferay.portal.service.ServiceContext)arguments[7]);
 		}
 
@@ -628,7 +631,7 @@ public class KaleoTaskInstanceTokenLocalServiceClpInvoker {
 				((Boolean)arguments[7]).booleanValue(),
 				((Integer)arguments[8]).intValue(),
 				((Integer)arguments[9]).intValue(),
-				(com.liferay.portal.kernel.util.OrderByComparator)arguments[10],
+				(com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken>)arguments[10],
 				(com.liferay.portal.service.ServiceContext)arguments[11]);
 		}
 

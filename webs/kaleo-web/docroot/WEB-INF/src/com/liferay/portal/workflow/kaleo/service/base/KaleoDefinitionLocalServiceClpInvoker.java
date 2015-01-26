@@ -14,6 +14,8 @@
 
 package com.liferay.portal.workflow.kaleo.service.base;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.workflow.kaleo.service.KaleoDefinitionLocalServiceUtil;
 
 import java.util.Arrays;
@@ -22,6 +24,7 @@ import java.util.Arrays;
  * @author Brian Wing Shun Chan
  * @generated
  */
+@ProviderType
 public class KaleoDefinitionLocalServiceClpInvoker {
 	public KaleoDefinitionLocalServiceClpInvoker() {
 		_methodName0 = "addKaleoDefinition";
@@ -297,7 +300,7 @@ public class KaleoDefinitionLocalServiceClpInvoker {
 			return KaleoDefinitionLocalServiceUtil.dynamicQuery((com.liferay.portal.kernel.dao.orm.DynamicQuery)arguments[0],
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
-				(com.liferay.portal.kernel.util.OrderByComparator)arguments[3]);
+				(com.liferay.portal.kernel.util.OrderByComparator<?>)arguments[3]);
 		}
 
 		if (_methodName8.equals(name) &&
@@ -436,7 +439,7 @@ public class KaleoDefinitionLocalServiceClpInvoker {
 			return KaleoDefinitionLocalServiceUtil.getKaleoDefinitions(((Boolean)arguments[0]).booleanValue(),
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
-				(com.liferay.portal.kernel.util.OrderByComparator)arguments[3],
+				(com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoDefinition>)arguments[3],
 				(com.liferay.portal.service.ServiceContext)arguments[4]);
 		}
 
@@ -444,7 +447,7 @@ public class KaleoDefinitionLocalServiceClpInvoker {
 				Arrays.deepEquals(_methodParameterTypes120, parameterTypes)) {
 			return KaleoDefinitionLocalServiceUtil.getKaleoDefinitions(((Integer)arguments[0]).intValue(),
 				((Integer)arguments[1]).intValue(),
-				(com.liferay.portal.kernel.util.OrderByComparator)arguments[2],
+				(com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoDefinition>)arguments[2],
 				(com.liferay.portal.service.ServiceContext)arguments[3]);
 		}
 
@@ -454,7 +457,7 @@ public class KaleoDefinitionLocalServiceClpInvoker {
 				((Boolean)arguments[1]).booleanValue(),
 				((Integer)arguments[2]).intValue(),
 				((Integer)arguments[3]).intValue(),
-				(com.liferay.portal.kernel.util.OrderByComparator)arguments[4],
+				(com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoDefinition>)arguments[4],
 				(com.liferay.portal.service.ServiceContext)arguments[5]);
 		}
 
@@ -463,7 +466,7 @@ public class KaleoDefinitionLocalServiceClpInvoker {
 			return KaleoDefinitionLocalServiceUtil.getKaleoDefinitions((java.lang.String)arguments[0],
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
-				(com.liferay.portal.kernel.util.OrderByComparator)arguments[3],
+				(com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portal.workflow.kaleo.model.KaleoDefinition>)arguments[3],
 				(com.liferay.portal.service.ServiceContext)arguments[4]);
 		}
 

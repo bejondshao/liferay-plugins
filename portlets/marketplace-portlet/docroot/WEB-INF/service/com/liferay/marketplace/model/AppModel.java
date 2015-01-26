@@ -14,6 +14,8 @@
 
 package com.liferay.marketplace.model;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.CacheModel;
@@ -39,6 +41,7 @@ import java.util.Date;
  * @see com.liferay.marketplace.model.impl.AppModelImpl
  * @generated
  */
+@ProviderType
 public interface AppModel extends BaseModel<App>, StagedAuditedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -314,19 +317,19 @@ public interface AppModel extends BaseModel<App>, StagedAuditedModel {
 	public Object clone();
 
 	@Override
-	public int compareTo(App app);
+	public int compareTo(com.liferay.marketplace.model.App app);
 
 	@Override
 	public int hashCode();
 
 	@Override
-	public CacheModel<App> toCacheModel();
+	public CacheModel<com.liferay.marketplace.model.App> toCacheModel();
 
 	@Override
-	public App toEscapedModel();
+	public com.liferay.marketplace.model.App toEscapedModel();
 
 	@Override
-	public App toUnescapedModel();
+	public com.liferay.marketplace.model.App toUnescapedModel();
 
 	@Override
 	public String toString();

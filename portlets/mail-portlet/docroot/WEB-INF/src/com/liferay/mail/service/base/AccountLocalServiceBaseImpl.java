@@ -14,6 +14,8 @@
 
 package com.liferay.mail.service.base;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.mail.model.Account;
 import com.liferay.mail.service.AccountLocalService;
 import com.liferay.mail.service.persistence.AccountPersistence;
@@ -62,6 +64,7 @@ import javax.sql.DataSource;
  * @see com.liferay.mail.service.AccountLocalServiceUtil
  * @generated
  */
+@ProviderType
 public abstract class AccountLocalServiceBaseImpl extends BaseLocalServiceImpl
 	implements AccountLocalService, IdentifiableBean {
 	/*
@@ -101,12 +104,10 @@ public abstract class AccountLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param accountId the primary key of the account
 	 * @return the account that was removed
 	 * @throws PortalException if a account with the primary key could not be found
-	 * @throws SystemException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public Account deleteAccount(long accountId)
-		throws PortalException, SystemException {
+	public Account deleteAccount(long accountId) throws PortalException {
 		return accountPersistence.remove(accountId);
 	}
 
@@ -116,12 +117,10 @@ public abstract class AccountLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param account the account
 	 * @return the account that was removed
 	 * @throws PortalException
-	 * @throws SystemException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public Account deleteAccount(Account account)
-		throws PortalException, SystemException {
+	public Account deleteAccount(Account account) throws PortalException {
 		return accountPersistence.remove(account);
 	}
 
@@ -140,8 +139,7 @@ public abstract class AccountLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the matching rows
 	 */
 	@Override
-	@SuppressWarnings("rawtypes")
-	public List dynamicQuery(DynamicQuery dynamicQuery) {
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return accountPersistence.findWithDynamicQuery(dynamicQuery);
 	}
 
@@ -158,8 +156,8 @@ public abstract class AccountLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of matching rows
 	 */
 	@Override
-	@SuppressWarnings("rawtypes")
-	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end) {
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
+		int end) {
 		return accountPersistence.findWithDynamicQuery(dynamicQuery, start, end);
 	}
 
@@ -177,18 +175,17 @@ public abstract class AccountLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the ordered range of matching rows
 	 */
 	@Override
-	@SuppressWarnings("rawtypes")
-	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
-		OrderByComparator orderByComparator) {
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
+		int end, OrderByComparator<T> orderByComparator) {
 		return accountPersistence.findWithDynamicQuery(dynamicQuery, start,
 			end, orderByComparator);
 	}
 
 	/**
-	 * Returns the number of rows that match the dynamic query.
+	 * Returns the number of rows matching the dynamic query.
 	 *
 	 * @param dynamicQuery the dynamic query
-	 * @return the number of rows that match the dynamic query
+	 * @return the number of rows matching the dynamic query
 	 */
 	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery) {
@@ -196,11 +193,11 @@ public abstract class AccountLocalServiceBaseImpl extends BaseLocalServiceImpl
 	}
 
 	/**
-	 * Returns the number of rows that match the dynamic query.
+	 * Returns the number of rows matching the dynamic query.
 	 *
 	 * @param dynamicQuery the dynamic query
 	 * @param projection the projection to apply to the query
-	 * @return the number of rows that match the dynamic query
+	 * @return the number of rows matching the dynamic query
 	 */
 	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery,
@@ -253,7 +250,7 @@ public abstract class AccountLocalServiceBaseImpl extends BaseLocalServiceImpl
 	@Override
 	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
 		throws PortalException {
-		return deleteAccount((Account)persistedModel);
+		return accountLocalService.deleteAccount((Account)persistedModel);
 	}
 
 	@Override

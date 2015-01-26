@@ -14,6 +14,8 @@
 
 package com.liferay.knowledgebase.model;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.model.AttachedModel;
 import com.liferay.portal.model.BaseModel;
@@ -40,6 +42,7 @@ import java.util.Date;
  * @see com.liferay.knowledgebase.model.impl.KBCommentModelImpl
  * @generated
  */
+@ProviderType
 public interface KBCommentModel extends AttachedModel, BaseModel<KBComment>,
 	StagedGroupedModel {
 	/*
@@ -264,25 +267,32 @@ public interface KBCommentModel extends AttachedModel, BaseModel<KBComment>,
 	public void setContent(String content);
 
 	/**
-	 * Returns the helpful of this k b comment.
+	 * Returns the user rating of this k b comment.
 	 *
-	 * @return the helpful of this k b comment
+	 * @return the user rating of this k b comment
 	 */
-	public boolean getHelpful();
+	public int getUserRating();
 
 	/**
-	 * Returns <code>true</code> if this k b comment is helpful.
+	 * Sets the user rating of this k b comment.
 	 *
-	 * @return <code>true</code> if this k b comment is helpful; <code>false</code> otherwise
+	 * @param userRating the user rating of this k b comment
 	 */
-	public boolean isHelpful();
+	public void setUserRating(int userRating);
 
 	/**
-	 * Sets whether this k b comment is helpful.
+	 * Returns the status of this k b comment.
 	 *
-	 * @param helpful the helpful of this k b comment
+	 * @return the status of this k b comment
 	 */
-	public void setHelpful(boolean helpful);
+	public int getStatus();
+
+	/**
+	 * Sets the status of this k b comment.
+	 *
+	 * @param status the status of this k b comment
+	 */
+	public void setStatus(int status);
 
 	@Override
 	public boolean isNew();
@@ -321,19 +331,19 @@ public interface KBCommentModel extends AttachedModel, BaseModel<KBComment>,
 	public Object clone();
 
 	@Override
-	public int compareTo(KBComment kbComment);
+	public int compareTo(com.liferay.knowledgebase.model.KBComment kbComment);
 
 	@Override
 	public int hashCode();
 
 	@Override
-	public CacheModel<KBComment> toCacheModel();
+	public CacheModel<com.liferay.knowledgebase.model.KBComment> toCacheModel();
 
 	@Override
-	public KBComment toEscapedModel();
+	public com.liferay.knowledgebase.model.KBComment toEscapedModel();
 
 	@Override
-	public KBComment toUnescapedModel();
+	public com.liferay.knowledgebase.model.KBComment toUnescapedModel();
 
 	@Override
 	public String toString();

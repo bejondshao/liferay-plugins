@@ -14,6 +14,8 @@
 
 package com.liferay.calendar.service;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
 import com.liferay.portal.service.InvokableLocalService;
@@ -32,6 +34,7 @@ import com.liferay.portal.service.InvokableLocalService;
  * @see com.liferay.calendar.service.impl.CalendarLocalServiceImpl
  * @generated
  */
+@ProviderType
 public class CalendarLocalServiceUtil {
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -50,6 +53,20 @@ public class CalendarLocalServiceUtil {
 		return getService().addCalendar(calendar);
 	}
 
+	public static com.liferay.calendar.model.Calendar addCalendar(long userId,
+		long groupId, long calendarResourceId,
+		java.util.Map<java.util.Locale, java.lang.String> nameMap,
+		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
+		java.lang.String timeZoneId, int color, boolean defaultCalendar,
+		boolean enableComments, boolean enableRatings,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .addCalendar(userId, groupId, calendarResourceId, nameMap,
+			descriptionMap, timeZoneId, color, defaultCalendar, enableComments,
+			enableRatings, serviceContext);
+	}
+
 	/**
 	* Creates a new calendar with the primary key. Does not add the calendar to the database.
 	*
@@ -62,33 +79,38 @@ public class CalendarLocalServiceUtil {
 	}
 
 	/**
-	* Deletes the calendar with the primary key from the database. Also notifies the appropriate model listeners.
-	*
-	* @param calendarId the primary key of the calendar
-	* @return the calendar that was removed
-	* @throws PortalException if a calendar with the primary key could not be found
-	* @throws SystemException
-	*/
-	public static com.liferay.calendar.model.Calendar deleteCalendar(
-		long calendarId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return getService().deleteCalendar(calendarId);
-	}
-
-	/**
 	* Deletes the calendar from the database. Also notifies the appropriate model listeners.
 	*
 	* @param calendar the calendar
 	* @return the calendar that was removed
 	* @throws PortalException
-	* @throws SystemException
 	*/
 	public static com.liferay.calendar.model.Calendar deleteCalendar(
 		com.liferay.calendar.model.Calendar calendar)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().deleteCalendar(calendar);
+	}
+
+	/**
+	* Deletes the calendar with the primary key from the database. Also notifies the appropriate model listeners.
+	*
+	* @param calendarId the primary key of the calendar
+	* @return the calendar that was removed
+	* @throws PortalException if a calendar with the primary key could not be found
+	*/
+	public static com.liferay.calendar.model.Calendar deleteCalendar(
+		long calendarId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().deleteCalendar(calendarId);
+	}
+
+	/**
+	* @throws PortalException
+	*/
+	public static com.liferay.portal.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.model.PersistedModel persistedModel)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().deletePersistedModel(persistedModel);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
@@ -101,8 +123,7 @@ public class CalendarLocalServiceUtil {
 	* @param dynamicQuery the dynamic query
 	* @return the matching rows
 	*/
-	@SuppressWarnings("rawtypes")
-	public static java.util.List dynamicQuery(
+	public static <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
@@ -119,8 +140,7 @@ public class CalendarLocalServiceUtil {
 	* @param end the upper bound of the range of model instances (not inclusive)
 	* @return the range of matching rows
 	*/
-	@SuppressWarnings("rawtypes")
-	public static java.util.List dynamicQuery(
+	public static <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end) {
 		return getService().dynamicQuery(dynamicQuery, start, end);
@@ -139,20 +159,19 @@ public class CalendarLocalServiceUtil {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching rows
 	*/
-	@SuppressWarnings("rawtypes")
-	public static java.util.List dynamicQuery(
+	public static <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
 		return getService()
 				   .dynamicQuery(dynamicQuery, start, end, orderByComparator);
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	public static long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
@@ -160,11 +179,11 @@ public class CalendarLocalServiceUtil {
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
 	* @param projection the projection to apply to the query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	public static long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
@@ -172,24 +191,14 @@ public class CalendarLocalServiceUtil {
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static com.liferay.calendar.model.Calendar fetchCalendar(
-		long calendarId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().fetchCalendar(calendarId);
+	public static java.lang.String exportCalendar(long calendarId,
+		java.lang.String type) throws java.lang.Exception {
+		return getService().exportCalendar(calendarId, type);
 	}
 
-	/**
-	* Returns the calendar with the matching UUID and company.
-	*
-	* @param uuid the calendar's UUID
-	* @param companyId the primary key of the company
-	* @return the matching calendar, or <code>null</code> if a matching calendar could not be found
-	* @throws SystemException
-	*/
-	public static com.liferay.calendar.model.Calendar fetchCalendarByUuidAndCompanyId(
-		java.lang.String uuid, long companyId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().fetchCalendarByUuidAndCompanyId(uuid, companyId);
+	public static com.liferay.calendar.model.Calendar fetchCalendar(
+		long calendarId) {
+		return getService().fetchCalendar(calendarId);
 	}
 
 	/**
@@ -198,12 +207,23 @@ public class CalendarLocalServiceUtil {
 	* @param uuid the calendar's UUID
 	* @param groupId the primary key of the group
 	* @return the matching calendar, or <code>null</code> if a matching calendar could not be found
-	* @throws SystemException
 	*/
 	public static com.liferay.calendar.model.Calendar fetchCalendarByUuidAndGroupId(
-		java.lang.String uuid, long groupId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		java.lang.String uuid, long groupId) {
 		return getService().fetchCalendarByUuidAndGroupId(uuid, groupId);
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
+		return getService().getActionableDynamicQuery();
+	}
+
+	/**
+	* Returns the Spring bean ID for this bean.
+	*
+	* @return the Spring bean ID for this bean
+	*/
+	public static java.lang.String getBeanIdentifier() {
+		return getService().getBeanIdentifier();
 	}
 
 	/**
@@ -212,53 +232,11 @@ public class CalendarLocalServiceUtil {
 	* @param calendarId the primary key of the calendar
 	* @return the calendar
 	* @throws PortalException if a calendar with the primary key could not be found
-	* @throws SystemException
 	*/
 	public static com.liferay.calendar.model.Calendar getCalendar(
 		long calendarId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getCalendar(calendarId);
-	}
-
-	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
-		return getService().getActionableDynamicQuery();
-	}
-
-	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery getExportActionableDynamicQuery(
-		com.liferay.portal.kernel.lar.PortletDataContext portletDataContext) {
-		return getService().getExportActionableDynamicQuery(portletDataContext);
-	}
-
-	/**
-	* @throws PortalException
-	*/
-	public static com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().deletePersistedModel(persistedModel);
-	}
-
-	public static com.liferay.portal.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getPersistedModel(primaryKeyObj);
-	}
-
-	/**
-	* Returns the calendar with the matching UUID and company.
-	*
-	* @param uuid the calendar's UUID
-	* @param companyId the primary key of the company
-	* @return the matching calendar
-	* @throws PortalException if a matching calendar could not be found
-	* @throws SystemException
-	*/
-	public static com.liferay.calendar.model.Calendar getCalendarByUuidAndCompanyId(
-		java.lang.String uuid, long companyId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return getService().getCalendarByUuidAndCompanyId(uuid, companyId);
 	}
 
 	/**
@@ -268,13 +246,24 @@ public class CalendarLocalServiceUtil {
 	* @param groupId the primary key of the group
 	* @return the matching calendar
 	* @throws PortalException if a matching calendar could not be found
-	* @throws SystemException
 	*/
 	public static com.liferay.calendar.model.Calendar getCalendarByUuidAndGroupId(
 		java.lang.String uuid, long groupId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getCalendarByUuidAndGroupId(uuid, groupId);
+	}
+
+	public static java.util.List<com.liferay.calendar.model.Calendar> getCalendarResourceCalendars(
+		long groupId, long calendarResourceId) {
+		return getService()
+				   .getCalendarResourceCalendars(groupId, calendarResourceId);
+	}
+
+	public static java.util.List<com.liferay.calendar.model.Calendar> getCalendarResourceCalendars(
+		long groupId, long calendarResourceId, boolean defaultCalendar) {
+		return getService()
+				   .getCalendarResourceCalendars(groupId, calendarResourceId,
+			defaultCalendar);
 	}
 
 	/**
@@ -294,12 +283,108 @@ public class CalendarLocalServiceUtil {
 	}
 
 	/**
+	* Returns all the calendars matching the UUID and company.
+	*
+	* @param uuid the UUID of the calendars
+	* @param companyId the primary key of the company
+	* @return the matching calendars, or an empty list if no matches were found
+	*/
+	public static java.util.List<com.liferay.calendar.model.Calendar> getCalendarsByUuidAndCompanyId(
+		java.lang.String uuid, long companyId) {
+		return getService().getCalendarsByUuidAndCompanyId(uuid, companyId);
+	}
+
+	/**
+	* Returns a range of calendars matching the UUID and company.
+	*
+	* @param uuid the UUID of the calendars
+	* @param companyId the primary key of the company
+	* @param start the lower bound of the range of calendars
+	* @param end the upper bound of the range of calendars (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the range of matching calendars, or an empty list if no matches were found
+	*/
+	public static java.util.List<com.liferay.calendar.model.Calendar> getCalendarsByUuidAndCompanyId(
+		java.lang.String uuid, long companyId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.Calendar> orderByComparator) {
+		return getService()
+				   .getCalendarsByUuidAndCompanyId(uuid, companyId, start, end,
+			orderByComparator);
+	}
+
+	/**
 	* Returns the number of calendars.
 	*
 	* @return the number of calendars
 	*/
 	public static int getCalendarsCount() {
 		return getService().getCalendarsCount();
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery getExportActionableDynamicQuery(
+		com.liferay.portal.kernel.lar.PortletDataContext portletDataContext) {
+		return getService().getExportActionableDynamicQuery(portletDataContext);
+	}
+
+	public static com.liferay.portal.model.PersistedModel getPersistedModel(
+		java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getPersistedModel(primaryKeyObj);
+	}
+
+	public static void importCalendar(long calendarId, java.lang.String data,
+		java.lang.String type) throws java.lang.Exception {
+		getService().importCalendar(calendarId, data, type);
+	}
+
+	public static java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable {
+		return getService().invokeMethod(name, parameterTypes, arguments);
+	}
+
+	public static java.util.List<com.liferay.calendar.model.Calendar> search(
+		long companyId, long[] groupIds, long[] calendarResourceIds,
+		java.lang.String keywords, boolean andOperator, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.Calendar> orderByComparator) {
+		return getService()
+				   .search(companyId, groupIds, calendarResourceIds, keywords,
+			andOperator, start, end, orderByComparator);
+	}
+
+	public static java.util.List<com.liferay.calendar.model.Calendar> search(
+		long companyId, long[] groupIds, long[] calendarResourceIds,
+		java.lang.String name, java.lang.String description,
+		boolean andOperator, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.calendar.model.Calendar> orderByComparator) {
+		return getService()
+				   .search(companyId, groupIds, calendarResourceIds, name,
+			description, andOperator, start, end, orderByComparator);
+	}
+
+	public static int searchCount(long companyId, long[] groupIds,
+		long[] calendarResourceIds, java.lang.String keywords,
+		boolean andOperator) {
+		return getService()
+				   .searchCount(companyId, groupIds, calendarResourceIds,
+			keywords, andOperator);
+	}
+
+	public static int searchCount(long companyId, long[] groupIds,
+		long[] calendarResourceIds, java.lang.String name,
+		java.lang.String description, boolean andOperator) {
+		return getService()
+				   .searchCount(companyId, groupIds, calendarResourceIds, name,
+			description, andOperator);
+	}
+
+	/**
+	* Sets the Spring bean ID for this bean.
+	*
+	* @param beanIdentifier the Spring bean ID for this bean
+	*/
+	public static void setBeanIdentifier(java.lang.String beanIdentifier) {
+		getService().setBeanIdentifier(beanIdentifier);
 	}
 
 	/**
@@ -313,112 +398,8 @@ public class CalendarLocalServiceUtil {
 		return getService().updateCalendar(calendar);
 	}
 
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
-	public static java.lang.String getBeanIdentifier() {
-		return getService().getBeanIdentifier();
-	}
-
-	/**
-	* Sets the Spring bean ID for this bean.
-	*
-	* @param beanIdentifier the Spring bean ID for this bean
-	*/
-	public static void setBeanIdentifier(java.lang.String beanIdentifier) {
-		getService().setBeanIdentifier(beanIdentifier);
-	}
-
-	public static java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable {
-		return getService().invokeMethod(name, parameterTypes, arguments);
-	}
-
-	public static com.liferay.calendar.model.Calendar addCalendar(long userId,
-		long groupId, long calendarResourceId,
-		java.util.Map<java.util.Locale, java.lang.String> nameMap,
-		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
-		int color, boolean defaultCalendar, boolean enableComments,
-		boolean enableRatings,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return getService()
-				   .addCalendar(userId, groupId, calendarResourceId, nameMap,
-			descriptionMap, color, defaultCalendar, enableComments,
-			enableRatings, serviceContext);
-	}
-
-	public static java.lang.String exportCalendar(long calendarId,
-		java.lang.String type) throws java.lang.Exception {
-		return getService().exportCalendar(calendarId, type);
-	}
-
-	public static java.util.List<com.liferay.calendar.model.Calendar> getCalendarResourceCalendars(
-		long groupId, long calendarResourceId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService()
-				   .getCalendarResourceCalendars(groupId, calendarResourceId);
-	}
-
-	public static java.util.List<com.liferay.calendar.model.Calendar> getCalendarResourceCalendars(
-		long groupId, long calendarResourceId, boolean defaultCalendar)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService()
-				   .getCalendarResourceCalendars(groupId, calendarResourceId,
-			defaultCalendar);
-	}
-
-	public static void importCalendar(long calendarId, java.lang.String data,
-		java.lang.String type) throws java.lang.Exception {
-		getService().importCalendar(calendarId, data, type);
-	}
-
-	public static java.util.List<com.liferay.calendar.model.Calendar> search(
-		long companyId, long[] groupIds, long[] calendarResourceIds,
-		java.lang.String keywords, boolean andOperator, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService()
-				   .search(companyId, groupIds, calendarResourceIds, keywords,
-			andOperator, start, end, orderByComparator);
-	}
-
-	public static java.util.List<com.liferay.calendar.model.Calendar> search(
-		long companyId, long[] groupIds, long[] calendarResourceIds,
-		java.lang.String name, java.lang.String description,
-		boolean andOperator, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService()
-				   .search(companyId, groupIds, calendarResourceIds, name,
-			description, andOperator, start, end, orderByComparator);
-	}
-
-	public static int searchCount(long companyId, long[] groupIds,
-		long[] calendarResourceIds, java.lang.String keywords,
-		boolean andOperator)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService()
-				   .searchCount(companyId, groupIds, calendarResourceIds,
-			keywords, andOperator);
-	}
-
-	public static int searchCount(long companyId, long[] groupIds,
-		long[] calendarResourceIds, java.lang.String name,
-		java.lang.String description, boolean andOperator)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService()
-				   .searchCount(companyId, groupIds, calendarResourceIds, name,
-			description, andOperator);
-	}
-
 	public static void updateCalendar(long calendarId, boolean defaultCalendar)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		getService().updateCalendar(calendarId, defaultCalendar);
 	}
 
@@ -426,33 +407,31 @@ public class CalendarLocalServiceUtil {
 		long calendarId,
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
-		int color, boolean defaultCalendar, boolean enableComments,
-		boolean enableRatings,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		int color, com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .updateCalendar(calendarId, nameMap, descriptionMap, color,
-			defaultCalendar, enableComments, enableRatings, serviceContext);
+			serviceContext);
 	}
 
 	public static com.liferay.calendar.model.Calendar updateCalendar(
 		long calendarId,
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
-		int color, com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		java.lang.String timeZoneId, int color, boolean defaultCalendar,
+		boolean enableComments, boolean enableRatings,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
-				   .updateCalendar(calendarId, nameMap, descriptionMap, color,
+				   .updateCalendar(calendarId, nameMap, descriptionMap,
+			timeZoneId, color, defaultCalendar, enableComments, enableRatings,
 			serviceContext);
 	}
 
 	public static com.liferay.calendar.model.Calendar updateColor(
 		long calendarId, int color,
 		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().updateColor(calendarId, color, serviceContext);
 	}
 

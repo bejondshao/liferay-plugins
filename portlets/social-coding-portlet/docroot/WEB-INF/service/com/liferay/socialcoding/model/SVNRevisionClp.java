@@ -14,6 +14,8 @@
 
 package com.liferay.socialcoding.model;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
@@ -35,6 +37,7 @@ import java.util.Map;
 /**
  * @author Brian Wing Shun Chan
  */
+@ProviderType
 public class SVNRevisionClp extends BaseModelImpl<SVNRevision>
 	implements SVNRevision {
 	public SVNRevisionClp() {
@@ -448,6 +451,10 @@ public class SVNRevisionClp extends BaseModelImpl<SVNRevision>
 		}
 	}
 
+	public Class<?> getClpSerializerClass() {
+		return _clpSerializerClass;
+	}
+
 	@Override
 	public int hashCode() {
 		return (int)getPrimaryKey();
@@ -529,6 +536,7 @@ public class SVNRevisionClp extends BaseModelImpl<SVNRevision>
 	private long _revisionNumber;
 	private String _comments;
 	private BaseModel<?> _svnRevisionRemoteModel;
+	private Class<?> _clpSerializerClass = com.liferay.socialcoding.service.ClpSerializer.class;
 	private boolean _entityCacheEnabled;
 	private boolean _finderCacheEnabled;
 }

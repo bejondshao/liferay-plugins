@@ -14,6 +14,8 @@
 
 package com.liferay.socialcoding.model;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
@@ -34,6 +36,7 @@ import java.util.Map;
 /**
  * @author Brian Wing Shun Chan
  */
+@ProviderType
 public class JIRAChangeItemClp extends BaseModelImpl<JIRAChangeItem>
 	implements JIRAChangeItem {
 	public JIRAChangeItemClp() {
@@ -417,6 +420,10 @@ public class JIRAChangeItemClp extends BaseModelImpl<JIRAChangeItem>
 		}
 	}
 
+	public Class<?> getClpSerializerClass() {
+		return _clpSerializerClass;
+	}
+
 	@Override
 	public int hashCode() {
 		return (int)getPrimaryKey();
@@ -505,6 +512,7 @@ public class JIRAChangeItemClp extends BaseModelImpl<JIRAChangeItem>
 	private String _newValue;
 	private String _newString;
 	private BaseModel<?> _jiraChangeItemRemoteModel;
+	private Class<?> _clpSerializerClass = com.liferay.socialcoding.service.ClpSerializer.class;
 	private boolean _entityCacheEnabled;
 	private boolean _finderCacheEnabled;
 }

@@ -14,6 +14,8 @@
 
 package com.liferay.portal.workflow.kaleo.model;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -38,6 +40,7 @@ import java.util.Map;
 /**
  * @author Brian Wing Shun Chan
  */
+@ProviderType
 public class KaleoTimerInstanceTokenClp extends BaseModelImpl<KaleoTimerInstanceToken>
 	implements KaleoTimerInstanceToken {
 	public KaleoTimerInstanceTokenClp() {
@@ -774,25 +777,6 @@ public class KaleoTimerInstanceTokenClp extends BaseModelImpl<KaleoTimerInstance
 	}
 
 	@Override
-	public com.liferay.portal.workflow.kaleo.model.KaleoTimer getKaleoTimer() {
-		try {
-			String methodName = "getKaleoTimer";
-
-			Class<?>[] parameterTypes = new Class<?>[] {  };
-
-			Object[] parameterValues = new Object[] {  };
-
-			com.liferay.portal.workflow.kaleo.model.KaleoTimer returnObj = (com.liferay.portal.workflow.kaleo.model.KaleoTimer)invokeOnRemoteModel(methodName,
-					parameterTypes, parameterValues);
-
-			return returnObj;
-		}
-		catch (Exception e) {
-			throw new UnsupportedOperationException(e);
-		}
-	}
-
-	@Override
 	public com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken getKaleoTaskInstanceToken() {
 		try {
 			String methodName = "getKaleoTaskInstanceToken";
@@ -803,6 +787,25 @@ public class KaleoTimerInstanceTokenClp extends BaseModelImpl<KaleoTimerInstance
 
 			com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken returnObj =
 				(com.liferay.portal.workflow.kaleo.model.KaleoTaskInstanceToken)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public com.liferay.portal.workflow.kaleo.model.KaleoTimer getKaleoTimer() {
+		try {
+			String methodName = "getKaleoTimer";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			com.liferay.portal.workflow.kaleo.model.KaleoTimer returnObj = (com.liferay.portal.workflow.kaleo.model.KaleoTimer)invokeOnRemoteModel(methodName,
 					parameterTypes, parameterValues);
 
 			return returnObj;
@@ -948,6 +951,10 @@ public class KaleoTimerInstanceTokenClp extends BaseModelImpl<KaleoTimerInstance
 		else {
 			return false;
 		}
+	}
+
+	public Class<?> getClpSerializerClass() {
+		return _clpSerializerClass;
 	}
 
 	@Override
@@ -1130,6 +1137,7 @@ public class KaleoTimerInstanceTokenClp extends BaseModelImpl<KaleoTimerInstance
 	private Date _completionDate;
 	private String _workflowContext;
 	private BaseModel<?> _kaleoTimerInstanceTokenRemoteModel;
+	private Class<?> _clpSerializerClass = com.liferay.portal.workflow.kaleo.service.ClpSerializer.class;
 	private boolean _entityCacheEnabled;
 	private boolean _finderCacheEnabled;
 }

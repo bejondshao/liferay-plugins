@@ -14,6 +14,8 @@
 
 package com.liferay.portal.workflow.kaleo.service;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.service.ServiceWrapper;
 
 /**
@@ -23,12 +25,24 @@ import com.liferay.portal.service.ServiceWrapper;
  * @see KaleoTaskAssignmentLocalService
  * @generated
  */
+@ProviderType
 public class KaleoTaskAssignmentLocalServiceWrapper
 	implements KaleoTaskAssignmentLocalService,
 		ServiceWrapper<KaleoTaskAssignmentLocalService> {
 	public KaleoTaskAssignmentLocalServiceWrapper(
 		KaleoTaskAssignmentLocalService kaleoTaskAssignmentLocalService) {
 		_kaleoTaskAssignmentLocalService = kaleoTaskAssignmentLocalService;
+	}
+
+	@Override
+	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment addKaleoTaskAssignment(
+		java.lang.String kaleoClassName, long kaleoClassPK,
+		long kaleoDefinitionId,
+		com.liferay.portal.workflow.kaleo.definition.Assignment assignment,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _kaleoTaskAssignmentLocalService.addKaleoTaskAssignment(kaleoClassName,
+			kaleoClassPK, kaleoDefinitionId, assignment, serviceContext);
 	}
 
 	/**
@@ -55,6 +69,29 @@ public class KaleoTaskAssignmentLocalServiceWrapper
 		return _kaleoTaskAssignmentLocalService.createKaleoTaskAssignment(kaleoTaskAssignmentId);
 	}
 
+	@Override
+	public void deleteCompanyKaleoTaskAssignments(long companyId) {
+		_kaleoTaskAssignmentLocalService.deleteCompanyKaleoTaskAssignments(companyId);
+	}
+
+	@Override
+	public void deleteKaleoDefinitionKaleoTaskAssignments(
+		long kaleoDefinitionId) {
+		_kaleoTaskAssignmentLocalService.deleteKaleoDefinitionKaleoTaskAssignments(kaleoDefinitionId);
+	}
+
+	/**
+	* Deletes the kaleo task assignment from the database. Also notifies the appropriate model listeners.
+	*
+	* @param kaleoTaskAssignment the kaleo task assignment
+	* @return the kaleo task assignment that was removed
+	*/
+	@Override
+	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment deleteKaleoTaskAssignment(
+		com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment kaleoTaskAssignment) {
+		return _kaleoTaskAssignmentLocalService.deleteKaleoTaskAssignment(kaleoTaskAssignment);
+	}
+
 	/**
 	* Deletes the kaleo task assignment with the primary key from the database. Also notifies the appropriate model listeners.
 	*
@@ -70,15 +107,13 @@ public class KaleoTaskAssignmentLocalServiceWrapper
 	}
 
 	/**
-	* Deletes the kaleo task assignment from the database. Also notifies the appropriate model listeners.
-	*
-	* @param kaleoTaskAssignment the kaleo task assignment
-	* @return the kaleo task assignment that was removed
+	* @throws PortalException
 	*/
 	@Override
-	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment deleteKaleoTaskAssignment(
-		com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment kaleoTaskAssignment) {
-		return _kaleoTaskAssignmentLocalService.deleteKaleoTaskAssignment(kaleoTaskAssignment);
+	public com.liferay.portal.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.model.PersistedModel persistedModel)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _kaleoTaskAssignmentLocalService.deletePersistedModel(persistedModel);
 	}
 
 	@Override
@@ -93,8 +128,7 @@ public class KaleoTaskAssignmentLocalServiceWrapper
 	* @return the matching rows
 	*/
 	@Override
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
 		return _kaleoTaskAssignmentLocalService.dynamicQuery(dynamicQuery);
 	}
@@ -112,8 +146,7 @@ public class KaleoTaskAssignmentLocalServiceWrapper
 	* @return the range of matching rows
 	*/
 	@Override
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end) {
 		return _kaleoTaskAssignmentLocalService.dynamicQuery(dynamicQuery,
@@ -134,20 +167,19 @@ public class KaleoTaskAssignmentLocalServiceWrapper
 	* @return the ordered range of matching rows
 	*/
 	@Override
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
 		return _kaleoTaskAssignmentLocalService.dynamicQuery(dynamicQuery,
 			start, end, orderByComparator);
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	@Override
 	public long dynamicQueryCount(
@@ -156,11 +188,11 @@ public class KaleoTaskAssignmentLocalServiceWrapper
 	}
 
 	/**
-	* Returns the number of rows that match the dynamic query.
+	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
 	* @param projection the projection to apply to the query
-	* @return the number of rows that match the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	@Override
 	public long dynamicQueryCount(
@@ -174,6 +206,21 @@ public class KaleoTaskAssignmentLocalServiceWrapper
 	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment fetchKaleoTaskAssignment(
 		long kaleoTaskAssignmentId) {
 		return _kaleoTaskAssignmentLocalService.fetchKaleoTaskAssignment(kaleoTaskAssignmentId);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
+		return _kaleoTaskAssignmentLocalService.getActionableDynamicQuery();
+	}
+
+	/**
+	* Returns the Spring bean ID for this bean.
+	*
+	* @return the Spring bean ID for this bean
+	*/
+	@Override
+	public java.lang.String getBeanIdentifier() {
+		return _kaleoTaskAssignmentLocalService.getBeanIdentifier();
 	}
 
 	/**
@@ -191,25 +238,23 @@ public class KaleoTaskAssignmentLocalServiceWrapper
 	}
 
 	@Override
-	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
-		return _kaleoTaskAssignmentLocalService.getActionableDynamicQuery();
-	}
-
-	/**
-	* @throws PortalException
-	*/
-	@Override
-	public com.liferay.portal.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _kaleoTaskAssignmentLocalService.deletePersistedModel(persistedModel);
+	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment> getKaleoTaskAssignments(
+		java.lang.String kaleoClassName, long kaleoClassPK) {
+		return _kaleoTaskAssignmentLocalService.getKaleoTaskAssignments(kaleoClassName,
+			kaleoClassPK);
 	}
 
 	@Override
-	public com.liferay.portal.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _kaleoTaskAssignmentLocalService.getPersistedModel(primaryKeyObj);
+	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment> getKaleoTaskAssignments(
+		long kaleoTaskId) {
+		return _kaleoTaskAssignmentLocalService.getKaleoTaskAssignments(kaleoTaskId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment> getKaleoTaskAssignments(
+		long kaleoTaskId, java.lang.String assigneeClassName) {
+		return _kaleoTaskAssignmentLocalService.getKaleoTaskAssignments(kaleoTaskId,
+			assigneeClassName);
 	}
 
 	/**
@@ -240,26 +285,31 @@ public class KaleoTaskAssignmentLocalServiceWrapper
 		return _kaleoTaskAssignmentLocalService.getKaleoTaskAssignmentsCount();
 	}
 
-	/**
-	* Updates the kaleo task assignment in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	*
-	* @param kaleoTaskAssignment the kaleo task assignment
-	* @return the kaleo task assignment that was updated
-	*/
 	@Override
-	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment updateKaleoTaskAssignment(
-		com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment kaleoTaskAssignment) {
-		return _kaleoTaskAssignmentLocalService.updateKaleoTaskAssignment(kaleoTaskAssignment);
+	public int getKaleoTaskAssignmentsCount(long kaleoTaskId) {
+		return _kaleoTaskAssignmentLocalService.getKaleoTaskAssignmentsCount(kaleoTaskId);
 	}
 
-	/**
-	* Returns the Spring bean ID for this bean.
-	*
-	* @return the Spring bean ID for this bean
-	*/
 	@Override
-	public java.lang.String getBeanIdentifier() {
-		return _kaleoTaskAssignmentLocalService.getBeanIdentifier();
+	public int getKaleoTaskAssignmentsCount(long kaleoTaskId,
+		java.lang.String assigneeClassName) {
+		return _kaleoTaskAssignmentLocalService.getKaleoTaskAssignmentsCount(kaleoTaskId,
+			assigneeClassName);
+	}
+
+	@Override
+	public com.liferay.portal.model.PersistedModel getPersistedModel(
+		java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _kaleoTaskAssignmentLocalService.getPersistedModel(primaryKeyObj);
+	}
+
+	@Override
+	public java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable {
+		return _kaleoTaskAssignmentLocalService.invokeMethod(name,
+			parameterTypes, arguments);
 	}
 
 	/**
@@ -272,74 +322,16 @@ public class KaleoTaskAssignmentLocalServiceWrapper
 		_kaleoTaskAssignmentLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	/**
+	* Updates the kaleo task assignment in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	*
+	* @param kaleoTaskAssignment the kaleo task assignment
+	* @return the kaleo task assignment that was updated
+	*/
 	@Override
-	public java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable {
-		return _kaleoTaskAssignmentLocalService.invokeMethod(name,
-			parameterTypes, arguments);
-	}
-
-	@Override
-	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment addKaleoTaskAssignment(
-		java.lang.String kaleoClassName, long kaleoClassPK,
-		long kaleoDefinitionId,
-		com.liferay.portal.workflow.kaleo.definition.Assignment assignment,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _kaleoTaskAssignmentLocalService.addKaleoTaskAssignment(kaleoClassName,
-			kaleoClassPK, kaleoDefinitionId, assignment, serviceContext);
-	}
-
-	@Override
-	public void deleteCompanyKaleoTaskAssignments(long companyId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		_kaleoTaskAssignmentLocalService.deleteCompanyKaleoTaskAssignments(companyId);
-	}
-
-	@Override
-	public void deleteKaleoDefinitionKaleoTaskAssignments(
-		long kaleoDefinitionId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		_kaleoTaskAssignmentLocalService.deleteKaleoDefinitionKaleoTaskAssignments(kaleoDefinitionId);
-	}
-
-	@Override
-	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment> getKaleoTaskAssignments(
-		long kaleoTaskId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _kaleoTaskAssignmentLocalService.getKaleoTaskAssignments(kaleoTaskId);
-	}
-
-	@Override
-	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment> getKaleoTaskAssignments(
-		long kaleoTaskId, java.lang.String assigneeClassName)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _kaleoTaskAssignmentLocalService.getKaleoTaskAssignments(kaleoTaskId,
-			assigneeClassName);
-	}
-
-	@Override
-	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment> getKaleoTaskAssignments(
-		java.lang.String kaleoClassName, long kaleoClassPK)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _kaleoTaskAssignmentLocalService.getKaleoTaskAssignments(kaleoClassName,
-			kaleoClassPK);
-	}
-
-	@Override
-	public int getKaleoTaskAssignmentsCount(long kaleoTaskId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _kaleoTaskAssignmentLocalService.getKaleoTaskAssignmentsCount(kaleoTaskId);
-	}
-
-	@Override
-	public int getKaleoTaskAssignmentsCount(long kaleoTaskId,
-		java.lang.String assigneeClassName)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _kaleoTaskAssignmentLocalService.getKaleoTaskAssignmentsCount(kaleoTaskId,
-			assigneeClassName);
+	public com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment updateKaleoTaskAssignment(
+		com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment kaleoTaskAssignment) {
+		return _kaleoTaskAssignmentLocalService.updateKaleoTaskAssignment(kaleoTaskAssignment);
 	}
 
 	/**

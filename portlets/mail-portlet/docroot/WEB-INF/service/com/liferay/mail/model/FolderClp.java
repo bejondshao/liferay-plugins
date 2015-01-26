@@ -14,6 +14,8 @@
 
 package com.liferay.mail.model;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.mail.service.ClpSerializer;
 import com.liferay.mail.service.FolderLocalServiceUtil;
 
@@ -39,6 +41,7 @@ import java.util.Map;
 /**
  * @author Brian Wing Shun Chan
  */
+@ProviderType
 public class FolderClp extends BaseModelImpl<Folder> implements Folder {
 	public FolderClp() {
 	}
@@ -526,6 +529,10 @@ public class FolderClp extends BaseModelImpl<Folder> implements Folder {
 		}
 	}
 
+	public Class<?> getClpSerializerClass() {
+		return _clpSerializerClass;
+	}
+
 	@Override
 	public int hashCode() {
 		return (int)getPrimaryKey();
@@ -635,6 +642,7 @@ public class FolderClp extends BaseModelImpl<Folder> implements Folder {
 	private String _displayName;
 	private int _remoteMessageCount;
 	private BaseModel<?> _folderRemoteModel;
+	private Class<?> _clpSerializerClass = com.liferay.mail.service.ClpSerializer.class;
 	private boolean _entityCacheEnabled;
 	private boolean _finderCacheEnabled;
 }

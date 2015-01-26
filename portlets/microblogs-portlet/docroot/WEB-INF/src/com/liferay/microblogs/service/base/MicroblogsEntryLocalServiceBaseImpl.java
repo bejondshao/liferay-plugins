@@ -14,6 +14,8 @@
 
 package com.liferay.microblogs.service.base;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.microblogs.model.MicroblogsEntry;
 import com.liferay.microblogs.service.MicroblogsEntryLocalService;
 import com.liferay.microblogs.service.persistence.MicroblogsEntryFinder;
@@ -60,6 +62,7 @@ import javax.sql.DataSource;
  * @see com.liferay.microblogs.service.MicroblogsEntryLocalServiceUtil
  * @generated
  */
+@ProviderType
 public abstract class MicroblogsEntryLocalServiceBaseImpl
 	extends BaseLocalServiceImpl implements MicroblogsEntryLocalService,
 		IdentifiableBean {
@@ -100,12 +103,11 @@ public abstract class MicroblogsEntryLocalServiceBaseImpl
 	 * @param microblogsEntryId the primary key of the microblogs entry
 	 * @return the microblogs entry that was removed
 	 * @throws PortalException if a microblogs entry with the primary key could not be found
-	 * @throws SystemException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public MicroblogsEntry deleteMicroblogsEntry(long microblogsEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 		return microblogsEntryPersistence.remove(microblogsEntryId);
 	}
 
@@ -115,13 +117,11 @@ public abstract class MicroblogsEntryLocalServiceBaseImpl
 	 * @param microblogsEntry the microblogs entry
 	 * @return the microblogs entry that was removed
 	 * @throws PortalException
-	 * @throws SystemException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public MicroblogsEntry deleteMicroblogsEntry(
-		MicroblogsEntry microblogsEntry)
-		throws PortalException, SystemException {
+		MicroblogsEntry microblogsEntry) throws PortalException {
 		return microblogsEntryPersistence.remove(microblogsEntry);
 	}
 
@@ -140,8 +140,7 @@ public abstract class MicroblogsEntryLocalServiceBaseImpl
 	 * @return the matching rows
 	 */
 	@Override
-	@SuppressWarnings("rawtypes")
-	public List dynamicQuery(DynamicQuery dynamicQuery) {
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return microblogsEntryPersistence.findWithDynamicQuery(dynamicQuery);
 	}
 
@@ -158,8 +157,8 @@ public abstract class MicroblogsEntryLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 */
 	@Override
-	@SuppressWarnings("rawtypes")
-	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end) {
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
+		int end) {
 		return microblogsEntryPersistence.findWithDynamicQuery(dynamicQuery,
 			start, end);
 	}
@@ -178,9 +177,8 @@ public abstract class MicroblogsEntryLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 */
 	@Override
-	@SuppressWarnings("rawtypes")
-	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
-		OrderByComparator orderByComparator) {
+	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
+		int end, OrderByComparator<T> orderByComparator) {
 		return microblogsEntryPersistence.findWithDynamicQuery(dynamicQuery,
 			start, end, orderByComparator);
 	}
@@ -221,11 +219,10 @@ public abstract class MicroblogsEntryLocalServiceBaseImpl
 	 * @param microblogsEntryId the primary key of the microblogs entry
 	 * @return the microblogs entry
 	 * @throws PortalException if a microblogs entry with the primary key could not be found
-	 * @throws SystemException
 	 */
 	@Override
 	public MicroblogsEntry getMicroblogsEntry(long microblogsEntryId)
-		throws PortalException, SystemException {
+		throws PortalException {
 		return microblogsEntryPersistence.findByPrimaryKey(microblogsEntryId);
 	}
 
@@ -257,7 +254,7 @@ public abstract class MicroblogsEntryLocalServiceBaseImpl
 	@Override
 	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
 		throws PortalException {
-		return deleteMicroblogsEntry((MicroblogsEntry)persistedModel);
+		return microblogsEntryLocalService.deleteMicroblogsEntry((MicroblogsEntry)persistedModel);
 	}
 
 	@Override

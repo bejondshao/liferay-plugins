@@ -14,6 +14,8 @@
 
 package com.liferay.mail.model;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.mail.service.AttachmentLocalServiceUtil;
 import com.liferay.mail.service.ClpSerializer;
 
@@ -38,6 +40,7 @@ import java.util.Map;
 /**
  * @author Brian Wing Shun Chan
  */
+@ProviderType
 public class AttachmentClp extends BaseModelImpl<Attachment>
 	implements Attachment {
 	public AttachmentClp() {
@@ -495,6 +498,10 @@ public class AttachmentClp extends BaseModelImpl<Attachment>
 		}
 	}
 
+	public Class<?> getClpSerializerClass() {
+		return _clpSerializerClass;
+	}
+
 	@Override
 	public int hashCode() {
 		return (int)getPrimaryKey();
@@ -597,6 +604,7 @@ public class AttachmentClp extends BaseModelImpl<Attachment>
 	private String _fileName;
 	private long _size;
 	private BaseModel<?> _attachmentRemoteModel;
+	private Class<?> _clpSerializerClass = com.liferay.mail.service.ClpSerializer.class;
 	private boolean _entityCacheEnabled;
 	private boolean _finderCacheEnabled;
 }

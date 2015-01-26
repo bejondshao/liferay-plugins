@@ -14,6 +14,8 @@
 
 package com.liferay.portal.workflow.kaleo.service.persistence.impl;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
@@ -25,16 +27,13 @@ import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.InstanceFactory;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.workflow.kaleo.NoSuchTaskAssignmentException;
 import com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment;
@@ -44,7 +43,6 @@ import com.liferay.portal.workflow.kaleo.service.persistence.KaleoTaskAssignment
 
 import java.io.Serializable;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -65,6 +63,7 @@ import java.util.Set;
  * @see KaleoTaskAssignmentUtil
  * @generated
  */
+@ProviderType
 public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<KaleoTaskAssignment>
 	implements KaleoTaskAssignmentPersistence {
 	/*
@@ -156,7 +155,7 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	 */
 	@Override
 	public List<KaleoTaskAssignment> findByCompanyId(long companyId, int start,
-		int end, OrderByComparator orderByComparator) {
+		int end, OrderByComparator<KaleoTaskAssignment> orderByComparator) {
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -262,7 +261,7 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	 */
 	@Override
 	public KaleoTaskAssignment findByCompanyId_First(long companyId,
-		OrderByComparator orderByComparator)
+		OrderByComparator<KaleoTaskAssignment> orderByComparator)
 		throws NoSuchTaskAssignmentException {
 		KaleoTaskAssignment kaleoTaskAssignment = fetchByCompanyId_First(companyId,
 				orderByComparator);
@@ -292,7 +291,7 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	 */
 	@Override
 	public KaleoTaskAssignment fetchByCompanyId_First(long companyId,
-		OrderByComparator orderByComparator) {
+		OrderByComparator<KaleoTaskAssignment> orderByComparator) {
 		List<KaleoTaskAssignment> list = findByCompanyId(companyId, 0, 1,
 				orderByComparator);
 
@@ -313,7 +312,7 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	 */
 	@Override
 	public KaleoTaskAssignment findByCompanyId_Last(long companyId,
-		OrderByComparator orderByComparator)
+		OrderByComparator<KaleoTaskAssignment> orderByComparator)
 		throws NoSuchTaskAssignmentException {
 		KaleoTaskAssignment kaleoTaskAssignment = fetchByCompanyId_Last(companyId,
 				orderByComparator);
@@ -343,7 +342,7 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	 */
 	@Override
 	public KaleoTaskAssignment fetchByCompanyId_Last(long companyId,
-		OrderByComparator orderByComparator) {
+		OrderByComparator<KaleoTaskAssignment> orderByComparator) {
 		int count = countByCompanyId(companyId);
 
 		if (count == 0) {
@@ -372,7 +371,7 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	@Override
 	public KaleoTaskAssignment[] findByCompanyId_PrevAndNext(
 		long kaleoTaskAssignmentId, long companyId,
-		OrderByComparator orderByComparator)
+		OrderByComparator<KaleoTaskAssignment> orderByComparator)
 		throws NoSuchTaskAssignmentException {
 		KaleoTaskAssignment kaleoTaskAssignment = findByPrimaryKey(kaleoTaskAssignmentId);
 
@@ -403,7 +402,8 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 
 	protected KaleoTaskAssignment getByCompanyId_PrevAndNext(Session session,
 		KaleoTaskAssignment kaleoTaskAssignment, long companyId,
-		OrderByComparator orderByComparator, boolean previous) {
+		OrderByComparator<KaleoTaskAssignment> orderByComparator,
+		boolean previous) {
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
@@ -642,7 +642,7 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	@Override
 	public List<KaleoTaskAssignment> findByKaleoDefinitionId(
 		long kaleoDefinitionId, int start, int end,
-		OrderByComparator orderByComparator) {
+		OrderByComparator<KaleoTaskAssignment> orderByComparator) {
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -752,7 +752,8 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	 */
 	@Override
 	public KaleoTaskAssignment findByKaleoDefinitionId_First(
-		long kaleoDefinitionId, OrderByComparator orderByComparator)
+		long kaleoDefinitionId,
+		OrderByComparator<KaleoTaskAssignment> orderByComparator)
 		throws NoSuchTaskAssignmentException {
 		KaleoTaskAssignment kaleoTaskAssignment = fetchByKaleoDefinitionId_First(kaleoDefinitionId,
 				orderByComparator);
@@ -782,7 +783,8 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	 */
 	@Override
 	public KaleoTaskAssignment fetchByKaleoDefinitionId_First(
-		long kaleoDefinitionId, OrderByComparator orderByComparator) {
+		long kaleoDefinitionId,
+		OrderByComparator<KaleoTaskAssignment> orderByComparator) {
 		List<KaleoTaskAssignment> list = findByKaleoDefinitionId(kaleoDefinitionId,
 				0, 1, orderByComparator);
 
@@ -803,7 +805,8 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	 */
 	@Override
 	public KaleoTaskAssignment findByKaleoDefinitionId_Last(
-		long kaleoDefinitionId, OrderByComparator orderByComparator)
+		long kaleoDefinitionId,
+		OrderByComparator<KaleoTaskAssignment> orderByComparator)
 		throws NoSuchTaskAssignmentException {
 		KaleoTaskAssignment kaleoTaskAssignment = fetchByKaleoDefinitionId_Last(kaleoDefinitionId,
 				orderByComparator);
@@ -833,7 +836,8 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	 */
 	@Override
 	public KaleoTaskAssignment fetchByKaleoDefinitionId_Last(
-		long kaleoDefinitionId, OrderByComparator orderByComparator) {
+		long kaleoDefinitionId,
+		OrderByComparator<KaleoTaskAssignment> orderByComparator) {
 		int count = countByKaleoDefinitionId(kaleoDefinitionId);
 
 		if (count == 0) {
@@ -862,7 +866,7 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	@Override
 	public KaleoTaskAssignment[] findByKaleoDefinitionId_PrevAndNext(
 		long kaleoTaskAssignmentId, long kaleoDefinitionId,
-		OrderByComparator orderByComparator)
+		OrderByComparator<KaleoTaskAssignment> orderByComparator)
 		throws NoSuchTaskAssignmentException {
 		KaleoTaskAssignment kaleoTaskAssignment = findByPrimaryKey(kaleoTaskAssignmentId);
 
@@ -895,7 +899,8 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 
 	protected KaleoTaskAssignment getByKaleoDefinitionId_PrevAndNext(
 		Session session, KaleoTaskAssignment kaleoTaskAssignment,
-		long kaleoDefinitionId, OrderByComparator orderByComparator,
+		long kaleoDefinitionId,
+		OrderByComparator<KaleoTaskAssignment> orderByComparator,
 		boolean previous) {
 		StringBundler query = null;
 
@@ -1139,7 +1144,7 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	@Override
 	public List<KaleoTaskAssignment> findByKCN_KCPK(String kaleoClassName,
 		long kaleoClassPK, int start, int end,
-		OrderByComparator orderByComparator) {
+		OrderByComparator<KaleoTaskAssignment> orderByComparator) {
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -1270,7 +1275,8 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	 */
 	@Override
 	public KaleoTaskAssignment findByKCN_KCPK_First(String kaleoClassName,
-		long kaleoClassPK, OrderByComparator orderByComparator)
+		long kaleoClassPK,
+		OrderByComparator<KaleoTaskAssignment> orderByComparator)
 		throws NoSuchTaskAssignmentException {
 		KaleoTaskAssignment kaleoTaskAssignment = fetchByKCN_KCPK_First(kaleoClassName,
 				kaleoClassPK, orderByComparator);
@@ -1304,7 +1310,8 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	 */
 	@Override
 	public KaleoTaskAssignment fetchByKCN_KCPK_First(String kaleoClassName,
-		long kaleoClassPK, OrderByComparator orderByComparator) {
+		long kaleoClassPK,
+		OrderByComparator<KaleoTaskAssignment> orderByComparator) {
 		List<KaleoTaskAssignment> list = findByKCN_KCPK(kaleoClassName,
 				kaleoClassPK, 0, 1, orderByComparator);
 
@@ -1326,7 +1333,8 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	 */
 	@Override
 	public KaleoTaskAssignment findByKCN_KCPK_Last(String kaleoClassName,
-		long kaleoClassPK, OrderByComparator orderByComparator)
+		long kaleoClassPK,
+		OrderByComparator<KaleoTaskAssignment> orderByComparator)
 		throws NoSuchTaskAssignmentException {
 		KaleoTaskAssignment kaleoTaskAssignment = fetchByKCN_KCPK_Last(kaleoClassName,
 				kaleoClassPK, orderByComparator);
@@ -1360,7 +1368,8 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	 */
 	@Override
 	public KaleoTaskAssignment fetchByKCN_KCPK_Last(String kaleoClassName,
-		long kaleoClassPK, OrderByComparator orderByComparator) {
+		long kaleoClassPK,
+		OrderByComparator<KaleoTaskAssignment> orderByComparator) {
 		int count = countByKCN_KCPK(kaleoClassName, kaleoClassPK);
 
 		if (count == 0) {
@@ -1390,7 +1399,7 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	@Override
 	public KaleoTaskAssignment[] findByKCN_KCPK_PrevAndNext(
 		long kaleoTaskAssignmentId, String kaleoClassName, long kaleoClassPK,
-		OrderByComparator orderByComparator)
+		OrderByComparator<KaleoTaskAssignment> orderByComparator)
 		throws NoSuchTaskAssignmentException {
 		KaleoTaskAssignment kaleoTaskAssignment = findByPrimaryKey(kaleoTaskAssignmentId);
 
@@ -1421,7 +1430,9 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 
 	protected KaleoTaskAssignment getByKCN_KCPK_PrevAndNext(Session session,
 		KaleoTaskAssignment kaleoTaskAssignment, String kaleoClassName,
-		long kaleoClassPK, OrderByComparator orderByComparator, boolean previous) {
+		long kaleoClassPK,
+		OrderByComparator<KaleoTaskAssignment> orderByComparator,
+		boolean previous) {
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
@@ -1718,7 +1729,7 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	@Override
 	public List<KaleoTaskAssignment> findByKCN_KCPK_ACN(String kaleoClassName,
 		long kaleoClassPK, String assigneeClassName, int start, int end,
-		OrderByComparator orderByComparator) {
+		OrderByComparator<KaleoTaskAssignment> orderByComparator) {
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -1873,7 +1884,7 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	@Override
 	public KaleoTaskAssignment findByKCN_KCPK_ACN_First(String kaleoClassName,
 		long kaleoClassPK, String assigneeClassName,
-		OrderByComparator orderByComparator)
+		OrderByComparator<KaleoTaskAssignment> orderByComparator)
 		throws NoSuchTaskAssignmentException {
 		KaleoTaskAssignment kaleoTaskAssignment = fetchByKCN_KCPK_ACN_First(kaleoClassName,
 				kaleoClassPK, assigneeClassName, orderByComparator);
@@ -1912,7 +1923,7 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	@Override
 	public KaleoTaskAssignment fetchByKCN_KCPK_ACN_First(
 		String kaleoClassName, long kaleoClassPK, String assigneeClassName,
-		OrderByComparator orderByComparator) {
+		OrderByComparator<KaleoTaskAssignment> orderByComparator) {
 		List<KaleoTaskAssignment> list = findByKCN_KCPK_ACN(kaleoClassName,
 				kaleoClassPK, assigneeClassName, 0, 1, orderByComparator);
 
@@ -1936,7 +1947,7 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	@Override
 	public KaleoTaskAssignment findByKCN_KCPK_ACN_Last(String kaleoClassName,
 		long kaleoClassPK, String assigneeClassName,
-		OrderByComparator orderByComparator)
+		OrderByComparator<KaleoTaskAssignment> orderByComparator)
 		throws NoSuchTaskAssignmentException {
 		KaleoTaskAssignment kaleoTaskAssignment = fetchByKCN_KCPK_ACN_Last(kaleoClassName,
 				kaleoClassPK, assigneeClassName, orderByComparator);
@@ -1975,7 +1986,7 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	@Override
 	public KaleoTaskAssignment fetchByKCN_KCPK_ACN_Last(String kaleoClassName,
 		long kaleoClassPK, String assigneeClassName,
-		OrderByComparator orderByComparator) {
+		OrderByComparator<KaleoTaskAssignment> orderByComparator) {
 		int count = countByKCN_KCPK_ACN(kaleoClassName, kaleoClassPK,
 				assigneeClassName);
 
@@ -2008,7 +2019,8 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	@Override
 	public KaleoTaskAssignment[] findByKCN_KCPK_ACN_PrevAndNext(
 		long kaleoTaskAssignmentId, String kaleoClassName, long kaleoClassPK,
-		String assigneeClassName, OrderByComparator orderByComparator)
+		String assigneeClassName,
+		OrderByComparator<KaleoTaskAssignment> orderByComparator)
 		throws NoSuchTaskAssignmentException {
 		KaleoTaskAssignment kaleoTaskAssignment = findByPrimaryKey(kaleoTaskAssignmentId);
 
@@ -2042,7 +2054,8 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	protected KaleoTaskAssignment getByKCN_KCPK_ACN_PrevAndNext(
 		Session session, KaleoTaskAssignment kaleoTaskAssignment,
 		String kaleoClassName, long kaleoClassPK, String assigneeClassName,
-		OrderByComparator orderByComparator, boolean previous) {
+		OrderByComparator<KaleoTaskAssignment> orderByComparator,
+		boolean previous) {
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
@@ -2881,7 +2894,7 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	 */
 	@Override
 	public List<KaleoTaskAssignment> findAll(int start, int end,
-		OrderByComparator orderByComparator) {
+		OrderByComparator<KaleoTaskAssignment> orderByComparator) {
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -3012,25 +3025,6 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	 * Initializes the kaleo task assignment persistence.
 	 */
 	public void afterPropertiesSet() {
-		String[] listenerClassNames = StringUtil.split(GetterUtil.getString(
-					com.liferay.util.service.ServiceProps.get(
-						"value.object.listener.com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment")));
-
-		if (listenerClassNames.length > 0) {
-			try {
-				List<ModelListener<KaleoTaskAssignment>> listenersList = new ArrayList<ModelListener<KaleoTaskAssignment>>();
-
-				for (String listenerClassName : listenerClassNames) {
-					listenersList.add((ModelListener<KaleoTaskAssignment>)InstanceFactory.newInstance(
-							getClassLoader(), listenerClassName));
-				}
-
-				listeners = listenersList.toArray(new ModelListener[listenersList.size()]);
-			}
-			catch (Exception e) {
-				_log.error(e);
-			}
-		}
 	}
 
 	public void destroy() {
@@ -3050,8 +3044,8 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No KaleoTaskAssignment exists with the key {";
 	private static final boolean _HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE = GetterUtil.getBoolean(PropsUtil.get(
 				PropsKeys.HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE));
-	private static Log _log = LogFactoryUtil.getLog(KaleoTaskAssignmentPersistenceImpl.class);
-	private static KaleoTaskAssignment _nullKaleoTaskAssignment = new KaleoTaskAssignmentImpl() {
+	private static final Log _log = LogFactoryUtil.getLog(KaleoTaskAssignmentPersistenceImpl.class);
+	private static final KaleoTaskAssignment _nullKaleoTaskAssignment = new KaleoTaskAssignmentImpl() {
 			@Override
 			public Object clone() {
 				return this;
@@ -3063,7 +3057,7 @@ public class KaleoTaskAssignmentPersistenceImpl extends BasePersistenceImpl<Kale
 			}
 		};
 
-	private static CacheModel<KaleoTaskAssignment> _nullKaleoTaskAssignmentCacheModel =
+	private static final CacheModel<KaleoTaskAssignment> _nullKaleoTaskAssignmentCacheModel =
 		new CacheModel<KaleoTaskAssignment>() {
 			@Override
 			public KaleoTaskAssignment toEntityModel() {

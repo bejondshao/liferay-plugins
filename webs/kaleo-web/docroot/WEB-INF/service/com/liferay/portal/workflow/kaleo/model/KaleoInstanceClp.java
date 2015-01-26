@@ -14,6 +14,8 @@
 
 package com.liferay.portal.workflow.kaleo.model;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -38,6 +40,7 @@ import java.util.Map;
 /**
  * @author Brian Wing Shun Chan
  */
+@ProviderType
 public class KaleoInstanceClp extends BaseModelImpl<KaleoInstance>
 	implements KaleoInstance {
 	public KaleoInstanceClp() {
@@ -621,19 +624,15 @@ public class KaleoInstanceClp extends BaseModelImpl<KaleoInstance>
 
 	@Override
 	public com.liferay.portal.workflow.kaleo.model.KaleoInstanceToken getRootKaleoInstanceToken(
-		java.util.Map<java.lang.String, java.io.Serializable> workflowContext,
 		com.liferay.portal.service.ServiceContext serviceContext) {
 		try {
 			String methodName = "getRootKaleoInstanceToken";
 
 			Class<?>[] parameterTypes = new Class<?>[] {
-					java.util.Map.class,
 					com.liferay.portal.service.ServiceContext.class
 				};
 
-			Object[] parameterValues = new Object[] {
-					workflowContext, serviceContext
-				};
+			Object[] parameterValues = new Object[] { serviceContext };
 
 			com.liferay.portal.workflow.kaleo.model.KaleoInstanceToken returnObj =
 				(com.liferay.portal.workflow.kaleo.model.KaleoInstanceToken)invokeOnRemoteModel(methodName,
@@ -648,15 +647,19 @@ public class KaleoInstanceClp extends BaseModelImpl<KaleoInstance>
 
 	@Override
 	public com.liferay.portal.workflow.kaleo.model.KaleoInstanceToken getRootKaleoInstanceToken(
+		java.util.Map<java.lang.String, java.io.Serializable> workflowContext,
 		com.liferay.portal.service.ServiceContext serviceContext) {
 		try {
 			String methodName = "getRootKaleoInstanceToken";
 
 			Class<?>[] parameterTypes = new Class<?>[] {
+					java.util.Map.class,
 					com.liferay.portal.service.ServiceContext.class
 				};
 
-			Object[] parameterValues = new Object[] { serviceContext };
+			Object[] parameterValues = new Object[] {
+					workflowContext, serviceContext
+				};
 
 			com.liferay.portal.workflow.kaleo.model.KaleoInstanceToken returnObj =
 				(com.liferay.portal.workflow.kaleo.model.KaleoInstanceToken)invokeOnRemoteModel(methodName,
@@ -800,6 +803,10 @@ public class KaleoInstanceClp extends BaseModelImpl<KaleoInstance>
 		else {
 			return false;
 		}
+	}
+
+	public Class<?> getClpSerializerClass() {
+		return _clpSerializerClass;
 	}
 
 	@Override
@@ -953,6 +960,7 @@ public class KaleoInstanceClp extends BaseModelImpl<KaleoInstance>
 	private Date _completionDate;
 	private String _workflowContext;
 	private BaseModel<?> _kaleoInstanceRemoteModel;
+	private Class<?> _clpSerializerClass = com.liferay.portal.workflow.kaleo.service.ClpSerializer.class;
 	private boolean _entityCacheEnabled;
 	private boolean _finderCacheEnabled;
 }

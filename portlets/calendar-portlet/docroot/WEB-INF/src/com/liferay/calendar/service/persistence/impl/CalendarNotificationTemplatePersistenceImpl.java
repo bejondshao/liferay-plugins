@@ -14,6 +14,8 @@
 
 package com.liferay.calendar.service.persistence.impl;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.calendar.NoSuchNotificationTemplateException;
 import com.liferay.calendar.model.CalendarNotificationTemplate;
 import com.liferay.calendar.model.impl.CalendarNotificationTemplateImpl;
@@ -31,7 +33,6 @@ import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.InstanceFactory;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
@@ -42,12 +43,10 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 
 import java.io.Serializable;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -68,6 +67,7 @@ import java.util.Set;
  * @see CalendarNotificationTemplateUtil
  * @generated
  */
+@ProviderType
 public class CalendarNotificationTemplatePersistenceImpl
 	extends BasePersistenceImpl<CalendarNotificationTemplate>
 	implements CalendarNotificationTemplatePersistence {
@@ -158,7 +158,8 @@ public class CalendarNotificationTemplatePersistenceImpl
 	 */
 	@Override
 	public List<CalendarNotificationTemplate> findByUuid(String uuid,
-		int start, int end, OrderByComparator orderByComparator) {
+		int start, int end,
+		OrderByComparator<CalendarNotificationTemplate> orderByComparator) {
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -279,7 +280,7 @@ public class CalendarNotificationTemplatePersistenceImpl
 	 */
 	@Override
 	public CalendarNotificationTemplate findByUuid_First(String uuid,
-		OrderByComparator orderByComparator)
+		OrderByComparator<CalendarNotificationTemplate> orderByComparator)
 		throws NoSuchNotificationTemplateException {
 		CalendarNotificationTemplate calendarNotificationTemplate = fetchByUuid_First(uuid,
 				orderByComparator);
@@ -309,7 +310,7 @@ public class CalendarNotificationTemplatePersistenceImpl
 	 */
 	@Override
 	public CalendarNotificationTemplate fetchByUuid_First(String uuid,
-		OrderByComparator orderByComparator) {
+		OrderByComparator<CalendarNotificationTemplate> orderByComparator) {
 		List<CalendarNotificationTemplate> list = findByUuid(uuid, 0, 1,
 				orderByComparator);
 
@@ -330,7 +331,7 @@ public class CalendarNotificationTemplatePersistenceImpl
 	 */
 	@Override
 	public CalendarNotificationTemplate findByUuid_Last(String uuid,
-		OrderByComparator orderByComparator)
+		OrderByComparator<CalendarNotificationTemplate> orderByComparator)
 		throws NoSuchNotificationTemplateException {
 		CalendarNotificationTemplate calendarNotificationTemplate = fetchByUuid_Last(uuid,
 				orderByComparator);
@@ -360,7 +361,7 @@ public class CalendarNotificationTemplatePersistenceImpl
 	 */
 	@Override
 	public CalendarNotificationTemplate fetchByUuid_Last(String uuid,
-		OrderByComparator orderByComparator) {
+		OrderByComparator<CalendarNotificationTemplate> orderByComparator) {
 		int count = countByUuid(uuid);
 
 		if (count == 0) {
@@ -389,7 +390,7 @@ public class CalendarNotificationTemplatePersistenceImpl
 	@Override
 	public CalendarNotificationTemplate[] findByUuid_PrevAndNext(
 		long calendarNotificationTemplateId, String uuid,
-		OrderByComparator orderByComparator)
+		OrderByComparator<CalendarNotificationTemplate> orderByComparator)
 		throws NoSuchNotificationTemplateException {
 		CalendarNotificationTemplate calendarNotificationTemplate = findByPrimaryKey(calendarNotificationTemplateId);
 
@@ -421,7 +422,8 @@ public class CalendarNotificationTemplatePersistenceImpl
 	protected CalendarNotificationTemplate getByUuid_PrevAndNext(
 		Session session,
 		CalendarNotificationTemplate calendarNotificationTemplate, String uuid,
-		OrderByComparator orderByComparator, boolean previous) {
+		OrderByComparator<CalendarNotificationTemplate> orderByComparator,
+		boolean previous) {
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
@@ -953,7 +955,8 @@ public class CalendarNotificationTemplatePersistenceImpl
 	 */
 	@Override
 	public List<CalendarNotificationTemplate> findByUuid_C(String uuid,
-		long companyId, int start, int end, OrderByComparator orderByComparator) {
+		long companyId, int start, int end,
+		OrderByComparator<CalendarNotificationTemplate> orderByComparator) {
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -1084,7 +1087,8 @@ public class CalendarNotificationTemplatePersistenceImpl
 	 */
 	@Override
 	public CalendarNotificationTemplate findByUuid_C_First(String uuid,
-		long companyId, OrderByComparator orderByComparator)
+		long companyId,
+		OrderByComparator<CalendarNotificationTemplate> orderByComparator)
 		throws NoSuchNotificationTemplateException {
 		CalendarNotificationTemplate calendarNotificationTemplate = fetchByUuid_C_First(uuid,
 				companyId, orderByComparator);
@@ -1118,7 +1122,8 @@ public class CalendarNotificationTemplatePersistenceImpl
 	 */
 	@Override
 	public CalendarNotificationTemplate fetchByUuid_C_First(String uuid,
-		long companyId, OrderByComparator orderByComparator) {
+		long companyId,
+		OrderByComparator<CalendarNotificationTemplate> orderByComparator) {
 		List<CalendarNotificationTemplate> list = findByUuid_C(uuid, companyId,
 				0, 1, orderByComparator);
 
@@ -1140,7 +1145,8 @@ public class CalendarNotificationTemplatePersistenceImpl
 	 */
 	@Override
 	public CalendarNotificationTemplate findByUuid_C_Last(String uuid,
-		long companyId, OrderByComparator orderByComparator)
+		long companyId,
+		OrderByComparator<CalendarNotificationTemplate> orderByComparator)
 		throws NoSuchNotificationTemplateException {
 		CalendarNotificationTemplate calendarNotificationTemplate = fetchByUuid_C_Last(uuid,
 				companyId, orderByComparator);
@@ -1174,7 +1180,8 @@ public class CalendarNotificationTemplatePersistenceImpl
 	 */
 	@Override
 	public CalendarNotificationTemplate fetchByUuid_C_Last(String uuid,
-		long companyId, OrderByComparator orderByComparator) {
+		long companyId,
+		OrderByComparator<CalendarNotificationTemplate> orderByComparator) {
 		int count = countByUuid_C(uuid, companyId);
 
 		if (count == 0) {
@@ -1204,7 +1211,7 @@ public class CalendarNotificationTemplatePersistenceImpl
 	@Override
 	public CalendarNotificationTemplate[] findByUuid_C_PrevAndNext(
 		long calendarNotificationTemplateId, String uuid, long companyId,
-		OrderByComparator orderByComparator)
+		OrderByComparator<CalendarNotificationTemplate> orderByComparator)
 		throws NoSuchNotificationTemplateException {
 		CalendarNotificationTemplate calendarNotificationTemplate = findByPrimaryKey(calendarNotificationTemplateId);
 
@@ -1238,7 +1245,9 @@ public class CalendarNotificationTemplatePersistenceImpl
 	protected CalendarNotificationTemplate getByUuid_C_PrevAndNext(
 		Session session,
 		CalendarNotificationTemplate calendarNotificationTemplate, String uuid,
-		long companyId, OrderByComparator orderByComparator, boolean previous) {
+		long companyId,
+		OrderByComparator<CalendarNotificationTemplate> orderByComparator,
+		boolean previous) {
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
@@ -1516,7 +1525,8 @@ public class CalendarNotificationTemplatePersistenceImpl
 	 */
 	@Override
 	public List<CalendarNotificationTemplate> findByCalendarId(
-		long calendarId, int start, int end, OrderByComparator orderByComparator) {
+		long calendarId, int start, int end,
+		OrderByComparator<CalendarNotificationTemplate> orderByComparator) {
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -1622,7 +1632,8 @@ public class CalendarNotificationTemplatePersistenceImpl
 	 */
 	@Override
 	public CalendarNotificationTemplate findByCalendarId_First(
-		long calendarId, OrderByComparator orderByComparator)
+		long calendarId,
+		OrderByComparator<CalendarNotificationTemplate> orderByComparator)
 		throws NoSuchNotificationTemplateException {
 		CalendarNotificationTemplate calendarNotificationTemplate = fetchByCalendarId_First(calendarId,
 				orderByComparator);
@@ -1652,7 +1663,8 @@ public class CalendarNotificationTemplatePersistenceImpl
 	 */
 	@Override
 	public CalendarNotificationTemplate fetchByCalendarId_First(
-		long calendarId, OrderByComparator orderByComparator) {
+		long calendarId,
+		OrderByComparator<CalendarNotificationTemplate> orderByComparator) {
 		List<CalendarNotificationTemplate> list = findByCalendarId(calendarId,
 				0, 1, orderByComparator);
 
@@ -1673,7 +1685,7 @@ public class CalendarNotificationTemplatePersistenceImpl
 	 */
 	@Override
 	public CalendarNotificationTemplate findByCalendarId_Last(long calendarId,
-		OrderByComparator orderByComparator)
+		OrderByComparator<CalendarNotificationTemplate> orderByComparator)
 		throws NoSuchNotificationTemplateException {
 		CalendarNotificationTemplate calendarNotificationTemplate = fetchByCalendarId_Last(calendarId,
 				orderByComparator);
@@ -1703,7 +1715,8 @@ public class CalendarNotificationTemplatePersistenceImpl
 	 */
 	@Override
 	public CalendarNotificationTemplate fetchByCalendarId_Last(
-		long calendarId, OrderByComparator orderByComparator) {
+		long calendarId,
+		OrderByComparator<CalendarNotificationTemplate> orderByComparator) {
 		int count = countByCalendarId(calendarId);
 
 		if (count == 0) {
@@ -1732,7 +1745,7 @@ public class CalendarNotificationTemplatePersistenceImpl
 	@Override
 	public CalendarNotificationTemplate[] findByCalendarId_PrevAndNext(
 		long calendarNotificationTemplateId, long calendarId,
-		OrderByComparator orderByComparator)
+		OrderByComparator<CalendarNotificationTemplate> orderByComparator)
 		throws NoSuchNotificationTemplateException {
 		CalendarNotificationTemplate calendarNotificationTemplate = findByPrimaryKey(calendarNotificationTemplateId);
 
@@ -1766,7 +1779,9 @@ public class CalendarNotificationTemplatePersistenceImpl
 	protected CalendarNotificationTemplate getByCalendarId_PrevAndNext(
 		Session session,
 		CalendarNotificationTemplate calendarNotificationTemplate,
-		long calendarId, OrderByComparator orderByComparator, boolean previous) {
+		long calendarId,
+		OrderByComparator<CalendarNotificationTemplate> orderByComparator,
+		boolean previous) {
 		StringBundler query = null;
 
 		if (orderByComparator != null) {
@@ -2978,7 +2993,7 @@ public class CalendarNotificationTemplatePersistenceImpl
 	 */
 	@Override
 	public List<CalendarNotificationTemplate> findAll(int start, int end,
-		OrderByComparator orderByComparator) {
+		OrderByComparator<CalendarNotificationTemplate> orderByComparator) {
 		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
@@ -3114,25 +3129,6 @@ public class CalendarNotificationTemplatePersistenceImpl
 	 * Initializes the calendar notification template persistence.
 	 */
 	public void afterPropertiesSet() {
-		String[] listenerClassNames = StringUtil.split(GetterUtil.getString(
-					com.liferay.util.service.ServiceProps.get(
-						"value.object.listener.com.liferay.calendar.model.CalendarNotificationTemplate")));
-
-		if (listenerClassNames.length > 0) {
-			try {
-				List<ModelListener<CalendarNotificationTemplate>> listenersList = new ArrayList<ModelListener<CalendarNotificationTemplate>>();
-
-				for (String listenerClassName : listenerClassNames) {
-					listenersList.add((ModelListener<CalendarNotificationTemplate>)InstanceFactory.newInstance(
-							getClassLoader(), listenerClassName));
-				}
-
-				listeners = listenersList.toArray(new ModelListener[listenersList.size()]);
-			}
-			catch (Exception e) {
-				_log.error(e);
-			}
-		}
 	}
 
 	public void destroy() {
@@ -3153,11 +3149,11 @@ public class CalendarNotificationTemplatePersistenceImpl
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No CalendarNotificationTemplate exists with the key {";
 	private static final boolean _HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE = GetterUtil.getBoolean(PropsUtil.get(
 				PropsKeys.HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE));
-	private static Log _log = LogFactoryUtil.getLog(CalendarNotificationTemplatePersistenceImpl.class);
-	private static Set<String> _badColumnNames = SetUtil.fromArray(new String[] {
+	private static final Log _log = LogFactoryUtil.getLog(CalendarNotificationTemplatePersistenceImpl.class);
+	private static final Set<String> _badColumnNames = SetUtil.fromArray(new String[] {
 				"uuid"
 			});
-	private static CalendarNotificationTemplate _nullCalendarNotificationTemplate =
+	private static final CalendarNotificationTemplate _nullCalendarNotificationTemplate =
 		new CalendarNotificationTemplateImpl() {
 			@Override
 			public Object clone() {
@@ -3170,7 +3166,7 @@ public class CalendarNotificationTemplatePersistenceImpl
 			}
 		};
 
-	private static CacheModel<CalendarNotificationTemplate> _nullCalendarNotificationTemplateCacheModel =
+	private static final CacheModel<CalendarNotificationTemplate> _nullCalendarNotificationTemplateCacheModel =
 		new CacheModel<CalendarNotificationTemplate>() {
 			@Override
 			public CalendarNotificationTemplate toEntityModel() {

@@ -14,6 +14,8 @@
 
 package com.liferay.mail.model;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.mail.service.AccountLocalServiceUtil;
 import com.liferay.mail.service.ClpSerializer;
 
@@ -39,6 +41,7 @@ import java.util.Map;
 /**
  * @author Brian Wing Shun Chan
  */
+@ProviderType
 public class AccountClp extends BaseModelImpl<Account> implements Account {
 	public AccountClp() {
 	}
@@ -1085,6 +1088,10 @@ public class AccountClp extends BaseModelImpl<Account> implements Account {
 		}
 	}
 
+	public Class<?> getClpSerializerClass() {
+		return _clpSerializerClass;
+	}
+
 	@Override
 	public int hashCode() {
 		return (int)getPrimaryKey();
@@ -1306,6 +1313,7 @@ public class AccountClp extends BaseModelImpl<Account> implements Account {
 	private long _trashFolderId;
 	private boolean _defaultSender;
 	private BaseModel<?> _accountRemoteModel;
+	private Class<?> _clpSerializerClass = com.liferay.mail.service.ClpSerializer.class;
 	private boolean _entityCacheEnabled;
 	private boolean _finderCacheEnabled;
 }

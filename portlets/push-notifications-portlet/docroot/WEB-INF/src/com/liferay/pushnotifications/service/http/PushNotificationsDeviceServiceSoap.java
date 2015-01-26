@@ -14,6 +14,8 @@
 
 package com.liferay.pushnotifications.service.http;
 
+import aQute.bnd.annotation.ProviderType;
+
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 
@@ -55,12 +57,13 @@ import java.rmi.RemoteException;
  * The SOAP utility is only generated for remote services.
  * </p>
  *
- * @author Silvio Santos
+ * @author Bruno Farache
  * @see PushNotificationsDeviceServiceHttp
  * @see com.liferay.pushnotifications.model.PushNotificationsDeviceSoap
  * @see com.liferay.pushnotifications.service.PushNotificationsDeviceServiceUtil
  * @generated
  */
+@ProviderType
 public class PushNotificationsDeviceServiceSoap {
 	public static com.liferay.pushnotifications.model.PushNotificationsDeviceSoap addPushNotificationsDevice(
 		java.lang.String token, java.lang.String platform)
@@ -86,6 +89,19 @@ public class PushNotificationsDeviceServiceSoap {
 				PushNotificationsDeviceServiceUtil.deletePushNotificationsDevice(token);
 
 			return com.liferay.pushnotifications.model.PushNotificationsDeviceSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static void sendPushNotification(long toUserId,
+		java.lang.String payload) throws RemoteException {
+		try {
+			PushNotificationsDeviceServiceUtil.sendPushNotification(toUserId,
+				payload);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
